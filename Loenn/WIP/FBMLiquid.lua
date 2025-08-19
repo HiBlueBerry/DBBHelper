@@ -1,0 +1,161 @@
+local FBMLiquid={}
+FBMLiquid.name="DBBHelper/FBMLiquid"
+FBMLiquid.fieldInformation={
+
+--控制液体的整体效果
+    Scale={
+        fieldType="number",
+        minimumValue=0.0
+    },
+    Amplify={
+        fieldType="number",
+        minimumValue=0.0,
+    },
+    Frequency={
+        fieldType="number",
+        minimumValue=0.0,
+    },
+
+    BaseColor={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={fieldType="color"},
+    },
+
+    BaseColorAlpha={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            BaseColorAlpha1={fieldType="number",minimumValue=0.0,maximumValue=1.0},
+            BaseColorAlpha2={fieldType="number",minimumValue=0.0,maximumValue=1.0}
+        },
+    },
+
+--控制水平黑波范围
+    HorizontalBlackBounds={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            HorizontalBlackBottom={fieldType="number",maximumValue=0.5},
+            HorizontalBlackTop={fieldType="number",minimumValue=0.5},
+        },
+    },
+    HorizontalBlackAmp={
+        fieldType="number",
+        minimumValue=0.0,
+    },
+
+--控制垂直黑边的范围
+    VerticalBlackBounds={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            VerticalBlackLeft={fieldType="number"},
+            VerticalBlackRight={fieldType="number"},
+        },
+    },
+    VerticalBlackOffest={
+        fieldType="number",
+    },
+
+--控制液体的高光
+    HighLightColor={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={fieldType="color"},
+    },
+    HighLightColorAlpha={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            HighLightColorAlpha1={fieldType="number",minimumValue=0.0,maximumValue=1.0},
+            HighLightColorAlpha2={fieldType="number",minimumValue=0.0,maximumValue=1.0},
+        },
+    },
+    HighLightAmplify={
+        fieldType="number",
+        minimumValue=0.0
+    },
+
+--控制液体对原图像的影响幅度
+    WaveInfluenceAmp={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            WaveInfluenceAmpX={fieldType="number",minimumValue=0.0},
+            WaveInfluenceAmpy={fieldType="number",minimumValue=0.0},
+        },
+    },
+
+--控制液体波动和流动速度
+    FluidMoveVelocity={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            FluidMoveVelocityX={fieldType="number"},
+            FluidMoveVelocityY={fieldType="number"},
+        },
+    },
+    FluidWaveVelocity={
+        fieldType="list",
+        minimumElements=2,
+        maximumElements=2,
+        elementOptions={
+            FluidWaveVelocityX={fieldType="number"},
+            FluidWaveVelocityY={fieldType="number"},
+        },
+    },
+
+}
+FBMLiquid.fieldOrder={
+    "x","y",
+    "width","height",
+    "Scale","Amplify","Frequency",
+    "BaseColor","BaseColorAlpha",
+    "HorizontalBlackBounds","HorizontalBlackAmp",
+    "VerticalBlackBounds","VerticalBlackOffest",
+    "HighLightColor","HighLightColorAlpha","HighLightAmplify",
+    "WaveInfluenceAmp",
+    "FluidMoveVelocity","FluidWaveVelocity",
+    "FracMode"
+
+}
+FBMLiquid.placements={
+    name="FBMLiquid",
+    data={
+        width=8,
+        height=8,
+--控制液体的整体效果
+        Scale=2.0,
+        Amplify=1.5,
+        Frequency=2.0,
+        FracMode=false,
+        BaseColor="4D9966,66F2E6",
+        BaseColorAlpha="0.5,0.5",
+--控制水平黑波范围
+        HorizontalBlackBounds="0.0,1.0",
+        HorizontalBlackAmp=0.2,
+--控制垂直黑边的范围
+        VerticalBlackBounds="0.1,0.8",
+        VerticalBlackOffest=0.5,
+--控制液体的高光
+        HighLightColor="000000,FFFFFF",
+        HighLightColorAlpha="0.6,0.6",
+        HighLightAmplify=0.2,
+--控制液体对原图像的影响幅度
+        WaveInfluenceAmp="0.08,0.0",
+--控制液体波动和流动速度
+        FluidMoveVelocity="0.1,0.0",
+        FluidWaveVelocity="0.1,0.0",   
+    }
+}
+
+return FBMLiquid

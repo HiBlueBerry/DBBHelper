@@ -1,0 +1,82 @@
+local ParticleFog={}
+ParticleFog.name="DBBHelper/ParticleFog"
+ParticleFog.canBackground=false
+ParticleFog.canForeground=true
+ParticleFog.fieldInformation={
+
+    Amp={
+        fieldType="number",
+        minimumValue=0.0
+    },
+    Fre={
+        fieldType="number",
+        minimumValue=0.0
+    },
+    Level={
+        fieldType="integer",
+        minimumValue=1
+    },
+    LightInfluenceCoefficient={
+        fieldType="number",
+        minimumValue=0.0
+    },
+    Velocity={
+        fieldType="number",
+        minimumValue=0.0
+    },
+    Alpha1={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    Alpha2={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    Alpha3={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    Alpha4={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    Color1={
+        fieldType="color",
+    },
+    Color2={
+        fieldType="color",
+    },
+    Color3={
+        fieldType="color",
+    },
+    Color4={
+        fieldType="color",
+    },
+}
+ParticleFog.fieldOrder={
+    "only","exclude","tag","flag","notflag","height","width","Amp","Fre","LightInfluenceCoefficient","Velocity","Color1","Color2","Color3","Color4","Alpha1","Alpha2","Alpha3","Alpha4","Level","AlphaMode","Frac",
+}
+ParticleFog.defaultData={
+    Amp=0.5,
+    Fre=2.0,
+    Velocity=0.02,
+    LightInfluenceCoefficient=1.0,
+    Color1="1A99B3",
+    Alpha1=1.0,
+    Color2="000033",
+    Alpha2=1.0,
+    Color3="B3FFFF",
+    Alpha3=1.0,
+    Color4="B3B380",
+    Alpha4=1.0,
+    Level=6,
+    AlphaMode=true,
+    Frac=false
+
+}
+
+return ParticleFog

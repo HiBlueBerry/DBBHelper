@@ -1,0 +1,61 @@
+
+entities.DBBHelper/TiltShiftBlurEffect.placements.name.TiltShiftBlurEffect=TiltShiftBlurEffect
+
+entities.DBBHelper/GrainyBlurEffect.placements.name.GrainyBlurEffect=GrainyBlurEffect
+
+entities.DBBHelper/DirectionalBlurEffect.placements.name.DirectionalBlurEffect=DirectionalBlurEffect
+
+entities.DBBHelper/BokehBlurEffect.placements.name.BokehBlurEffect=BokehBlurEffect
+
+entities.DBBHelper/IrisBlurEffect.placements.name.IrisBlurEffect=IrisBlurEffect
+
+entities.DBBHelper/RadialBlurEffect.placements.name.RadialBlurEffect=RadialBlurEffect
+
+
+
+entities.DBBHelper/ColorShiftGlitchEffect.placements.name.ColorShiftGlitchEffect=ColorShiftGlitchEffect
+
+entities.DBBHelper/FluidGlitchEffect.placements.name.FluidGlitchEffect=FluidGlitchEffect
+
+entities.DBBHelper/LineGlitchEffect.placements.name.LineGlitchEffect=LineGlitchEffect
+
+entities.DBBHelper/AnalogNoiseGlitchEffect.placements.name.AnalogNoiseGlitchEffect=AnalogNoiseGlitchEffect
+
+entities.DBBHelper/BlockGlitchEffect.placements.name.BlockGlitchEffect=BlockGlitchEffect
+
+entities.DBBHelper/AdvancedBlockGlitchEffect.placements.name.AdvancedBlockGlitchEffect=AdvancedBlockGlitchEffect
+
+entities.DBBHelper/ScanLineJitterGlitchEffect.placements.name.ScanLineJitterGlitchEffect=ScanLineJitterGlitchEffect
+
+
+
+#质检不合格
+entities.DBBHelper/RadialBlurEffect.placements.name.RadialBlurEffect=Radial Blur Effect
+entities.DBBHelper/RadialBlurEffect.attributes.description.CenterX=Controls X-coordinate of the focus point for blur effect, 0.5 means center.
+entities.DBBHelper/RadialBlurEffect.attributes.description.CenterY=Controls Y-coordinate of the focus point for blur effect, 0.5 means center.
+entities.DBBHelper/RadialBlurEffect.attributes.description.BlurRadius=Controls blur radius, positive value means blur expands outward, negative value means blur contracts inward.
+entities.DBBHelper/RadialBlurEffect.attributes.description.BlurIter=Controls blur iterations — higher values produce a stronger effect.
+entities.DBBHelper/RadialBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+
+entities.DBBHelper/IrisBlurEffect.placements.name.IrisBlurEffect=Iris Blur Effect
+entities.DBBHelper/IrisBlurEffect.attributes.description.Stride=Controls the sampling step size of Kawase blur (diagonal sampling).\nA larger value will result in a more dispersed blur effect. 
+entities.DBBHelper/IrisBlurEffect.attributes.description.Offset=Controls the center position of the aperture region, 0.0 means aperture region is centered.
+entities.DBBHelper/IrisBlurEffect.attributes.description.Area=Controls the area of the aperture region, 1.0 means the max area.
+entities.DBBHelper/IrisBlurEffect.attributes.description.Spread=Controls the spread intensity of the aperture, positive value expands outward.
+entities.DBBHelper/IrisBlurEffect.attributes.description.MaskMode=This mode is designed for debugging purposes.\nBlack areas in the mask represent clear (unblurred) regions, while white areas indicate blurred regions.
+entities.DBBHelper/IrisBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+
+entities.DBBHelper/BokehBlurEffect.placements.name.BokehBlurEffect=Bokeh Blur Effect
+entities.DBBHelper/BokehBlurEffect.attributes.description.InnerRadius=Controls inner radius of the aperture (controls the central clear area). 
+entities.DBBHelper/BokehBlurEffect.attributes.description.Interval=Controls spacing between inner and outer aperture radius (adjusts blur feathering).
+entities.DBBHelper/BokehBlurEffect.attributes.description.Iter=Controls number of spiral arms (affects bokeh shape complexity).
+entities.DBBHelper/BokehBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+
+entities.DBBHelper/TiltShiftBlurEffect.placements.name.TiltShiftBlurEffect=Tilt Shift Blur Effect
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.Stride=Controls the sampling step size of Kawase blur (diagonal sampling).\nA larger value will result in a more dispersed blur effect. 
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.Spread=Controls the spread level of clear strip regions.
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.Offset=Controls the center point of clear strip regions, 0.0 means clear strip regions is centered.
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.Area=Controls area of clear strip regions, 1.0 is the max area.
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.MaskMode=This mode is designed for debugging purposes.\nBlack areas in the mask represent clear (unblurred) regions, while white areas indicate blurred regions.
+entities.DBBHelper/TiltShiftBlurEffect.attributes.description.Reverse=Whether to reverse black and white areas of the mask.

@@ -1,0 +1,78 @@
+local ProgramSky={}
+ProgramSky.name="DBBHelper/ProgramSky"
+ProgramSky.canBackground=true
+ProgramSky.canForeground=false
+ProgramSky.fieldInformation={
+
+    Velocity={
+        fieldType="number"
+    },
+    NightLastTime={
+        fieldType="number",
+        minimumValue=0.01,
+    },
+    DawnLastTime={
+        fieldType="number",
+        minimumValue=0.01,
+    },
+    MorningLastTime={
+        fieldType="number",
+        minimumValue=0.01,
+    },
+    DayLastTime={
+        fieldType="number",
+        minimumValue=0.01,
+    },
+    DuskLastTime={
+        fieldType="number",
+        minimumValue=0.01,
+    },
+    NightColor={
+        fieldType="list",
+        minimumElements=3,
+        maximumElements=3,
+        elementOptions={fieldType="color"},
+    },
+    DawnColor={
+        fieldType="list",
+        minimumElements=3,
+        maximumElements=3,
+        elementOptions={fieldType="color"},
+    },
+    MorningColor={
+        fieldType="list",
+        minimumElements=3,
+        maximumElements=3,
+        elementOptions={fieldType="color"},
+    },
+    DayColor={
+        fieldType="list",
+        minimumElements=3,
+        maximumElements=3,
+        elementOptions={fieldType="color"},
+    },
+    DuskColor={
+        fieldType="list",
+        minimumElements=3,
+        maximumElements=3,
+        elementOptions={fieldType="color"},
+    },
+}
+ProgramSky.fieldOrder={
+    "only","exclude","tag","flag","notflag","Velocity","NightLastTime","DawnLastTime","MorningLastTime","DayLastTime","DuskLastTime","NightColor","DawnColor","MorningColor","DayColor","DuskColor",
+}
+ProgramSky.defaultData={
+    Velocity=0.1,
+    NightLastTime=0.5,
+    DawnLastTime=0.1,
+    MorningLastTime=0.3,
+    DayLastTime=1.3,
+    DuskLastTime=0.2,
+    NightColor="05071E,0C112E,141E40",
+    DawnColor="191940,402659,664080",
+    MorningColor="4D3366,E6804D,FAB380",
+    DayColor="6699E6,3380CC,1A4DB3",
+    DuskColor="CC6633,E6804D,994D80",
+}
+
+return ProgramSky

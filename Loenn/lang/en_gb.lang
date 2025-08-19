@@ -1,0 +1,422 @@
+mods.DBBHelper.name=DBBHelper
+
+
+entities.DBBHelper/AlignedText.placements.name.AlignedText=Aligned Text
+entities.DBBHelper/AlignedText.attributes.description.TextID=Your Dialog ID.
+entities.DBBHelper/AlignedText.attributes.description.AlignedStyle=Text alignment mode.
+entities.DBBHelper/AlignedText.attributes.description.TextScale=Scale of your character.
+entities.DBBHelper/AlignedText.attributes.description.StrokeWidth=Character outline thickness.
+entities.DBBHelper/AlignedText.attributes.description.TextColor=Text color.
+entities.DBBHelper/AlignedText.attributes.description.TextAlpha=Transparency of text color.
+entities.DBBHelper/AlignedText.attributes.description.StrokeColor=Character outline color.
+entities.DBBHelper/AlignedText.attributes.description.StrokeAlpha=Transparency of character outline color.
+entities.DBBHelper/AlignedText.attributes.description.TextLine=The content of the line to be displayed in the dialog, starts from line 0 by default.\nIf you write {n} in one line of raw text, you will actually display multiple lines of content.\nBut if you write {n} in the last of one line in raw text, then this line and its next line will eventually be treated as one line.\nYou can also use {space} in raw text to create one blank in the display line.\nFor example, if you have a line in raw text: "a{space}aaa{n}bbbb{n}cccc", you will finally see:\na aaa\nbbbb\ncccc.
+entities.DBBHelper/AlignedText.attributes.description.TextMaxNum=Maximum number of characters that can be displayed.
+entities.DBBHelper/AlignedText.attributes.description.PaddingProportion=The proportion of padding between the upper and lower lines when wrapping.\nDefault is 1.0, larger number means larger padding.\nWhen the value is positive, otherwise the next line is above the previous line.
+entities.DBBHelper/AlignedText.attributes.description.ParallaxProportion=Control the parallax of the displayed text, 0.0 means no parallax.
+entities.DBBHelper/AlignedText.attributes.description.FadeStartDistance=The distance between the player and the text anchor when the text begins to disappear, FadeSwitch will be set to false when FadeStartDistance equals FadeEndDistance.\nWhen FadeStartDistance is larger than FadeEndDistance, the fade effect will be reversed.
+entities.DBBHelper/AlignedText.attributes.description.FadeEndDistance=The distance between the player and the text anchor when the text stops to disappear, FadeSwitch will be set to false when FadeStartDistance equals FadeEndDistance.\nWhen FadeEndDistance is smaller than FadeStartDistance, the fade effect will be reversed.
+entities.DBBHelper/AlignedText.attributes.description.FadeStyle=How to fade.
+entities.DBBHelper/AlignedText.attributes.description.FadeSwitch=Whether to enable text fade.
+entities.DBBHelper/AlignedText.attributes.description.EllipsisMode=When the ellipsis mode is turned on, the text exceeding the maximum display number will be replaced by ellipsis, otherwise it will not be displayed.
+entities.DBBHelper/AlignedText.attributes.description.DebugMode=Whether to display text anchor position in the game.
+
+
+entities.DBBHelper/ScreenBlackEdgeHorizontal.placements.name.ScreenBlackEdgeHorizontal=ScreenBlack Edge (Horizontal)
+entities.DBBHelper/ScreenBlackEdgeHorizontal.attributes.description.Proportion=The aspect ratio of the screen, 2.35 is the common film ratio at present.
+entities.DBBHelper/ScreenBlackEdgeHorizontal.attributes.description.Color=The color of the black screen edge, although I said "black edge".
+entities.DBBHelper/ScreenBlackEdgeHorizontal.attributes.description.InStyle=The style the black edge fades in.
+entities.DBBHelper/ScreenBlackEdgeHorizontal.attributes.description.OutStyle=The style the black edge fades out.
+
+entities.DBBHelper/ScreenBlackEdgeVertical.placements.name.ScreenBlackEdgeVertical=ScreenBlack Edge (Vertical)
+entities.DBBHelper/ScreenBlackEdgeVertical.attributes.description.Proportion=The aspect ratio of the screen, 1.33 is the common proportion of old movies.
+entities.DBBHelper/ScreenBlackEdgeVertical.attributes.description.Color=The color of the black screen edge, although I said "black edge".
+entities.DBBHelper/ScreenBlackEdgeVertical.attributes.description.InStyle=The style the black edge fades in.
+entities.DBBHelper/ScreenBlackEdgeVertical.attributes.description.OutStyle=The style the black edge fades out.
+
+entities.DBBHelper/Rope.placements.name.Rope=Rope
+entities.DBBHelper/Rope.attributes.description.Resolution=The rope uses position-based physical simulation.\nFor performance considerations, the rope uses a point model.\nThis item is the number of elementary points of the rope, which is used to control the softness of the rope. \nModifying this item will have a significant impact on the game performance.\nGenerally, the number of nodes is 16, which is enough to deal with most scenes.\nIf you know little about physical simulation and do not need super long rope as scene decoration, please try not to change this value.
+entities.DBBHelper/Rope.attributes.description.IterationNumber=The number of iterations of the physical simulation of the rope.\nA higher number of iterations will make the behavior of the rope more realistic.\nModifying this item will significantly affect the performance of the game.\nGenerally speaking, 20 iterations per physical frame is enough to deal with most scenes.\nIf you know little about the physical simulation or do not need the rope moving in high-speed scenes, please try not to modify this value.
+entities.DBBHelper/Rope.attributes.description.GravitityAcceleration=The gravitational acceleration of each node of the rope, which is close to the real rope when the value is 980.
+entities.DBBHelper/Rope.attributes.description.Stiffness=The rope follows Hooke's law. Modifying this value will change the elasticity of the rope.\nThe smaller the value, the higher the elasticity of the rope.
+entities.DBBHelper/Rope.attributes.description.Damping=The movement of the rope is affected by the resistance. The higher the value, the faster the moving rope will reach the equilibrium state.
+entities.DBBHelper/Rope.attributes.description.TensileCoefficient=The degree of drag resistance of the rope. This coefficient is only valid when the adsorption mode is turned on.\nWhen the rope is stretched, it will be referenced by the value obtained by multiplying the initial length of the rope by the tensile coefficient.\nWhen the current length of the rope is greater than this value, one end of the rope will be separated from the adsorption point.
+entities.DBBHelper/Rope.attributes.description.StartTexturePath=Texture of rope start node.
+entities.DBBHelper/Rope.attributes.description.MiddleTexturePath=Texture of rope middle node.
+entities.DBBHelper/Rope.attributes.description.EndTexturePath=Texture of rope end node.
+entities.DBBHelper/Rope.attributes.description.Depth=For the layer where the rope is located, FG means in the foreground layer and BG means in the background layer.
+entities.DBBHelper/Rope.attributes.description.OuterColor=Color of rope cladding.
+entities.DBBHelper/Rope.attributes.description.OuterColorAlpha=Alpha of rope cladding.
+entities.DBBHelper/Rope.attributes.description.InnerColor=The color of the rope core.\nYou can see the color of the rope core only when OuterColorAlpha is not 1.(that is, the rope cladding is not completely opaque)
+entities.DBBHelper/Rope.attributes.description.InnerColorAlpha=Alpha of rope core
+entities.DBBHelper/Rope.attributes.description.StartPointFixation=Whether the rope start node is fixed.\nIf this value is true, it means that the rope start node will not participate in the physical simulation.
+entities.DBBHelper/Rope.attributes.description.EndPointFixation=Whether the rope end node is fixed.\nIf this value is true, it means that the rope start node will not participate in the physical simulation.
+entities.DBBHelper/Rope.attributes.description.AbsorptionMode=When the node of the rope collides with the solid, this value is used to control whether it should be adsorbed on the solid.
+
+
+entities.DBBHelper/CloudZipper.placements.name.CloudZipper=Cloud Zipper
+entities.DBBHelper/CloudZipper.attributes.description.gostyle=The way the cloud moves to the endpoint.
+entities.DBBHelper/CloudZipper.attributes.description.gotime=The time required for the cloud to move from the startpoint to the endpoint between adjacent nodes,for safer movement,it should be greater than or equal 0.5.
+entities.DBBHelper/CloudZipper.attributes.description.backstyle=The way the cloud moves back to the startpoint.
+entities.DBBHelper/CloudZipper.attributes.description.backtime=The time required for the cloud to move from the endpoint back to the startpoint between adjacent nodes,for safer movement,it should be greater than or equal 0.5.
+entities.DBBHelper/CloudZipper.attributes.description.downstyle=The way the cloud bounces to its lowest point.
+entities.DBBHelper/CloudZipper.attributes.description.upstyle=The way the cloud bounces to its highest point.
+entities.DBBHelper/CloudZipper.attributes.description.CloudUpdateRate=The bouncing speed of the cloud, with 1.0 as the default speed, is limited to 0.5 to 2.0.\nChanging this parameter will significantly change the bouncing behavior of the cloud and may result in unexpected bugs!!!
+entities.DBBHelper/CloudZipper.attributes.description.respawntime=The respawn time of fragmented cloud should be greater than or equal 0.45.
+entities.DBBHelper/CloudZipper.attributes.description.fragile=Whether it is a fragmented cloud.
+entities.DBBHelper/CloudZipper.attributes.description.small=Whether it is a small cloud.
+entities.DBBHelper/CloudZipper.attributes.description.TrailPointNum=Number of trail points to be drawn,default is 16.\nHowever,if your trail length is too short,the number of trail points will automatically adjust.(int)
+entities.DBBHelper/CloudZipper.attributes.description.TrailPointBloomRadius=Bloom radius of trail points,default is 12.0, 0.0 means no bloom.
+entities.DBBHelper/CloudZipper.attributes.description.TrailPointLightStartFade=The start radius of vertex light attenuation for trail points,default is 12.(int)
+entities.DBBHelper/CloudZipper.attributes.description.TrailPointLightEndFade=The end radius of vertex light attenuation for trail points,default is 16.(int)
+entities.DBBHelper/CloudZipper.attributes.description.jumpMode=Whether it will give player extra velocity when it bounces to its highest point.\nOnly takes effect when fragile is false.
+
+entities.DBBHelper/InvisibleLight.placements.name.InvisibleLight=Invisible Light
+entities.DBBHelper/InvisibleLight.attributes.description.bloomRadius=The radius of bloom circle,it should be easier to understand this parameter if you know the mechanism of bloom.\nIt means no bloom if the value is set to 0.0.(float)
+entities.DBBHelper/InvisibleLight.attributes.description.startFade=The radius of brightness starting fading out.\nIf you don't konw what that means,you may need to first learn some contents about point lights.(int)
+entities.DBBHelper/InvisibleLight.attributes.description.endFade=The radius of brightness fading out to zero.(int)
+entities.DBBHelper/InvisibleLight.attributes.description.lightColor=The color of your point light.(color)
+
+entities.DBBHelper/DarkIn.placements.name.DarkIn=Dark In
+entities.DBBHelper/DarkIn.attributes.description.fadetime=The reference duration of the player's own light source fading,but this is not the actual duration.(float)
+entities.DBBHelper/DarkIn.attributes.description.ascendRate=The rate at which the player's own light source is restored.\nevery frame fadetime+=ascendRate*Engine.deltaTime if appropriate conditions are setted.(float)
+entities.DBBHelper/DarkIn.attributes.description.descendRate=The rate at which the player's own light source fades away.\nevery frame fadetime-=descendRate*Engine.deltaTime if appropriate conditions are setted.(float)
+
+entities.DBBHelper/LaserGeneratorTranslate.placements.name.LaserGeneratorTranslate=Laser Generator Translate
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.thickness=The thickness of laser.(float)
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.speed=Control how fast the generator moves.(false)
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.direction=Generator and laser direction.(float)
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.style=Control the movement mode.(string)
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.label=A label that tells the generator whether it should run.
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.acceleration=Control how fast the generator changes its mode from stop to running.
+entities.DBBHelper/LaserGeneratorTranslate.attributes.description.revert=Control how the label influence the generator.\nIf this is false, when your label (or be called flag) has been set , the generator will stop.\nIf this is true,when your label has been set, the generator will run.  
+
+
+entities.DBBHelper/AdvancedInvisibleLight.placements.name.AdvancedInvisibleLight=Advanced Invisible Light 
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.bloomRadius=The radius of bloom circle,it should be easier to understand this parameter if you know the mechanism of bloom.\nIt means no bloom if the value is set to 0.0.(float)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.startFade=The radius of brightness starting fading out.\nIf you don't konw what that means,you may need to first learn some contents about point lights.(int)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.endFade=The radius of brightness fading out to zero.(int)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.lightColor1=The first color of your point light.(color)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.lightColor2=The second color of your point light.(color)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.speed=The speed the point light changes between LightColor1 and LightColor2.(float)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.acceleration=How fast the point light changes between black and current color.\nIt only works when you re-enable or re-disable this point light.(float)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.label=A label that means you want to disable or enable this point light.\nIf this label (or can be called a flag) is acitve and revert is false,that means you have disabled this point light.(string)
+entities.DBBHelper/AdvancedInvisibleLight.attributes.description.revert=Whether we should revert our flag judgement logic. If this is true, you will enable this point light when your defined label is active.
+
+
+
+entities.DBBHelper/ConditionalLightning.placements.name.ConditionalLightning=Conditional Lightning
+entities.DBBHelper/ConditionalLightning.attributes.description.moveTime=The time it takes to move from the base position to the node position.
+entities.DBBHelper/ConditionalLightning.attributes.description.label=A label that controls its availibility, you can use it together with a ConditionalLightningBreakerBox, when this label is true, this entity will disappear (if you set permanent to true and re-enter the scene).\nJust set this label (flag) to true using ConditionalLightningBreakerBox or some flag triggers to disable this entity.\nPS: If you just set a flag in the scene (and not use ConditionalLightningBreakerBox to set a flag) where this enetity is located, this won't disappear immediately.\nAnother PS: This entity is still be influenced by ordinary LightningBreakerBox, though ordinary LightningBreakerBox doesn't set any user-defined labels.
+entities.DBBHelper/ConditionalLightning.attributes.description.permanent=Whether the lightning re-appear when you re-enter the associated scene.\nEven if you have broken it before.
+
+
+entities.DBBHelper/ConditionalLightningBreakerBox.placements.name.ConditionalLightningBreakerBox=Conditional Lightning Breaker Box
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.flipX=Whether the sprite should be vertically mirrored.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.label=A label that controls its availibility,you can use it together with a ConditionalLightning.\nWhen you break it, this label will be set to true, if you just want to make the label return to label,just use other flag triggers.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.music=Change the currently playing music to this when box is broken.\nLeave empty to not change song.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.param=Custom audio param.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.param_value=The new param value once box is broken.\nNegative value means no changes.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.param_session=Whether the music should be stored in session when box is broken.
+entities.DBBHelper/ConditionalLightningBreakerBox.attributes.description.permanent=Whether the box re-appear when you re-enter the associated scene.\nEven if you have broken it before.
+
+entities.DBBHelper/Distort.placements.name.Distort=Wave and Distort
+entities.DBBHelper/Distort.attributes.description.path=Path of your texture for generating distort and wave effect.\nSuggested: Mask texture or black and white gradient texture.(string)
+entities.DBBHelper/Distort.attributes.description.scale=Scale your texture.(float)
+entities.DBBHelper/Distort.attributes.description.rotation=Rotate your texture.(float)[Angle system]
+entities.DBBHelper/Distort.attributes.description.distortStrength=Control the degree of distortion in the area covered by the texture.\n1.0 means the strongest distortion and 0.0 means no distortion.(float)
+entities.DBBHelper/Distort.attributes.description.waveStrength=Control the degree of wave effect in the area covered by the texture.\n1.0 means the strongest wave effect and 0.0 means no wave effect.(float)
+entities.DBBHelper/Distort.attributes.description.DrawMask=Whether to draw mask texture.
+entities.DBBHelper/Distort.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
+
+
+entities.DBBHelper/FogEffect.placements.name.FogEffect=Fog Effect
+entities.DBBHelper/FogEffect.attributes.description.VelocityX=Fluid velocityX - Higher value makes the effect change faster.
+entities.DBBHelper/FogEffect.attributes.description.VelocityY=Fluid velocityY - Higher value makes the effect change faster.
+entities.DBBHelper/FogEffect.attributes.description.Amplify=Fluid amplify - Higher value makes the overall color closer to Color4, lower value makes the overall color closer to Color1.\nWith fracmode, you can make it greater than 1.0 to achieve amazing effects(even not act like fog).
+entities.DBBHelper/FogEffect.attributes.description.Frequency=Control the detail of fog - Higher value makes the effect appear more fragmented.(Excessively high values not recommended)
+entities.DBBHelper/FogEffect.attributes.description.NumLevel=Fractal iteration count (Performance cost parameter) – Excessively high values may cause screen lag/stuttering.\nIt is not recommended to modify this parameter if you don't know what's this.
+entities.DBBHelper/FogEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable fog effects, black areas remain unaffected.
+entities.DBBHelper/FogEffect.attributes.description.LightInfluenceCoefficient=LIC (Light Influence Coefficient) – Adjusts how strongly light interacts with the fluid simulation.
+entities.DBBHelper/FogEffect.attributes.description.Color1=Fog Color Parameters (4-Layer Control) - Base Layer Color
+entities.DBBHelper/FogEffect.attributes.description.Alpha1=Alpha of Color1
+entities.DBBHelper/FogEffect.attributes.description.Color2=Fog Color Parameters (4-Layer Control) - Mid Layer Color
+entities.DBBHelper/FogEffect.attributes.description.Alpha2=Alpha of Color2
+entities.DBBHelper/FogEffect.attributes.description.Color3=Fog Color Parameters (4-Layer Control) - Upper-Mid Layer Color
+entities.DBBHelper/FogEffect.attributes.description.Alpha3=Alpha of Color3
+entities.DBBHelper/FogEffect.attributes.description.Color4=Fog Color Parameters (4-Layer Control) - Top Layer Color
+entities.DBBHelper/FogEffect.attributes.description.Alpha4=Alpha of Color4
+entities.DBBHelper/FogEffect.attributes.description.ScaleX=Scale of the mask image along the X axis 
+entities.DBBHelper/FogEffect.attributes.description.ScaleY=Scale of the mask image along the Y axis
+entities.DBBHelper/FogEffect.attributes.description.Label=Used to link this effect to a FogEffectControl entity.\nParameters are controled by the corresponding FogEffectControl when tags match.
+entities.DBBHelper/FogEffect.attributes.description.FracMode=Fractal mode - You can use it to make some fun effect.
+entities.DBBHelper/FogEffect.attributes.description.Tint=Apply overall tint to the effect, FFFFFF means original effect created by 4-Layer Color Control.
+
+entities.DBBHelper/FogEffectControl.placements.name.FogEffectControl=Fog Effect Control
+entities.DBBHelper/FogEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/FogEffectControl.attributes.description.Label=Used to link this entity to a FogEffect entity.\nThis entity will control some parameters of the corresponding FogEffect when tags match.
+entities.DBBHelper/FogEffectControl.attributes.description.VelocityXStart=Start value of fluid velocityX
+entities.DBBHelper/FogEffectControl.attributes.description.VelocityXEnd=End value of fluid velocityX
+entities.DBBHelper/FogEffectControl.attributes.description.VelocityYStart=Start value of fluid velocityY
+entities.DBBHelper/FogEffectControl.attributes.description.VelocityYEnd=End value of fluid velocityY
+entities.DBBHelper/FogEffectControl.attributes.description.AmplifyStart=Start value of fluid amplify
+entities.DBBHelper/FogEffectControl.attributes.description.AmplifyEnd=End value of fluid amplify
+entities.DBBHelper/FogEffectControl.attributes.description.FrequencyStart=Start value of the detail of fog
+entities.DBBHelper/FogEffectControl.attributes.description.FrequencyEnd=End value of the detail of fog
+entities.DBBHelper/FogEffectControl.attributes.description.LICStart=Start value of LIC
+entities.DBBHelper/FogEffectControl.attributes.description.LICEnd=End value of LIC
+entities.DBBHelper/FogEffectControl.attributes.description.VelocityControlMode=Transition style of fluid velocity
+entities.DBBHelper/FogEffectControl.attributes.description.AmplifyControlMode=Transition style of fluid amplify
+entities.DBBHelper/FogEffectControl.attributes.description.FrequencyControlMode=Transition style of the detail of fog
+entities.DBBHelper/FogEffectControl.attributes.description.LICControlMode=Transition style of LIC
+
+entities.DBBHelper/HDRAndContrast.placements.name.HDRAndContrast=HDR And Contrast
+entities.DBBHelper/HDRAndContrast.attributes.description.ExposureStart=Start value of Exposure
+entities.DBBHelper/HDRAndContrast.attributes.description.ExposureEnd=End value of Exposure
+entities.DBBHelper/HDRAndContrast.attributes.description.GammaStart=Start value of Gamma
+entities.DBBHelper/HDRAndContrast.attributes.description.GammaEnd=End value of Gamma
+entities.DBBHelper/HDRAndContrast.attributes.description.ContrastStart=Start value of Contrast
+entities.DBBHelper/HDRAndContrast.attributes.description.ContrastEnd=End value of Contrast
+entities.DBBHelper/HDRAndContrast.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value
+entities.DBBHelper/HDRAndContrast.attributes.description.ExposureControlMode=Transition style of Exposure
+entities.DBBHelper/HDRAndContrast.attributes.description.GammaControlMode=Transition style of Gamma
+entities.DBBHelper/HDRAndContrast.attributes.description.ContrastControlMode=Transition style of Contrast
+
+entities.DBBHelper/TintAndSaturation.placements.name.TintAndSaturation=Tint And Saturation
+entities.DBBHelper/TintAndSaturation.attributes.description.TintColorStart=Start value of Tint Color
+entities.DBBHelper/TintAndSaturation.attributes.description.TintColorEnd=End value of Tint Color
+entities.DBBHelper/TintAndSaturation.attributes.description.TintStrengthStart=Start value of Tint Strength
+entities.DBBHelper/TintAndSaturation.attributes.description.TintStrengthEnd=End value of Tint Strength
+entities.DBBHelper/TintAndSaturation.attributes.description.SaturationStart=Start value of Saturation
+entities.DBBHelper/TintAndSaturation.attributes.description.SaturationEnd=End value of Saturation
+entities.DBBHelper/TintAndSaturation.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value
+entities.DBBHelper/TintAndSaturation.attributes.description.TintColorControlMode=Transition style of TintColor
+entities.DBBHelper/TintAndSaturation.attributes.description.TintStrengthControlMode=Transition style of TintStrength
+entities.DBBHelper/TintAndSaturation.attributes.description.SaturationControlMode=Transition style of Saturation
+
+entities.DBBHelper/GodLight2D.placements.name.GodLight2D=GodLight 2D
+entities.DBBHelper/GodLight2D.attributes.description.Velocity=Changing speed of dynamic light amplitude
+entities.DBBHelper/GodLight2D.attributes.description.Scale=Noise scale, dynamic light amplitude is controlled by Perlin Noise.\nSome value may causes significant moire marks.\nSo if you find moire marks, just try some even value. 
+entities.DBBHelper/GodLight2D.attributes.description.BaseStrength=Basic light amplitude 
+entities.DBBHelper/GodLight2D.attributes.description.DynamicStrength=Dynamical light amolitude
+entities.DBBHelper/GodLight2D.attributes.description.LightRadius=Light attenuation radius
+entities.DBBHelper/GodLight2D.attributes.description.Iter=The performance cost term, a larger value will result in a more intense and concentrated light effect.\nSet this to 1 if you want scattered light.
+entities.DBBHelper/GodLight2D.attributes.description.ConcentrationFactor=A higher value makes the light effect more concentrated, while a lower value makes it more scattered.
+entities.DBBHelper/GodLight2D.attributes.description.ExtingctionFactor=It simulates the Tyndall effect by applying additional attenuation based on the light attenuation radius.\nA higher value results in faster attenuation.
+entities.DBBHelper/GodLight2D.attributes.description.Color=Light color
+entities.DBBHelper/GodLight2D.attributes.description.Alpha=Alpha of light color
+entities.DBBHelper/GodLight2D.attributes.description.BrightnessAmplify=This parameter enhances the light effect's intensity in the vanilla lighting render.\n1.0 represents the normal effect, higher values make the light appear brighter in vanilla lighting.
+entities.DBBHelper/GodLight2D.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
+
+style.effects.DBBHelper/ProgramSky.name=Program Sky
+
+
+entities.DBBHelper/AdvancedBlockGlitchEffect.placements.name.AdvancedBlockGlitchEffect=Advanced Block Glitch Effect
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.VelocityFirst=Controls the change rate of base glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.VelocitySecond=Controls the change rate of multiplicative overlay glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.SizeFirstX=Controls number of base glitch blocks per row.\nValue less than 1.0 will make the effect disappear (You need at least one glitch block for the effect to activate).\nThis parameter is based on screen-space just like Block Glitch Effect, but it enables you to customize the X size of glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.SizeFirstY=Controls number of base glitch blocks per column.\nValue less than 1.0 will make the effect disappear (You need at least one glitch block for the effect to activate).\nThis parameter is based on screen-space just like Block Glitch Effect, but it enables you to customize the Y size of glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.SizeSecondX=Controls number of blocks per row in the multiplicative overlay layer.\nValue less than 1.0 will make the effect disappear (You need at least one multiplicative overlay glitch block for the effect to activate).\nThis parameter is based on screen-space just like Block Glitch Effect, but it enables you to customize the X size of glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.SizeSecondY=Controls number of blocks per column in the multiplicative overlay layer.\nValue less than 1.0 will make the effect disappear (You need at least one multiplicative overlay glitch block for the effect to activate).\nThis parameter is based on screen-space just like Block Glitch Effect, but it enables you to customize the Y size of glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.Strength=Controls the strength of glitch effect.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.RGBSplit=Controls whether to enable RGB-Split effect.
+entities.DBBHelper/AdvancedBlockGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.placements.name.AdvancedBlockGlitchEffectControl=Advanced Block Glitch Effect Control
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.Label=Used to link this entity to a AdvancedBlockGlitch entity.\nThis entity will control some parameters of the corresponding AdvancedBlockGlitch when tags match.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocityFirstStart=Start value of the change rate of base glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocityFirstEnd=End value of the change rate of base glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocitySecondStart=Start value of the change rate of multiplicative overlay glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocitySecondEnd=End value of the change rate of multiplicative overlay glitch block.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstXStart=Start value of number of base glitch blocks per row.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstXEnd=End value of number of base glitch blocks per row.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstYStart=Start value of number of base glitch blocks per column.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstYEnd=End value of number of base glitch blocks per column.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondXStart=Start value of number of blocks per row in the multiplicative overlay layer.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondXEnd=End value of number of blocks per row in the multiplicative overlay layer.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondYStart=Start value of number of blocks per column in the multiplicative overlay layer.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondYEnd=End value of number of blocks per column in the multiplicative overlay layer.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.StrengthStart=Start value of the strength of glitch effect.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.StrengthEnd=End value of the strength of glitch effect.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocityFirstControlMode=Transition style of VelocityFirst.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.VelocitySecondControlMode=Transition style of VelocitySecond.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstXControlMode=Transition style of SizeFirstX.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeFirstYControlMode=Transition style of SizeFirstY.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondXControlMode=Transition style of SizeSecondX.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.SizeSecondYControlMode=Transition style of SizeSecondY.
+entities.DBBHelper/AdvancedBlockGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+
+
+entities.DBBHelper/AnalogNoiseGlitchEffect.placements.name.AnalogNoiseGlitchEffect=Analog Noise Glitch Effect
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.Velocity=Controls the change rate of analog noise glitch.
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.Strength=Controls the strength of glitch effect.
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.JitterVelocity=Controls the change rate of grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.JitterThreshold=Controls the threshold rate of grayscale jitter.\nGrayscale jitter is triggered when the random value exceeds the threshold.\nHigher thresholds reduce the probability of jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.GreyJitter=Controls whether to enable grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.placements.name.AnalogNoiseGlitchEffectControl=Analog Noise Glitch Effect Control
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.Label=Used to link this entity to a AnalogNoiseGlitchEffect entity.\nThis entity will control some parameters of the corresponding AnalogNoiseGlitchEffect when tags match.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.VelocityStart=Start value of the change rate of analog noise glitch.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.VelocityEnd=End value of the change rate of analog noise glitch.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.StrengthStart=Start value of the strength of glitch effect.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.StrengthEnd=End value of the strength of glitch effect.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterVelocityStart=Start value of the change rate of grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterVelocityEnd=End value of the change rate of grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterThresholdStart=Start value of the threshold rate of grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterThresholdEnd=End value of the threshold rate of grayscale jitter.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterVelocityControlMode=Transition style of JitterVelocity.
+entities.DBBHelper/AnalogNoiseGlitchEffectControl.attributes.description.JitterThresholdControlMode=Transition style of JitterThreshold.
+
+
+
+entities.DBBHelper/BlockGlitchEffect.placements.name.BlockGlitchEffect=Block Glitch Effect
+entities.DBBHelper/BlockGlitchEffect.attributes.description.Velocity=Controls the change rate of glitch block.
+entities.DBBHelper/BlockGlitchEffect.attributes.description.BlockNum=Controls number of glitch block per row and per column.\nThis parameter is based on screen-space.\nFor example, if it covers the entire screen, setting the value to 4 will produce 4x4 distinct glitch blocks visibly tiling the screen.
+entities.DBBHelper/BlockGlitchEffect.attributes.description.Strength=Controls the strength of glitch effect.
+entities.DBBHelper/BlockGlitchEffect.attributes.description.RGBSplit=Controls whether to enable RGB-Split effect.
+entities.DBBHelper/BlockGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/BlockGlitchEffectControl.placements.name.BlockGlitchEffectControl=Block Glitch Effect Control
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.Label=Used to link this entity to a BlockGlitchEffect entity.\nThis entity will control some parameters of the corresponding BlockGlitchEffect when tags match.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.VelocityStart=Start value of the change rate of glitch block.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.VelocityEnd=End value of the change rate of glitch block.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.BlockNumStart=Start value of number of glitch block per row and per column.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.BlockNumEnd=End value of number of glitch block per row and per column.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.StrengthStart=Start value of the strength of glitch effect.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.StrengthEnd=End value of the strength of glitch effect.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.BlockNumControlMode=Transition style of BlockNum.
+entities.DBBHelper/BlockGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+
+entities.DBBHelper/ColorShiftGlitchEffect.placements.name.ColorShiftGlitchEffect=Color Shift Glitch Effect
+entities.DBBHelper/ColorShiftGlitchEffect.attributes.description.SplitAmount=Controls the strength of glitch effect.
+entities.DBBHelper/ColorShiftGlitchEffect.attributes.description.Velocity=Controls change rate of glitch effect when UVMode is false.
+entities.DBBHelper/ColorShiftGlitchEffect.attributes.description.Angle=Controls angle of shift direction (in radians).
+entities.DBBHelper/ColorShiftGlitchEffect.attributes.description.UVMode=There are two different random sampling mode, default is Random With Seed.\nEnable this parameter will switch to Random With UV.\nAnyway, trying new things is not a bad idea. 
+entities.DBBHelper/ColorShiftGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/ColorShiftGlitchEffectControl.placements.name.ColorShiftGlitchEffectControl=Color Shift Glitch Effect Control
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.Label=Used to link this entity to a ColorShiftGlitchEffect entity.\nThis entity will control some parameters of the corresponding ColorShiftGlitchEffect when tags match.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.SplitAmountStart=Start value of the strength of glitch effect.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.SplitAmountEnd=End value of the strength of glitch effect.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.AngleStart=Start value of angle of shift direction (in radians).
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.AngleEnd=End value of angle of shift direction (in radians).
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.VelocityStart=Start value of change rate of glitch effect when UVMode is false.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.VelocityEnd=End value of change rate of glitch effect when UVMode is false.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.SplitAmountControlMode=Transition style of SplitAmount.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.AngleControlMode=Transition style of Angle.
+entities.DBBHelper/ColorShiftGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+
+entities.DBBHelper/DirectionalBlurEffect.placements.name.DirectionalBlurEffect=Directional Blur Effect
+entities.DBBHelper/DirectionalBlurEffect.attributes.description.BlurRadius=Controls radius of blur effect.
+entities.DBBHelper/DirectionalBlurEffect.attributes.description.Angle=Controls blur angle/direction (in radians).
+entities.DBBHelper/DirectionalBlurEffect.attributes.description.Iter=Controls blur iterations — higher values produce a stronger effect.
+entities.DBBHelper/DirectionalBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+
+entities.DBBHelper/DirectionalBlurEffectControl.placements.name.DirectionalBlurEffectControl=Directional Blur Effect Control
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.Label=Used to link this entity to a DirectionalBlurEffect entity.\nThis entity will control some parameters of the corresponding DirectionalBlurEffect when tags match.
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.BlurRadiusStart=Start value of radius of blur effect.
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.BlurRadiusEnd=End value of radius of blur effect.
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.AngleStart=Start value of blur angle/direction (in radians).
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.AngleEnd=End value of blur angle/direction (in radians).
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.BlurRadiusControlMode=Transition style of BlurRadius.
+entities.DBBHelper/DirectionalBlurEffectControl.attributes.description.AngleControlMode=Transition style of Angle.
+
+
+entities.DBBHelper/FluidGlitchEffect.placements.name.FluidGlitchEffect=Fluid Glitch Effect
+entities.DBBHelper/FluidGlitchEffect.attributes.description.Velocity=Controls change speed of glitch effect.
+entities.DBBHelper/FluidGlitchEffect.attributes.description.Strength=Controls strength of glitch effect.
+entities.DBBHelper/FluidGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+entities.DBBHelper/FluidGlitchEffect.attributes.description.Vertical=Controls whether the wave direction is vertical or horizontal.
+entities.DBBHelper/FluidGlitchEffect.attributes.description.RGBSplit=Controls whether to enable RGB-Split effect.
+
+entities.DBBHelper/FluidGlitchEffectControl.placements.name.FluidGlitchEffectControl=Fluid Glitch Effect Control
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.Label=Used to link this entity to a FluidGlitchEffect entity.\nThis entity will control some parameters of the corresponding FluidGlitchEffect when tags match.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.VelocityStart=Start value of change speed of glitch effect.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.VelocityEnd=End value of change speed of glitch effect.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.StrengthStart=Start value of strength of glitch effect.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.StrengthEnd=End value of strength of glitch effect.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+entities.DBBHelper/FluidGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+
+
+entities.DBBHelper/GrainyBlurEffect.placements.name.GrainyBlurEffect=Grainy Blur Effect
+entities.DBBHelper/GrainyBlurEffect.attributes.description.BlurRadius=Controls blur radius (blur strength).
+entities.DBBHelper/GrainyBlurEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable blur effects, black areas remain unaffected.
+
+entities.DBBHelper/GrainyBlurEffectControl.placements.name.GrainyBlurEffectControl=Grainy Blur Effect Control
+entities.DBBHelper/GrainyBlurEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/GrainyBlurEffectControl.attributes.description.Label=Used to link this entity to a GrainyBlurEffect entity.\nThis entity will control some parameters of the corresponding GrainyBlurEffect when tags match.
+entities.DBBHelper/GrainyBlurEffectControl.attributes.description.BlurRadiusStart=Start value of blur radius (blur strength).
+entities.DBBHelper/GrainyBlurEffectControl.attributes.description.BlurRadiusEnd=End value of blur radius (blur strength).
+entities.DBBHelper/GrainyBlurEffectControl.attributes.description.BlurRadiusControlMode=Transition style of BlurRadius.
+
+
+
+entities.DBBHelper/LineGlitchEffect.placements.name.LineGlitchEffect=Line Glitch Effect
+entities.DBBHelper/LineGlitchEffect.attributes.description.Velocity=Controls change rate of glitch effect.
+entities.DBBHelper/LineGlitchEffect.attributes.description.NumLevel=Controls the density level of glitch line.\nHigher values generate more lines.\nThis parameter is based on screen-space.\nFor example, if it covers the entire screen, setting the value to 4 will produce 4 distinct glitch bands visibly spanning the display.
+entities.DBBHelper/LineGlitchEffect.attributes.description.Detail=Controls the internal complexity (like detail parameter of some programmatic textures in Blender) of each glitch line.\nHigher values add more details.
+entities.DBBHelper/LineGlitchEffect.attributes.description.Strength=Controls strength of glitch effect.
+entities.DBBHelper/LineGlitchEffect.attributes.description.Vertical=Controls whether glitch lines are vertical or horizontal.
+entities.DBBHelper/LineGlitchEffect.attributes.description.RGBSplit=Controls whether to enable RGB-Split effect.
+entities.DBBHelper/LineGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/LineGlitchEffectControl.placements.name.LineGlitchEffectControl=Line Glitch Effect Control
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.Label=Used to link this entity to a LineGlitchEffect entity.\nThis entity will control some parameters of the corresponding LineGlitchEffect when tags match.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.VelocityStart=Start value of change rate of glitch effect.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.VelocityEnd=End value of change rate of glitch effect.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.NumLevelStart=Start value of the density level of glitch line.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.NumLevelEnd=End value of the density level of glitch line.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.DetailStart=Start value of the internal complexity of each glitch line.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.DetailEnd=End value of the internal complexity of each glitch line.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.StrengthStart=Start value of strength of glitch effect.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.StrengthEnd=End value of strength of glitch effect.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.NumLevelControlMode=Transition style of NumLevel.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.DetailControlMode=Transition style of Detail.
+entities.DBBHelper/LineGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+
+
+
+entities.DBBHelper/ScanLineJitterGlitchEffect.placements.name.ScanLineJitterGlitchEffect=ScanLine Jitter Glitch Effect
+entities.DBBHelper/ScanLineJitterGlitchEffect.attributes.description.Velocity=Controls change rate of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffect.attributes.description.Strength=Controls strength of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffect.attributes.description.Angle=Controls jitter angle/direction (in radians).
+entities.DBBHelper/ScanLineJitterGlitchEffect.attributes.description.VelocityContinuization=Enable this option will override the velocity and continuize the effect's update process.
+entities.DBBHelper/ScanLineJitterGlitchEffect.attributes.description.MaskTexture=Path to the grayscale mask texture – White areas enable glitch effects, black areas remain unaffected.
+
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.placements.name.ScanLineJitterGlitchEffectControl=ScanLine Jitter Glitch Effect Control
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.Label=Used to link this entity to a ScanLineJitterGlitchEffect entity.\nThis entity will control some parameters of the corresponding ScanLineJitterGlitchEffect when tags match.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.VelocityStart=Start value of change rate of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.VelocityEnd=End value of change rate of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.StrengthStart=Start value of strength of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.StrengthEnd=End value of strength of glitch effect.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.AngleStart=Start value of jitter angle/direction (in radians).
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.AngleEnd=End value of jitter angle/direction (in radians).
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.VelocityControlMode=Transition style of Velocity.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.StrengthControlMode=Transition style of Strength.
+entities.DBBHelper/ScanLineJitterGlitchEffectControl.attributes.description.AngleControlMode=Transition style of Angle.
+
+
+entities.DBBHelper/PointLight.placements.name.PointLight=Fresnel Point Light
+entities.DBBHelper/PointLight.attributes.description.Extinction=Point light will gradually fade from the center outward, this parameter controls the fade speed.\nA higher value results in faster fade.
+entities.DBBHelper/PointLight.attributes.description.SphereRadius=It simulates a 3D-sphere, so this parameter controls Fresnel radius.\nA lower value makes Fresnel sphere bigger.
+entities.DBBHelper/PointLight.attributes.description.FresnelCoefficient=Base specular for Fresnel Effect, lower value makes Fresnel more obvious.\nIf you don't need Fresnel effect, set it to 1.0.
+entities.DBBHelper/PointLight.attributes.description.EdgeWidth=Controls the width of Fresnel edge, larger value will make the edge thinner.
+entities.DBBHelper/PointLight.attributes.description.Color=Color of point light.
+entities.DBBHelper/PointLight.attributes.description.Alpha=Alpha of point light.
+entities.DBBHelper/PointLight.attributes.description.BrightnessAmplify=This parameter enhances the light effect's intensity in the vanilla lighting render.\n1.0 represents the normal effect, higher values make the light appear brighter in vanilla lighting.
+entities.DBBHelper/PointLight.attributes.description.AspectRatioProportion=Controls the shape of the sphere, and a lower value will make the sphere flatter.
+entities.DBBHelper/PointLight.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 

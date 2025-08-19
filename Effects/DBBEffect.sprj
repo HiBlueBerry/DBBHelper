@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<project version="2">
+	<pipeline>
+		<pass name="Test" type="shader" active="true" patchverts="1">
+			<shader type="vs" path="shaders\DBBEffect_SimpleVS.hlsl" entry="main" />
+			<shader type="ps" path="shaders\DBBEffect_SimplePS.hlsl" entry="main" />
+			<inputlayout>
+				<item value="Position" semantic="POSITION" />
+				<item value="Normal" semantic="NORMAL" />
+				<item value="Texcoord" semantic="TEXCOORD0" />
+			</inputlayout>
+			<rendertexture />
+			<items>
+				<item name="screen1" type="geometry">
+					<type>Plane</type>
+					<width>1.5</width>
+					<height>1</height>
+					<depth>1</depth>
+					<scaleX>2</scaleX>
+					<scaleY>2</scaleY>
+					<instancecount>1</instancecount>
+					<topology>TriangleList</topology>
+				</item>
+			</items>
+			<itemvalues />
+			<variables>
+				<variable type="float4x4" name="matVP" system="ViewProjection" />
+				<variable type="float4x4" name="matGeo" system="GeometryTransform" />
+				<variable type="float" name="time" system="Time" />
+			</variables>
+			<macros />
+		</pass>
+	</pipeline>
+	<objects>
+		<object type="texture" path="C:/Users/Administrator/Pictures/Zaaru/wait.jpg" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+			<bind slot="0" name="Test" />
+		</object>
+		<object type="texture" path="C:/Users/Administrator/Pictures/Zaaru/rectangle_gradient.png" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+			<bind slot="1" name="Test" />
+		</object>
+	</objects>
+	<cameras />
+	<settings>
+		<entry type="camera" fp="false">
+			<distance>5</distance>
+			<pitch>-1</pitch>
+			<yaw>359</yaw>
+			<roll>360</roll>
+		</entry>
+		<entry type="clearcolor" r="0" g="0" b="0" a="1" />
+		<entry type="usealpha" val="false" />
+	</settings>
+	<plugindata />
+</project>

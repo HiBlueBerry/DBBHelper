@@ -1,0 +1,97 @@
+DBBHelperTest=DBBHelperTest
+DBBHelperTest_DBBHelperTest=DBBHelperTest
+DBBHelperTest_move_on=Laser swtich On!!
+DBBHelperTest_move_off=Laser switch Off!!
+
+DBBHelperTest_distort=Distort effect with sphere gradient mask!!!
+DBBHelperTest_wave=Wave effect with rectangle gradient mask!!!
+DBBHelperTest_breaker_box1=Different breaker boxes use different flag to 
+DBBHelperTest_breaker_box2=control different lighting
+
+DBBHelperTest_light1=Simple light source with different color and radius
+DBBHelperTest_light2=Advanced light source with a flag to control it
+DBBHelperTest_light_on=Light On!!
+DBBHelperTest_light_off=Light Off!!
+
+DBBHelperTest_cloud=Cloud Zipper!!!
+
+DBBHelperTest_dark1=In this room you will continuously lose your light source 
+DBBHelperTest_dark2=and you will die if you lose your light source completely
+
+DBBHelperTest_dark_tips1=Getting close to the external light source to 
+DBBHelperTest_dark_tips2=supplement your own light source
+
+DBBHelperTest_rope1=
+[]
+A rope with physical simulation
+this room shows different types
+
+DBBHelperTest_rope2=Rope will be affected by wind
+
+DBBHelperTest_rope3=
+[]
+You can set the elastic rope
+which will bounce back when it is stretched too long
+DBBHelperTest_rope4=
+[]
+You can attach one end of the rope to a solid
+
+DBBHelperTest_screen=
+[]
+You can use screen black edge to create movie proportions
+[]
+You can adjust the dynamic effect of scene cut in 
+[]
+and cut out and the color of the border
+
+DBBHelper_AlignedText_Default=Hello, this is DBBHelper.
+
+ModOptions_DBBHelper_General_EventHandleLabel=EventHandleLabel
+
+ModOptions_DBBHelper_ColorCorrection=Color Correction Global Settings
+ModOptions_DBBHelper_ColorCorrection_TintColor=ColorCorrection: TintColor
+ModOptions_DBBHelper_ColorCorrection_TintStrength=ColorCorrection: TintStrength
+ModOptions_DBBHelper_ColorCorrection_Saturation=ColorCorrection: Saturation
+ModOptions_DBBHelper_ColorCorrection_Exposure=ColorCorrection: Exposure
+ModOptions_DBBHelper_ColorCorrection_Gamma=ColorCorrection: Gamma
+ModOptions_DBBHelper_ColorCorrection_Contrast=ColorCorrection: Contrast
+ModOptions_DBBHelper_ColorCorrection_Tip=Controls Color Correction settings of the in-game screen.{n}These properties may be overridden by level controllers.
+ModOptions_DBBHelper_ColorCorrection_Controlled_Tip=It has been controlled by InLevel Controller!
+
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_HexColor_Label=TintColor
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_HexColor_InputTip_DefaultMode_Label=Press C to enter Edit Mode.{n}Press X, ESC or Pause to exit ColorPicker.{n}Press Down to enter next item.
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_HexColor_InputTip_EditMode_Label=Press C to confirm current color.{n}Press X, ESC or Pause to exit Edit Mode.
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_ColorPickerArea_InputTip_DefaultMode_Label=Press C to enter Edit Mode.{n}Press X, ESC or Pause to exit ColorPicker.{n}Press Up to enter previous item.{n}Press Right to enter next item.
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_ColorPickerArea_InputTip_EditMode_Label=Press C to confirm current color.{n}Press X, ESC or Pause to exit Edit Mode.{n}You can move your mouse to adjust color value.
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_HueBar_InputTip_DefaultMode_Label=Press C to enter Edit Mode.{n}Press X, ESC or Pause to exit ColorPicker.{n}Press Left to enter previous item.{n}Press Right to enter next item.{n}Press Up to enter HexColor title.
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_HueBar_InputTip_EditMode_Label=Press C to confirm current color.{n}Press X, ESC or Pause to exit Edit Mode.{n}You can move your mouse to adjust color value.
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InputTip_DefaultMode_Label=Press C to enter Edit Mode.{n}Press X, ESC or Pause to exit ColorPicker.{n}Press Left to enter previous item.{n}Press Up to enter HexColor title.
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InputTip_EditMode_Label=Press C to input new value of current item.{n}Press X, ESC or Pause to exit Edit Mode.{n}Press Down/Up/Left/Right to select another item.
+
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InvalidInputTip_RGB_Label=Invalid value: RGB value must be no less than 0 and no more than 255.
+ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InvalidInputTip_HSV_Label=Invalid value: HSV value must be no less than 0 and no more than 100.
+
+
+
+
+ModOptions_DBBHelper_HDPostProcessing=HDPostProcessing Switch
+ModOptions_DBBHelper_HDPostProcessing_Tip=Controls whether post-processing effects should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related effects in the level will be invisible.{n}Recommended to disable it only when encountering{n}HDPostProcessing-related bugs or effenciency issues.
+
+ModOptions_DBBHelper_SpecialLight=SpecialLight Switch
+ModOptions_DBBHelper_SpecialLight_Tip=Controls whether special light should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related lights in the level will be invisible.{n}Recommended to disable it only when encountering{n}SpecialLight-related bugs or effenciency issues.
+
+
+ModOptions_DBBHelper_FogEffect=FogEffect Switch
+ModOptions_DBBHelper_FogEffect_Tip=Controls whether FogEffect should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related effect in the level will be invisible.{n}Recommended to disable it only when encountering{n}FogEffect-related bugs or effenciency issues.
+
+
+#MODSETTINGS_DBBHELPER_SUBHEADER=this is subheader
+
+
+
+

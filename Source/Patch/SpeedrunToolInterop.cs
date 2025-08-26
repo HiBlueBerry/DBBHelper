@@ -23,8 +23,11 @@ internal static class SpeedrunToolInterop {
         RemoveSaveLoadAction();
     }
 
-    private static void AddSaveLoadAction() {
-        if (!SpeedrunToolInstalled) {
+    //这里重新添加各种自己管理的实体
+    private static void AddSaveLoadAction()
+    {
+        if (!SpeedrunToolInstalled)
+        {
             return;
         }
         action = SpeedrunToolImport.RegisterSaveLoadAction.Invoke(
@@ -41,7 +44,7 @@ internal static class SpeedrunToolInterop {
                 }
                 foreach (Entity DBB_General_Light in level.Tracker.GetEntities<DBBGeneralLight>())
                 {
-                    DBBCustomEntityManager.Added_As_BaseType(DBB_General_Light,typeof(DBBGeneralLight));
+                    DBBCustomEntityManager.Added_As_BaseType(DBB_General_Light, typeof(DBBGeneralLight));
                 }
             },
             null, null, null, null

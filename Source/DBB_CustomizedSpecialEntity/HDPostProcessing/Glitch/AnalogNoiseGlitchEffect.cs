@@ -7,17 +7,18 @@ using System;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/AnalogNoiseGlitchEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //模拟噪点故障
-    public class AnalogNoiseGlitchEffect:DBBGeneralGlitch
+    public class AnalogNoiseGlitchEffect : DBBGeneralGlitch
     {
-        public float velocity=1.0f;//特效变化速度
-        public float strength=0.25f;//特效强度
-        public float jitter_velocity=1.0f;//灰度抖动的速度
-        public float jitter_threshold=0.5f;//灰度抖动的阈值，当随机产生的值达到阈值时发生灰度抖动，此值越高越难发生抖动
-        private bool grey_jitter=false;//灰度抖动模式
+        public float velocity = 1.0f;//特效变化速度
+        public float strength = 0.25f;//特效强度
+        public float jitter_velocity = 1.0f;//灰度抖动的速度
+        public float jitter_threshold = 0.5f;//灰度抖动的阈值，当随机产生的值达到阈值时发生灰度抖动，此值越高越难发生抖动
+        private bool grey_jitter = false;//灰度抖动模式
         private int grey_jitter_for_shader = 0;
         private float time = 1.1f;
-        private float jitter_time=0.01f;
+        private float jitter_time = 0.01f;
 
         public AnalogNoiseGlitchEffect(EntityData data, Vector2 offset) : base(data, offset)
         {
@@ -54,8 +55,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void GlitchRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_AnalogNoiseGlitch"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_AnalogNoiseGlitch"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

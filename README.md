@@ -1,6 +1,6 @@
 # DBBHelper
 
-**Version 1.0.9**
+**Version 1.1.0**
 
 **Update:**
     Add: Controller for two Blur Effects and seven Glitch Effects.

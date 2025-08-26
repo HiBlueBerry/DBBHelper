@@ -6,15 +6,16 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/AdvancedBlockGlitchEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //错位块故障(高级)
-    public class AdvancedBlockGlitchEffect:DBBGeneralGlitch
+    public class AdvancedBlockGlitchEffect : DBBGeneralGlitch
     {
-        public float velocity_first=1.0f;//第一错位块的变化速度
-        public float velocity_second=1.0f;//第二错位块的变化速度
-        public Vector2 size_first=new Vector2(4.0f,4.0f);//第一错位块的规格，其中X值为每行的错位块的基准数目，Y值为每列的错位块的基准数目
-        public Vector2 size_second=new Vector2(4.0f,4.0f);//第二错位块的规格，参数作用与上述同理
-        public float strength=1.0f;//错位块故障强度
-        private bool rgb_split=false;//错位块故障是否为RGB分离特效的形式
+        public float velocity_first = 1.0f;//第一错位块的变化速度
+        public float velocity_second = 1.0f;//第二错位块的变化速度
+        public Vector2 size_first = new Vector2(4.0f, 4.0f);//第一错位块的规格，其中X值为每行的错位块的基准数目，Y值为每列的错位块的基准数目
+        public Vector2 size_second = new Vector2(4.0f, 4.0f);//第二错位块的规格，参数作用与上述同理
+        public float strength = 1.0f;//错位块故障强度
+        private bool rgb_split = false;//错位块故障是否为RGB分离特效的形式
         private int rgb_split_for_shader = 0;
 
         //两个时间参数，用于控制特效的动态变化
@@ -57,8 +58,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void GlitchRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_AdvancedBlockGlitch"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_AdvancedBlockGlitch"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

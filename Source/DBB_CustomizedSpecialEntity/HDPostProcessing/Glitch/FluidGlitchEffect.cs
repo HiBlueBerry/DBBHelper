@@ -6,12 +6,13 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/FluidGlitchEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //RGB颜色分离故障(流体)
-    public class FluidGlitchEffect:DBBGeneralGlitch
+    public class FluidGlitchEffect : DBBGeneralGlitch
     {
-        public float velocity=1.0f;//特效变化速度
-        public float strength=0.02f;//特效强度
-        private bool vertical=false;//特效波动方向是水平还是竖直
+        public float velocity = 1.0f;//特效变化速度
+        public float strength = 0.02f;//特效强度
+        private bool vertical = false;//特效波动方向是水平还是竖直
         private int vertical_for_shader = 0;
         private bool rgb_split = false;//特效是否为RGB分离效果
         private int rgb_split_for_shader = 0;

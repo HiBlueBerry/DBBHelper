@@ -6,14 +6,15 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/LineGlitchEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //错位线故障
-    public class LineGlitchEffect:DBBGeneralGlitch
+    public class LineGlitchEffect : DBBGeneralGlitch
     {
-        public float velocity=1.0f;//故障线条变化速度
-        public float num_level=4.0f;//故障块基本层级数，此值越高故障线条块越多
-        public float detail=2.0f;//故障线条块的细节，此值越高，每个线条块会出现更多细节
-        public float strength=0.01f;//故障特效的强度
-        private bool vertical=false;//故障线条是横线还是竖线
+        public float velocity = 1.0f;//故障线条变化速度
+        public float num_level = 4.0f;//故障块基本层级数，此值越高故障线条块越多
+        public float detail = 2.0f;//故障线条块的细节，此值越高，每个线条块会出现更多细节
+        public float strength = 0.01f;//故障特效的强度
+        private bool vertical = false;//故障线条是横线还是竖线
         private int vertical_for_shader = 0;
         private bool rgb_split = false;//故障是否为RGB分离特效的形式
         private int rgb_split_for_shader = 0;
@@ -36,7 +37,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void Update()
         {
             base.Update();
-            time+=Engine.DeltaTime*velocity;
+            time += Engine.DeltaTime * velocity;
         }
         public override void Removed(Scene scene)
         {
@@ -55,8 +56,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void GlitchRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_LineGlitch"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_LineGlitch"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

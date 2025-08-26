@@ -7,6 +7,7 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/PointLight")]
+    [TrackedAs(typeof(DBBGeneralLight))]
     public class PointLight : DBBGeneralLight
     {
         //以下为参数项
@@ -79,7 +80,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             base.DebugRender(camera);
             Color debug_color = new Color(ref_color);
             debug_color.A = 255;
-            Draw.Circle(Position,4.0f,debug_color,8);
+            Draw.Circle(Position, 4.0f, debug_color, 8);
         }
         private void SetAllParameter()
         {
@@ -134,7 +135,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             SetAllParameter();
             DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["brightness_amplify"].SetValue(1.0f);
             Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["PointLight"], Matrix.Identity);
-            Draw.SpriteBatch.Draw(DBBGamePlayBuffers.DBBRenderTargets["DefaultTexture320x180"],Vector2.Zero,Color.White);
+            Draw.SpriteBatch.Draw(DBBGamePlayBuffers.DBBRenderTargets["DefaultTexture320x180"], Vector2.Zero, Color.White);
             Draw.SpriteBatch.End();
         }
     }

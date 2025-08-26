@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics.PackedVector;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/GodLight2D")]
+    [TrackedAs(typeof(DBBGeneralLight))]
     public class GodLight2D : DBBGeneralLight
     {
         //以下为参数项
@@ -45,7 +46,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         private Vector2 tmp_emit_parallaxProportion = Vector2.Zero;
         private Vector2 tmp_probe_parallaxProportion = Vector2.Zero;
         private bool is_out = false;//是否正在过渡出场景
-        private Vector2 ref_cameraPos_when_out= Vector2.Zero;//过渡出场景时的相机位置
+        private Vector2 ref_cameraPos_when_out = Vector2.Zero;//过渡出场景时的相机位置
 
         public GodLight2D(EntityData data, Vector2 offset)
         {
@@ -158,9 +159,9 @@ namespace Celeste.Mod.DBBHelper.Entities
             Color debug_color = new Color(ref_color);
             //如果当前场景是过渡出场景，则使用过渡时的相机位置(感谢扩展镜头大爹给我这行代码干没用了，特保留以作为纪念)
             //Vector2 ref_cameraPos = is_out ? ref_cameraPos_when_out : (Scene as Level).Camera.Position;
-            Vector2 ref_cameraPos =(Scene as Level).Camera.Position;
+            Vector2 ref_cameraPos = (Scene as Level).Camera.Position;
             //回推光源发射位置和探照位置
-            Vector2 camera_viewport_WH = new Vector2((Scene as Level).Camera.Viewport.Width,(Scene as Level).Camera.Viewport.Height);
+            Vector2 camera_viewport_WH = new Vector2((Scene as Level).Camera.Viewport.Width, (Scene as Level).Camera.Viewport.Height);
             Vector2 ref_vec = camera_viewport_WH;
             Vector2 real_relative_emit_pos = emit_pos * ref_vec;
             Vector2 real_relative_probe_pos = probe_pos * ref_vec;
@@ -177,11 +178,11 @@ namespace Celeste.Mod.DBBHelper.Entities
         private void UpdateLightPos()
         {
             //扩展镜头改掉了摄像机的视口宽高
-            Vector2 camera_viewport_WH = new Vector2((Scene as Level).Camera.Viewport.Width,(Scene as Level).Camera.Viewport.Height);
+            Vector2 camera_viewport_WH = new Vector2((Scene as Level).Camera.Viewport.Width, (Scene as Level).Camera.Viewport.Height);
             Vector2 ref_center = camera_viewport_WH * 0.5f;
             //如果当前场景是过渡出场景，则使用过渡时的相机位置(感谢扩展镜头大爹给我这行代码干没用了，特保留以作为纪念)
             //Vector2 ref_cameraPos = is_out ? ref_cameraPos_when_out : (Scene as Level).Camera.Position;
-            Vector2 ref_cameraPos =(Scene as Level).Camera.Position;
+            Vector2 ref_cameraPos = (Scene as Level).Camera.Position;
             //确定相对于相机的相对坐标
             Vector2 emit_offest = (Position - ref_cameraPos - ref_center) * tmp_emit_parallaxProportion;
             Vector2 probe_offest = (probe_Position - ref_cameraPos - ref_center) * tmp_probe_parallaxProportion;

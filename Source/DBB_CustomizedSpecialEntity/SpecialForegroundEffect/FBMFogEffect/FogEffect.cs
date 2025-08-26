@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/FogEffect")]
-    [DBBCustomEntity(4,true)]
+    [DBBCustomEntity(4, true)]
+    [Tracked]
     //高清流体效果
     public class FogEffect : Entity
     {
@@ -95,8 +96,8 @@ namespace Celeste.Mod.DBBHelper.Entities
             Position = data.Position + offset;
             area = new Rectangle((int)Position.X, (int)Position.Y, data.Width, data.Height);
             label = data.Attr("Label");
-            scaleX = data.Float("ScaleX",1.0f);
-            scaleY = data.Float("ScaleY",1.0f);
+            scaleX = data.Float("ScaleX", 1.0f);
+            scaleY = data.Float("ScaleY", 1.0f);
             velocity_x = data.Float("VelocityX");
             velocity_y = data.Float("VelocityY");
             amplify = data.Float("Amplify");
@@ -191,10 +192,10 @@ namespace Celeste.Mod.DBBHelper.Entities
             //将实体坐标转换为纹理空间中的局部坐标
             Vector2 local_pos = Vector2.Transform(Position, GameplayRenderer.instance.Camera.Matrix);
             //在这里可以居于原矩形的宽高提供一些中心缩放
-            Vector2 center = local_pos + 0.5f*new Vector2(area.Width,area.Height);
+            Vector2 center = local_pos + 0.5f * new Vector2(area.Width, area.Height);
             Vector2 width_height_scaled = new Vector2(area.Width * scaleX, area.Height * scaleY);
-            RectangleF local_Rect = new RectangleF(center-width_height_scaled*0.5f,width_height_scaled);
-            
+            RectangleF local_Rect = new RectangleF(center - width_height_scaled * 0.5f, width_height_scaled);
+
 
             return local_Rect;
         }
@@ -265,7 +266,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         public void FogGlobalMaskRender()
         {
             UpdateClipArea();
-            Draw.SpriteBatch.Draw(shader_mask_texture, transformed_global_clip_area, shader_mask_texture.Bounds, Color.White, 0f, Vector2.Zero,SaveData.Instance.Assists.MirrorMode ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+            Draw.SpriteBatch.Draw(shader_mask_texture, transformed_global_clip_area, shader_mask_texture.Bounds, Color.White, 0f, Vector2.Zero, SaveData.Instance.Assists.MirrorMode ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         }
         //绘制雾效
         public void FogRender()
@@ -329,8 +330,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         {
             //确定目前是否在游戏场景中
             Scene scene = Engine.Scene;
-            Level tmp_level =(scene is Level)?(Level)scene : null;
-            if(tmp_level==null){return;}
+            Level tmp_level = (scene is Level) ? (Level)scene : null;
+            if (tmp_level == null) { return; }
 
             Vector2 vector = new Vector2(320f, 180f);
             Vector2 vector2 = vector / tmp_level.ZoomTarget;
@@ -348,7 +349,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.Default, RasterizerState.CullNone, null, matrix);
             Draw.SpriteBatch.Draw(GameplayBuffers.Light, vector3 + vector4, GameplayBuffers.Level.Bounds, Color.White, 0f, vector3, scale, SaveData.Instance.Assists.MirrorMode ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
             Draw.SpriteBatch.End();
-            
+
         }
         //绘制HDFog
         private static void Draw_HDFog()
@@ -389,7 +390,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             //设置Fog缓冲区,有一次RenderTarget的转换开销
             Engine.Instance.GraphicsDevice.SetRenderTarget(DBBGamePlayBuffers.DBBRenderTargets["HDFog"]);
             Engine.Instance.GraphicsDevice.Clear(Color.Transparent);
-           
+
             //绘制雾效
             foreach (var item in FogList)
             {
@@ -397,7 +398,7 @@ namespace Celeste.Mod.DBBHelper.Entities
                 {
                     (item as FogEffect).FogRender();
                 }
-            }   
+            }
         }
         //将HDFog绘制到默认屏幕上
         private static void Draw_HDFog_On_Default()
@@ -405,7 +406,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             Draw.SpriteBatch.Begin(SpriteSortMode.Deferred, DBBFogMaskAlphaBlend, SamplerState.LinearWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Matrix.Identity);
             Draw.SpriteBatch.Draw(DBBGamePlayBuffers.DBBRenderTargets["HDFog"], Vector2.Zero, Color.White);
             Draw.SpriteBatch.End();
-            
+
         }
     }
 }

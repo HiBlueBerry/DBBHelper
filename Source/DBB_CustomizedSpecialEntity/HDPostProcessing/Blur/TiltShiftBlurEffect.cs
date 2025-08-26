@@ -5,16 +5,17 @@ using Celeste.Mod.Entities;
 using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
-    
+
     [CustomEntity("DBBHelper/TiltShiftBlurEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //移轴模糊
-    public class TiltShiftBlurEffect:DBBGeneralBlur
+    public class TiltShiftBlurEffect : DBBGeneralBlur
     {
-        private float stride=0.02f;//模糊半径
-        private float spread=1.0f;//控制清晰的长条区域的发散程度，应该大于0
-        private float offset=0.0f;//控制长条区域的中心位置，0.0为长条区域在中心
-        private float tilt_shift_area=1.0f;//控制清晰的长条区域的面积，取值为0到1
-        private bool mask_mode=false;//掩码模式，此模式方便调试，掩码的黑色区域即为清晰的长条区域
+        private float stride = 0.02f;//模糊半径
+        private float spread = 1.0f;//控制清晰的长条区域的发散程度，应该大于0
+        private float offset = 0.0f;//控制长条区域的中心位置，0.0为长条区域在中心
+        private float tilt_shift_area = 1.0f;//控制清晰的长条区域的面积，取值为0到1
+        private bool mask_mode = false;//掩码模式，此模式方便调试，掩码的黑色区域即为清晰的长条区域
         private int mask_mode_for_shader = 0;
         private bool reverse = false;//掩码的黑色区域是否反转
         private int reverse_for_shader = 0;
@@ -54,8 +55,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void BlurRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_TiltShiftBlur"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_TiltShiftBlur"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

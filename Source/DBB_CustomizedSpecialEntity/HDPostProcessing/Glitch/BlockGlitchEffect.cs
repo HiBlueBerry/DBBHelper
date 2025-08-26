@@ -6,13 +6,14 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/BlockGlitchEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //错位块故障(基础)
-    public class BlockGlitchEffect:DBBGeneralGlitch
+    public class BlockGlitchEffect : DBBGeneralGlitch
     {
-        public float velocity=1.0f;//错位块变化速度
-        public float block_num=4.0f;//每行的错位块基准数目，可以不是整数
-        public float strength=1.0f;//错位块故障强度
-        private bool rgb_split=false;//错位块故障是否为RGB分离特效的形式
+        public float velocity = 1.0f;//错位块变化速度
+        public float block_num = 4.0f;//每行的错位块基准数目，可以不是整数
+        public float strength = 1.0f;//错位块故障强度
+        private bool rgb_split = false;//错位块故障是否为RGB分离特效的形式
         private int rgb_split_for_shader = 0;
         private float time = 0.0f;
         public BlockGlitchEffect(EntityData data, Vector2 offset) : base(data, offset)
@@ -47,8 +48,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void GlitchRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_BlockGlitch"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_BlockGlitch"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

@@ -9,7 +9,8 @@ using Celeste.Mod.DBBHelper.Mechanism;
 
 namespace Celeste.Mod.DBBHelper.Entities
 {
-    [DBBCustomEntity(3,true)]
+    [DBBCustomEntity(3, true)]
+    [Tracked]
     public class DBBGeneralHDpostProcessing : Entity
     {
         //这里需要一个更精确的矩形
@@ -76,7 +77,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void Added(Scene scene)
         {
             base.Added(scene);
-            DBBCustomEntityManager.Added_As_BaseType(this,typeof(DBBGeneralHDpostProcessing));
+            DBBCustomEntityManager.Added_As_BaseType(this, typeof(DBBGeneralHDpostProcessing));
         }
         public override void Removed(Scene scene)
         {
@@ -89,19 +90,19 @@ namespace Celeste.Mod.DBBHelper.Entities
             //将实体坐标转换为纹理空间中的局部坐标
             Vector2 local_pos = Vector2.Transform(Position, GameplayRenderer.instance.Camera.Matrix);
             //在这里可以居于原矩形的宽高提供一些中心缩放
-            Vector2 center = local_pos + 0.5f*new Vector2(area.Width,area.Height);
+            Vector2 center = local_pos + 0.5f * new Vector2(area.Width, area.Height);
             Vector2 width_height_scaled = new Vector2(area.Width, area.Height);
-            RectangleF local_Rect = new RectangleF(center-width_height_scaled*0.5f,width_height_scaled);
+            RectangleF local_Rect = new RectangleF(center - width_height_scaled * 0.5f, width_height_scaled);
             return local_Rect;
         }
-        public RectangleF Get_Original_Local_ClipArea(RectangleF origin,float scaleX=1.0f,float scaleY=1.0f)
+        public RectangleF Get_Original_Local_ClipArea(RectangleF origin, float scaleX = 1.0f, float scaleY = 1.0f)
         {
             //将实体坐标转换为纹理空间中的局部坐标
             Vector2 local_pos = Vector2.Transform(new Vector2(origin.X, origin.Y), GameplayRenderer.instance.Camera.Matrix);
             //在这里可以居于原矩形的宽高提供一些中心缩放
-            Vector2 center = local_pos + 0.5f*new Vector2(area.Width,area.Height);
+            Vector2 center = local_pos + 0.5f * new Vector2(area.Width, area.Height);
             Vector2 width_height_scaled = new Vector2(area.Width * scaleX, area.Height * scaleY);
-            RectangleF local_Rect = new RectangleF(center-width_height_scaled*0.5f,width_height_scaled);
+            RectangleF local_Rect = new RectangleF(center - width_height_scaled * 0.5f, width_height_scaled);
             return local_Rect;
         }
         //获取局部的变换后的裁切区域的全局坐标以及其宽高
@@ -179,7 +180,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             transformed_global_clip_area = Get_Trasformed_Global_ClipArea(original_global_clip_area);
         }
         //这里提供一个可以自行使用的函数，支持矩形的缩放
-        public Rectangle UpdateClipArea(RectangleF custom_rectangleF,float scaleX=1.0f,float scaleY=1.0f)
+        public Rectangle UpdateClipArea(RectangleF custom_rectangleF, float scaleX = 1.0f, float scaleY = 1.0f)
         {
             local_clip_area = Get_Original_Local_ClipArea(custom_rectangleF, scaleX, scaleY);
             RectangleF original_global_clip_area = Get_Original_Global_ClipArea(local_clip_area);
@@ -226,7 +227,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             DBBEffectSourceManager.Draw_Something_On_TmpGameContent += Draw_Something_On_HDPostProcessing;
 
             //最终将HDPostProcessing缓冲的内容绘制到默认屏幕上
-            DBBEffectSourceManager.Redraw_Something_On_DefaultBuffer += Draw_HDPostProcessing_On_Default;       
+            DBBEffectSourceManager.Redraw_Something_On_DefaultBuffer += Draw_HDPostProcessing_On_Default;
         }
         public static void UnLoad()
         {
@@ -240,7 +241,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             UnLoadHDPostprocessing();
 
             Draw_Something_On_HDPostProcessing -= Set_HDPostProcessing_Buffer;
-            DBBEffectSourceManager.Init_SomeBuffers_When_Level_Create -= Init_Buffers; 
+            DBBEffectSourceManager.Init_SomeBuffers_When_Level_Create -= Init_Buffers;
         }
         public static void LoadHDPostprocessing()
         {

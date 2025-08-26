@@ -6,11 +6,12 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/GrainyBlurEffect")]
+    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //粒状模糊
-    public class GrainyBlurEffect:DBBGeneralBlur
+    public class GrainyBlurEffect : DBBGeneralBlur
     {
-        public float blur_radius=0.001f;//粒状模糊的模糊半径
-        
+        public float blur_radius = 0.001f;//粒状模糊的模糊半径
+
         public GrainyBlurEffect(EntityData data, Vector2 offset) : base(data, offset)
         {
             blur_radius = data.Float("BlurRadius");
@@ -36,8 +37,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void BlurRender()
         {
             SetAllParameter();
-            Draw.SpriteBatch.Begin(0,BlendState.AlphaBlend,SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,DBBEffectSourceManager.DBBEffect["DBBEffect_GrainyBlur"],Matrix.Identity);
-            Draw.SpriteBatch.Draw(ContentBuffer,transformed_global_clip_area,transformed_global_clip_area,Color.White);
+            Draw.SpriteBatch.Begin(0, BlendState.AlphaBlend, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, DBBEffectSourceManager.DBBEffect["DBBEffect_GrainyBlur"], Matrix.Identity);
+            Draw.SpriteBatch.Draw(ContentBuffer, transformed_global_clip_area, transformed_global_clip_area, Color.White);
             Draw.SpriteBatch.End();
         }
     }

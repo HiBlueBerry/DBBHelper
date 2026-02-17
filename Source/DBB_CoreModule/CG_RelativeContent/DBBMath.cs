@@ -488,6 +488,53 @@ namespace Celeste.Mod.DBBHelper {
             float w = Math.Clamp(value.W, min.W, max.W);
             return new Vector4(x, y, z, w);
         }
+
+        /// <summary>
+        /// <para>设有安全保护的SmoothStep插值</para>
+        /// <para>将[start,end]里的time根据单调增的三次函数映射为[0,1]里的值，当time超出[start,end]时会被截断</para>
+        /// <para>当end与start的距离小于0.0001f时将会返回1.0f</para>
+        /// </summary>
+        public static float SmoothStep(float start, float end, float time)
+        {
+            if (Math.Abs(end - start) <= 0.0001f)
+            {
+                return 1.0f;
+            }
+            float x = Math.Clamp((time - start) / (end - start), 0.0f, 1.0f);
+            return x * x * (3.0f - 2.0f * x);
+        }
+        /// <summary>
+        /// 返回a对n的取模操作，该操作是数学上的取模操作
+        /// <para>当n不为0.0f时，返回a mod n，当n为0时，返回0.0f</para>
+        /// </summary>
+        public static float Mod(float a, float n)
+        {
+            if (n == 0.0f)
+            {
+                return 0.0f;
+            }
+            return (a % n + n) % n;
+        }
+
+        /// <summary>
+        /// 进行一次Verlet积分迭代，基于当前值和上一次的值，返回下一个值
+        /// <para>current_value为当前值，last_value为上一次的值</para>
+        /// <para>delta_t为时间步长，acceleration为加速度</para>
+        /// </summary>
+        public static float Verlet_Integrate(float current_value, float last_value, float delta_t, float acceleration)
+        {
+            return 2.0f * current_value - last_value + acceleration * delta_t * delta_t;
+        }
+        /// <summary>
+        /// 进行一次Verlet积分迭代，基于当前向量和上一次的向量，返回下一个向量
+        /// <para>current_value为当前向量，last_value为上一次的向量</para>
+        /// <para>delta_t为时间步长，acceleration为加速度向量</para>
+        /// </summary>
+        public static Vector2 Verlet_Integrate(Vector2 current_value, Vector2 last_value, float delta_t, Vector2 acceleration)
+        {
+            return 2.0f * current_value - last_value + acceleration * delta_t * delta_t;
+        }
+
         /// <summary>
         /// 获取机器最小浮点数
         /// </summary>

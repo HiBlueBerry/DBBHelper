@@ -5,6 +5,7 @@ using Monocle;
 using Celeste.Mod.DBBHelper.UI.OUI;
 using Celeste.Mod.UI;
 using System.Linq;
+using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.UI.UIComponent
 {
     public class DBBCustomUIComponent
@@ -14,6 +15,7 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
         {
             private MTexture warn_label = GFX.Game["objects/DBB_Items/UI/warn"];
             public Func<bool> event_handle;
+            public Func<bool> disable_handle;
             public bool event_handle_message = false;
             public string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel";
             public int default_value = 0;
@@ -32,13 +34,27 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             /// <para name="previous_value">previous_value：上一次构建该组件后经过各种操作所得到的索引值，使用该属性是由于每次打开全局设置时都会重新构造一次该组件</para>
             /// <para name="event_handle">event_handle：该组件的事件，对应于EventHightlightedColor</para>
             /// <para name="event_handle_label">event_handle_label：该组件的事件发生后额外要显示的文本的Dialog中的标签</para>
+            /// <para name="disable_label">disable_label：用于控制该组件禁用和启用的事件</para>
             /// </summary>
-            public ExtendedSlider(string label, Func<int, string> values, int min, int max, Color UnselectedHightlightColor, Color EventHightlightedColor, int default_value = -1, int previous_value = -1, Func<bool> event_handle = null, string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel") : base(label, values, min, max, previous_value)
+            public ExtendedSlider(
+                string label,
+                Func<int, string> values,
+                int min,
+                int max,
+                Color UnselectedHightlightColor,
+                Color EventHightlightedColor,
+                int default_value = -1,
+                int previous_value = -1,
+                Func<bool> event_handle = null,
+                string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel",
+                Func<bool> disable_handle=null
+            ) : base(label, values, min, max, previous_value)
             {
                 this.UnselectedHightlightColor = UnselectedHightlightColor;
                 this.EventHightlightedColor = EventHightlightedColor;
                 this.event_handle_label = event_handle_label;
                 this.event_handle = event_handle;
+                this.disable_handle = disable_handle;
                 //如果事件不为空，则运行它
                 if (event_handle != null)
                 {
@@ -50,6 +66,11 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             public override void Update()
             {
                 base.Update();
+                //如果事件不为空，则运行它
+                if (disable_handle != null)
+                {
+                    Disabled = disable_handle.Invoke();
+                }
                 //如果事件不为空，则运行它
                 if (event_handle != null)
                 {
@@ -91,6 +112,7 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             private MTexture warn_label = GFX.Game["objects/DBB_Items/UI/warn"];
 
             public Func<bool> event_handle = null;
+            public Func<bool> disable_handle = null;
             public bool event_handle_message = false;
             public string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel";
 
@@ -115,8 +137,9 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             /// <para name="previous_value">previous_value：上一次构建该组件后经过各种操作所得到的颜色值，使用该属性是由于每次打开全局设置时都会重新构造一次该组件</para>
             /// <para name="event_handle">event_handle：该组件的事件，对应于EventHightlightedColor</para>
             /// <para name="event_handle_label">event_handle_label：该组件的事件发生后额外要显示的文本的Dialog中的标签</para>
+            /// <para name="disable_label">disable_label：用于控制该组件禁用和启用的事件</para>
             /// </summary>
-            public ColorPicker(string label, Color UnselectedHightlightColor, Color EventHightlightedColor, Vector4 previous_value, Vector4 default_value, Func<bool> event_handle = null, string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel")
+            public ColorPicker(string label, Color UnselectedHightlightColor, Color EventHightlightedColor, Vector4 previous_value, Vector4 default_value, Func<bool> event_handle = null, string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel", Func<bool> disable_handle = null)
             {
                 //初始化一些通用设置
                 Label = label;
@@ -129,6 +152,7 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 this.event_handle = event_handle;
                 this.event_handle_label = event_handle_label;
                 event_handle_message = false;
+                this.disable_handle = disable_handle;
                 //如果事件不为空，则先运行一下它
                 if (event_handle != null)
                 {
@@ -197,6 +221,10 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 {
                     PreviousValue = CurrentValue;
                     OnValueChange?.Invoke(CurrentValue);
+                }
+                if (disable_handle != null)
+                {
+                    Disabled = disable_handle.Invoke();
                 }
             }
 

@@ -10,7 +10,7 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/TintAndSaturation")]
-    [DBBCustomEntity(1,true)]
+    [DBBCustomEntity(DBBCustomEntityIndexTable.TintAndSaturation,true)]
     public class TintAndSaturation : Entity
     {
         //------------------与控制特效相关------------------
@@ -140,6 +140,11 @@ namespace Celeste.Mod.DBBHelper.Entities
         }
         private static void Draw_GamePlayTempA_On_GamePlay()
         {
+            //如果该项功能被禁用了，则停止一切绘制
+            if (DBBGlobalSettingManager.ColorCorrectionSwitch == false)
+            {
+                return;
+            }
             //按照色调、饱和度、HDR和对比度的顺序进行绘制
             //任何绘制工作交给HDRAndContrast
             if (DBBSettings.ColorCorrectionMenu.Tint_Saturation_InLevelControled == false)

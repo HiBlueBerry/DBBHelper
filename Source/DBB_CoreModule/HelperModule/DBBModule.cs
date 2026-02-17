@@ -23,7 +23,7 @@ public class DBBModule : EverestModule
         Logger.SetLogLevel(nameof(DBBModule), LogLevel.Verbose);
 
 #else
-            Logger.SetLogLevel(nameof(DBBModule), LogLevel.Info);
+        Logger.SetLogLevel(nameof(DBBModule), LogLevel.Info);
 
 #endif
     }

@@ -206,9 +206,25 @@ entities.DBBHelper/GodLight2D.attributes.description.ExtingctionFactor=It simula
 entities.DBBHelper/GodLight2D.attributes.description.Color=Light color
 entities.DBBHelper/GodLight2D.attributes.description.Alpha=Alpha of light color
 entities.DBBHelper/GodLight2D.attributes.description.BrightnessAmplify=This parameter enhances the light effect's intensity in the vanilla lighting render.\n1.0 represents the normal effect, higher values make the light appear brighter in vanilla lighting.
+entities.DBBHelper/GodLight2D.attributes.description.Label=Used to link this effect to a GodLight2DControl entity.\nParameters are controled by the corresponding GodLight2DControl when tags match.
 entities.DBBHelper/GodLight2D.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
 
-style.effects.DBBHelper/ProgramSky.name=Program Sky
+entities.DBBHelper/GodLight2DControl.placements.name.GodLight2DControl=GodLight2D Control
+entities.DBBHelper/GodLight2DControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/GodLight2DControl.attributes.description.Label=Used to link this entity to a GodLight2D entity.\nThis entity will control some parameters of the corresponding GodLight2D when tags match.
+entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthStart=Start value of base strength.
+entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthEnd=End value of base strength.
+entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorStart=End value of concentration factor.
+entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorEnd=End value of concentration factor.
+entities.DBBHelper/GodLight2DControl.attributes.description.ExtingctionFactorStart=End value of extingction factor.
+entities.DBBHelper/GodLight2DControl.attributes.description.ExtingctionFactorEnd=End value of extingction factor.
+
+entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthControlMode=Transition style of BaseStrength.
+entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorControlMode=Transition style of ConcentrationFactor.
+entities.DBBHelper/GodLight2DControl.attributes.description.ExtingctionFactorControlMode=Transition style of ExtingctionFactor.
+
+
+
 
 
 entities.DBBHelper/AdvancedBlockGlitchEffect.placements.name.AdvancedBlockGlitchEffect=Advanced Block Glitch Effect
@@ -419,4 +435,86 @@ entities.DBBHelper/PointLight.attributes.description.Color=Color of point light.
 entities.DBBHelper/PointLight.attributes.description.Alpha=Alpha of point light.
 entities.DBBHelper/PointLight.attributes.description.BrightnessAmplify=This parameter enhances the light effect's intensity in the vanilla lighting render.\n1.0 represents the normal effect, higher values make the light appear brighter in vanilla lighting.
 entities.DBBHelper/PointLight.attributes.description.AspectRatioProportion=Controls the shape of the sphere, and a lower value will make the sphere flatter.
+entities.DBBHelper/PointLight.attributes.description.CameraZ=Z position of virtual camera, when the camera moves, a larger absolute value will cause the Fresnel effect to change more slowly.
+entities.DBBHelper/PointLight.attributes.description.Label=Used to link this effect to a PointLightControl entity.\nParameters are controled by the corresponding PointLightControl when tags match.
 entities.DBBHelper/PointLight.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
+
+entities.DBBHelper/PointLightControl.placements.name.PointLightControl=Fresnel Point Light Control
+entities.DBBHelper/PointLightControl.attributes.description.Label=Used to link this entity to a PointLight entity.\nThis entity will control some parameters of the corresponding PointLight when tags match.
+entities.DBBHelper/PointLightControl.attributes.description.ExtinctionStart=Start value of extinction.
+entities.DBBHelper/PointLightControl.attributes.description.ExtinctionEnd=End value of extinction.
+entities.DBBHelper/PointLightControl.attributes.description.SphereRadiusStart=Start value of sphere radius.
+entities.DBBHelper/PointLightControl.attributes.description.SphereRadiusEnd=End value of sphere radius.
+entities.DBBHelper/PointLightControl.attributes.description.EdgeWidthStart=Start value of edge width.
+entities.DBBHelper/PointLightControl.attributes.description.EdgeWidthEnd=End value of edge width.
+entities.DBBHelper/PointLightControl.attributes.description.FresnelCoefficientStart=Start value of fresnel coefficient.
+entities.DBBHelper/PointLightControl.attributes.description.FresnelCoefficientEnd=End value of fresnel coefficient.
+entities.DBBHelper/PointLightControl.attributes.description.CameraZStart=Start value of camera z-position.
+entities.DBBHelper/PointLightControl.attributes.description.CameraZEnd=End value of camera z-position.
+entities.DBBHelper/PointLightControl.attributes.description.AspectRatioProportionStart=Start value of aspect ratio proportion.
+entities.DBBHelper/PointLightControl.attributes.description.AspectRatioProportionEnd=End value of aspect ratio proportion.
+entities.DBBHelper/PointLightControl.attributes.description.ExtinctionControlMode=Transition style of Extinction.
+entities.DBBHelper/PointLightControl.attributes.description.SphereRadiusControlMode=Transition style of SphereRadius.
+entities.DBBHelper/PointLightControl.attributes.description.EdgeWidthControlMode=Transition style of EdgeWidth.
+entities.DBBHelper/PointLightControl.attributes.description.FresnelCoefficientControlMode=Transition style of FresnelCoefficient.
+entities.DBBHelper/PointLightControl.attributes.description.CameraZControlMode=Transition style of CameraZ.
+entities.DBBHelper/PointLightControl.attributes.description.AspectRatioProportionControlMode=Transition style of AspectRatioProportion.
+
+
+
+
+
+entities.DBBHelper/TextureLight.placements.name.TextureLight=Texture Light
+entities.DBBHelper/TextureLight.attributes.description.TexturePath=Path of light texture.\nIt is advisable for pixels with low brightness to be accompanied by low alpha values.
+entities.DBBHelper/TextureLight.attributes.description.TintColor=Apply overall tint color to the texture.
+entities.DBBHelper/TextureLight.attributes.description.ScaleX=X scale of the texture.
+entities.DBBHelper/TextureLight.attributes.description.ScaleY=Y scale of the texture.
+entities.DBBHelper/TextureLight.attributes.description.Rotation=Rotation of the texture.
+entities.DBBHelper/TextureLight.attributes.description.LightAmplify=Amplification coefficient of color, this takes effect when OnlyEnableOriginalLight is false.
+entities.DBBHelper/TextureLight.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
+entities.DBBHelper/TextureLight.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
+entities.DBBHelper/TextureLight.attributes.description.ShowInLoenn=Whether to show texture in loenn, this only influences loenn.\nThis option is only used to avoid potential image occlusion issues when editing maps.\nWhen you disable it, only the default images will be displayed in Loenn.
+
+entities.DBBHelper/AnimatedTextureLight.placements.name.AnimatedTextureLight=Animated Texture Light
+entities.DBBHelper/AnimatedTextureLight.attributes.description.SpritePath=Path of animated light texture.\nIt is advisable for pixels with low brightness to be accompanied by low alpha values.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.TintColor=Apply overall tint color to the texture.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.ScaleX=X scale of the texture.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.ScaleY=Y scale of the texture.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.Rotation=Rotation of the texture.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.DelayTime= Delay interval between two frames.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.LightAmplify=Amplification coefficient of color, this takes effect when OnlyEnableOriginalLight is false.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
+entities.DBBHelper/AnimatedTextureLight.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
+entities.DBBHelper/AnimatedTextureLight.attributes.description.ShowInLoenn=Whether to show sprite texture in loenn, this only influences loenn.\nThis option is only used to avoid potential image occlusion issues when editing maps.\nWhen you disable it, only the default images will be displayed in Loenn.
+
+
+style.effects.DBBHelper/ProgramSky.name=Program Sky
+
+style.effects.DBBHelper/PhysicalParticle.name=Physical Particle
+style.effects.DBBHelper/PhysicalParticle.description.ParticleTexture=Path of particle texture.
+style.effects.DBBHelper/PhysicalParticle.description.Amount=Amount of particles.
+style.effects.DBBHelper/PhysicalParticle.description.Color=Color of particles.
+style.effects.DBBHelper/PhysicalParticle.description.Alpha=Alpha of particles.
+style.effects.DBBHelper/PhysicalParticle.description.ScrollX=Scroll of particles in X axis.
+style.effects.DBBHelper/PhysicalParticle.description.ScrollY=Scroll of particles in Y axis.
+style.effects.DBBHelper/PhysicalParticle.description.ExtX=Extend the particle generation position along the X-axis, this is for compatibility with extended camera. 
+style.effects.DBBHelper/PhysicalParticle.description.ExtY=Extend the particle generation position along the Y-axis, this is for compatibility with extended camera.
+style.effects.DBBHelper/PhysicalParticle.description.BasicScaleX=Basic X scale of particle texture in local space.
+style.effects.DBBHelper/PhysicalParticle.description.BasicScaleY=Basic Y scale of particle texture in local space.
+style.effects.DBBHelper/PhysicalParticle.description.BasicScaleRandomAmpX=This is used to generate additional noise disturbance for X scale of particle texture in local space, it will generate noise used for X scale satisfying U(-BasicScaleRandomAmpX, BasicScaleRandomAmpX).\nWhen UniformScaleMode is true, it will collaborate with BasicScaleRandomAmpY to generate uniform scale, and noise will satisfy U(-BasicScaleRandomAmp.Length, BasicScaleRandomAmp.Length).\nTip: BasicScaleRandomAmp.Length equals sqrt(BasicScaleRandomAmpX * BasicScaleRandomAmpX + BasicScaleRandomAmpY + BasicScaleRandomAmpY).
+style.effects.DBBHelper/PhysicalParticle.description.BasicScaleRandomAmpY=This is used to generate additional noise disturbance for Y scale of particle texture in local space, it will generate noise used for Y scale satisfying U(-BasicScaleRandomAmpY, BasicScaleRandomAmpY).\nWhen UniformScaleMode is true, it will collaborate with BasicScaleRandomAmpX to generate uniform scale, and noise will satisfy U(-BasicScaleRandomAmp.Length, BasicScaleRandomAmp.Length).\nTip: BasicScaleRandomAmp.Length equals sqrt(BasicScaleRandomAmpX * BasicScaleRandomAmpX + BasicScaleRandomAmpY + BasicScaleRandomAmpY).
+style.effects.DBBHelper/PhysicalParticle.description.UniformScaleMode=Whether to generate uniform random scale, or to generate random scale independently for X and Y axis.
+style.effects.DBBHelper/PhysicalParticle.description.InitVelocityX=Initial X velocity of particles.
+style.effects.DBBHelper/PhysicalParticle.description.InitVelocityY=Initial Y velocity of particles.
+style.effects.DBBHelper/PhysicalParticle.description.InitVelocityRandomAmpX=This is used to generate additional noise disturbance for X velocity of particles.\nIt will generate noise used for X velocity satisfying U(-InitVelocityRandomAmpX, InitVelocityRandomAmpX).
+style.effects.DBBHelper/PhysicalParticle.description.InitVelocityRandomAmpY=This is used to generate additional noise disturbance for Y velocity of particles.\nIt will generate noise used for Y velocity satisfying U(-InitVelocityRandomAmpY, InitVelocityRandomAmpY).
+style.effects.DBBHelper/PhysicalParticle.description.ConstantAccelerationX=Constant X acceleration of particles, this acceleration will always influence particles.
+style.effects.DBBHelper/PhysicalParticle.description.ConstantAccelerationY=Constant Y acceleration of particles, this acceleration will always influence particles.
+style.effects.DBBHelper/PhysicalParticle.description.TurbulenceAmplificationX=This is used to generate random perturbations to X acceleration of particles.\nIt will generate noise used for X acceleration satisfying U(-TurbulenceAmplificationX, TurbulenceAmplificationX).
+style.effects.DBBHelper/PhysicalParticle.description.TurbulenceAmplificationY=This is used to generate random perturbations to Y acceleration of particles.\nIt will generate noise used for Y acceleration satisfying U(-TurbulenceAmplificationY, TurbulenceAmplificationY).
+style.effects.DBBHelper/PhysicalParticle.description.TurbulenceChangeInterval=Time interval between two turbulence changes.
+style.effects.DBBHelper/PhysicalParticle.description.GenerateTurbulenceWhenInit=Whether to generate acceleration turbulence when the particle is initialized.
+style.effects.DBBHelper/PhysicalParticle.description.WindAmplifyCoeficientX=Amplification coefficient of X wind acceleration, it will only influence visual effects of particles and does not have an impact on the actual wind speed.
+style.effects.DBBHelper/PhysicalParticle.description.WindAmplifyCoeficientY=Amplification coefficient of Y wind acceleration, it will only influence visual effects of particles and does not have an impact on the actual wind speed.
+style.effects.DBBHelper/PhysicalParticle.description.MaxVelocity=Maximum velocity of particles, it is used to limit final velocity of particles to avoid abnormal values.
+style.effects.DBBHelper/PhysicalParticle.description.Damping=Damping coefficient of particles, the movement of the particle is affected by the resistance. The higher the value, the faster the moving particles will reach the equilibrium state.

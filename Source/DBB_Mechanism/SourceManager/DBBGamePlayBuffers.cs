@@ -49,7 +49,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         //卸载时删除所有存在于DBBRenderTargets的RenderTarget
         public static void Unload()
         {
-            foreach(var item in DBBRenderTargets)
+            foreach (var item in DBBRenderTargets)
             {
                 item.Value.Dispose();
             }

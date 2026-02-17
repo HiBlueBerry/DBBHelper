@@ -11,7 +11,7 @@ using System.Collections.Generic;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/FogEffect")]
-    [DBBCustomEntity(4, true)]
+    [DBBCustomEntity(DBBCustomEntityIndexTable.FogEffect, true)]
     [Tracked]
     //高清流体效果
     public class FogEffect : Entity
@@ -279,6 +279,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         //这里不使用原版的Render
         public override void Render()
         {
+            
         }
         public override void DebugRender(Camera camera)
         {

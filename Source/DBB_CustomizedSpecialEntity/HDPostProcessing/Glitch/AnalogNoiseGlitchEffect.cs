@@ -7,7 +7,6 @@ using System;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/AnalogNoiseGlitchEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //模拟噪点故障
     public class AnalogNoiseGlitchEffect : DBBGeneralGlitch
     {

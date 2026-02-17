@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/FluidGlitchEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //RGB颜色分离故障(流体)
     public class FluidGlitchEffect : DBBGeneralGlitch
     {

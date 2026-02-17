@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/DirectionalBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //方向模糊
     public class DirectionalBlurEffect : DBBGeneralBlur
     {

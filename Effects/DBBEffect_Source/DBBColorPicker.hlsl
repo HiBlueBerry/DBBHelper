@@ -48,7 +48,7 @@ float hue=0.0;//色相，范围从0到1
 //给拾色器用的
 float4 main(pInput pin):SV_TARGET
 {
-     // 修正坐标为我们更常见的形式
+    // 修正坐标为我们更常见的形式
     float y = 1.0 - pin.UV.y;
     // 饱和度
     float S = pin.UV.x;

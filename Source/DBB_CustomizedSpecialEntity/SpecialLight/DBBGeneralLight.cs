@@ -7,7 +7,8 @@ using Celeste.Mod.DBBHelper.Mechanism;
 
 namespace Celeste.Mod.DBBHelper.Entities
 {
-    [DBBCustomEntity(0, true)]
+    [DBBCustomEntity(DBBCustomEntityIndexTable.SpecialLight, true)]
+    [Tracked(true)]
     public class DBBGeneralLight : Entity
     {
         //用于绘制光照贴图
@@ -22,7 +23,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         };
         public static Vector2 Light_WH = new Vector2(320, 180);//记录当前GameplayBuffers.Light的宽高
         public static Vector2 GeneralLight_WH = new Vector2(320, 180);//记录GeneralLight缓冲的的宽高
-
+        public string label = "Default";//一个标记该实体的标签
+        public bool DisableEntityLight = false;//是否禁用实体光
 
         public override void Added(Scene scene)
         {

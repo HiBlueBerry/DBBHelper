@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/GrainyBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //粒状模糊
     public class GrainyBlurEffect : DBBGeneralBlur
     {

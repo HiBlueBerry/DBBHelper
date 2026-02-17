@@ -26,14 +26,30 @@ namespace Celeste.Mod.DBBHelper {
         [SettingSubMenu]
         public class ColorCorrection
         {
+            //颜色矫正开关，这里使用可以保存的设置，即重开游戏将读取上一次关游戏时的配置
+            [SettingName("ModOptions_DBBHelper_ColorCorrection_Switch")]
+            [SettingSubText("ModOptions_DBBHelper_ColorCorrection_Switch_Tip")]
+            public bool ColorCorrectionSwitch
+            {
+                get { return DBBGlobalSettingManager.ColorCorrectionSwitch; }
+                set
+                {
+                    DBBGlobalSettingManager.Last_ColorCorrectionSwitch = DBBGlobalSettingManager.ColorCorrectionSwitch;
+                    DBBGlobalSettingManager.ColorCorrectionSwitch = value;
+                }
+            }
             public Vector4 ColorCorrection_TintColor { get; set; } = new Vector4(1, 1, 1, 1);
             public float ColorCorrection_TintStrength { get; set; } = 0.0f;
             public float ColorCorrection_Saturation { get; set; } = 1.0f;
+
             public float ColorCorrection_Exposure { get; set; } = 1.0f;
             public float ColorCorrection_Gamma { get; set; } = 1.0f;
             public float ColorCorrection_Contrast { get; set; } = 1.0f;
+
             public bool HDR_InLevelControled = false;//这个参数将传给ExtendedSlider
-            public bool Tint_Saturation_InLevelControled = false;
+            public bool Tint_Saturation_InLevelControled = false;//这个参数将传给ExtendedSlider
+
+
             //每次重新打开全局设置时都会重新构建一遍组件，为此需要记录上一次选择的索引
             private int previous_tint_strength_index = 35;
             private int previous_saturation_index = 45;
@@ -42,7 +58,16 @@ namespace Celeste.Mod.DBBHelper {
             private int previous_contrast_index = 45;
             public void CreateColorCorrection_TintColorEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
-                var tmp = new DBBCustomUIComponent.ColorPicker(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_TintColor"), Color.YellowGreen, Color.OrangeRed, ColorCorrection_TintColor, Vector4.One, () => Tint_Saturation_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ColorPicker(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_TintColor"),
+                    Color.YellowGreen,
+                    Color.OrangeRed,
+                    ColorCorrection_TintColor,
+                    Vector4.One,
+                    () => Tint_Saturation_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                );
                 tmp.Change
                 (
                     delegate (Vector4 current_color)
@@ -52,10 +77,21 @@ namespace Celeste.Mod.DBBHelper {
                 );
                 submenu.Add(tmp);
             }
-
             public void CreateColorCorrection_TintStrengthEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
-                var tmp = new DBBCustomUIComponent.ExtendedSlider(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_TintStrength"), index => ColorCorrectionTable[index], 35, 45, Color.YellowGreen, Color.OrangeRed, 35, previous_tint_strength_index, () => Tint_Saturation_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_TintStrength"),
+                    index => ColorCorrectionTable[index],
+                    35,
+                    45,
+                    Color.YellowGreen,
+                    Color.OrangeRed,
+                    35,
+                    previous_tint_strength_index,
+                    () => Tint_Saturation_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                );
                 tmp.Change
                 (
                     delegate (int index)
@@ -68,7 +104,19 @@ namespace Celeste.Mod.DBBHelper {
             }
             public void CreateColorCorrection_SaturationEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
-                var tmp = new DBBCustomUIComponent.ExtendedSlider(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Saturation"), index => ColorCorrectionTable[index], 35, 55, Color.YellowGreen, Color.OrangeRed, 45, previous_saturation_index, () => Tint_Saturation_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Saturation"),
+                    index => ColorCorrectionTable[index],
+                    35,
+                    55,
+                    Color.YellowGreen,
+                    Color.OrangeRed,
+                    45,
+                    previous_saturation_index,
+                    () => Tint_Saturation_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                );
                 tmp.Change
                 (
                     delegate (int index)
@@ -78,10 +126,22 @@ namespace Celeste.Mod.DBBHelper {
                     }
                 );
                 submenu.Add(tmp);
-            }   
+            }
             public void CreateColorCorrection_ExposureEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
-                var tmp = new DBBCustomUIComponent.ExtendedSlider(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Exposure"), index => ColorCorrectionTable[index], 0, 70, Color.DarkGoldenrod, Color.OrangeRed, 45, previous_exposure_index, () => HDR_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Exposure"),
+                    index => ColorCorrectionTable[index],
+                    0,
+                    70,
+                    Color.DarkGoldenrod,
+                    Color.OrangeRed,
+                    45,
+                    previous_exposure_index,
+                    () => HDR_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                );
                 tmp.Change
                 (
                     delegate (int index)
@@ -94,7 +154,19 @@ namespace Celeste.Mod.DBBHelper {
             }
             public void CreateColorCorrection_GammaEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
-                var tmp = new DBBCustomUIComponent.ExtendedSlider(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Gamma"), index => ColorCorrectionTable[index], 35, 70, Color.DarkGoldenrod, Color.OrangeRed, 45, previous_gamma_index, () => HDR_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Gamma"),
+                    index => ColorCorrectionTable[index],
+                    35,
+                    70,
+                    Color.DarkGoldenrod,
+                    Color.OrangeRed,
+                    45,
+                    previous_gamma_index,
+                    () => HDR_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                );
                 tmp.Change
                 (
                     delegate (int index)
@@ -108,7 +180,19 @@ namespace Celeste.Mod.DBBHelper {
             public void CreateColorCorrection_ContrastEntry(TextMenuExt.SubMenu submenu, bool inGame)
             {
 
-                var tmp = new DBBCustomUIComponent.ExtendedSlider(Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Contrast"), index => ColorCorrectionTable[index], 0, 70, Color.DarkGoldenrod, Color.OrangeRed, 45, previous_contrast_index, () => HDR_InLevelControled, "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip");
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_ColorCorrection_Contrast"),
+                    index => ColorCorrectionTable[index],
+                    0,
+                    70,
+                    Color.DarkGoldenrod,
+                    Color.OrangeRed,
+                    45,
+                    previous_contrast_index,
+                    () => HDR_InLevelControled,
+                    "ModOptions_DBBHelper_ColorCorrection_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.ColorCorrectionSwitch
+                    );
                 tmp.Change
                 (
                     delegate (int index)

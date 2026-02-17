@@ -30,7 +30,6 @@ namespace Celeste.Mod.DBBHelper.Entities
         private List<float[]> m_lastper_for_fragile;
         private List<float> m_lastper_outline=new List<float>();//记录轮廓上一次percent值，这用于碎片云的轮廓绘制
         private List<float> m_lastper_outline_for_fragile;//
-        private bool b_fragile_happens=false;
         //以下为轨迹小矩形的参数
         private List<InvisibleLight[]> m_pointLight=new List<InvisibleLight[]>();//小矩形的光照
         private MTexture m_pointTexture;//小矩形纹理

@@ -59,11 +59,12 @@ internal static class SpeedrunToolInterop {
 }
 
 [ModImportName("SpeedrunTool.SaveLoad")]
-internal static class SpeedrunToolImport {
+internal static class SpeedrunToolImport
+{
 
-    public static Func<Action<Dictionary<Type, Dictionary<string, object>>, Level>, Action<Dictionary<Type, Dictionary<string, object>>, Level>, Action, Action<Level>, Action<Level>, Action, object> RegisterSaveLoadAction;
+    public static Func<Action<Dictionary<Type, Dictionary<string, object>>, Level>, Action<Dictionary<Type, Dictionary<string, object>>, Level>, Action, Action<Level>, Action<Level>, Action, object> RegisterSaveLoadAction = null;
 
-    public static Func<Type, string[], object> RegisterStaticTypes;
+    public static Func<Type, string[], object> RegisterStaticTypes = null;
 
-    public static Action<object> Unregister;
+    public static Action<object> Unregister = null;
 }

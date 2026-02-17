@@ -9,8 +9,8 @@ using Celeste.Mod.DBBHelper.Mechanism;
 
 namespace Celeste.Mod.DBBHelper.Entities
 {
-    [DBBCustomEntity(3, true)]
-    [Tracked]
+    [DBBCustomEntity(DBBCustomEntityIndexTable.HDPostProcessing, true)]
+    [Tracked(true)]
     public class DBBGeneralHDpostProcessing : Entity
     {
         //这里需要一个更精确的矩形

@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/AdvancedBlockGlitchEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //错位块故障(高级)
     public class AdvancedBlockGlitchEffect : DBBGeneralGlitch
     {

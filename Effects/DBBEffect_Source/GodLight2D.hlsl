@@ -98,7 +98,7 @@ float RayMarching2D(float constant,float2 light_pos,float light_radius,float2 or
 		float att=dot(to_camera,to_camera);
         float atten=0.0f;
 
-        atten=constant*smoothstep(1.0,0.0,att/(light_radius*light_radius));
+        atten=constant*(1.0-smoothstep(0.0,1.0,att/(light_radius*light_radius)));
         atten*=ExtingctionFunc2D(delta,extinction,extictionFactor);
         atten*=MieScatteringFunc2D(g,normalize(-to_light),dir);
         total_atten+=atten;

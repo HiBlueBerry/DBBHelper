@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/IrisBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //光圈模糊
     public class IrisBlurEffect : DBBGeneralBlur
     {

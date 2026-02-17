@@ -12,6 +12,9 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         private static bool Need_To_Adjust = false;//指示是否需要调整特效的开关
         private static List<int> Ignore = new List<int>();//指示加载特效实体的钩子时需要忽略哪些特效实体
 
+        //用于控制颜色矫正的开关
+        public static bool ColorCorrectionSwitch { get; set; } = true;
+        public static bool Last_ColorCorrectionSwitch { get; set; } = true;
         //颜色矫正
         public static Vector4 Tint_Color = new Vector4(1, 1, 1, 1);//色调
         public static float Tint_Strength = 1.0f;//色调强度
@@ -33,7 +36,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         public static bool Last_SpecialLightSwitch { get; set; } = true;
 
         /// <summary>
-        /// 当结束关卡时调整色彩校正全局配置的值
+        /// 当结束关卡时调整一些全局配置的值
         /// </summary>
         private static void Adjust_ColorCorrection_GlobalSettings_WhenEnd(On.Celeste.Level.orig_End orig, Level self)
         {
@@ -50,8 +53,27 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             DBBSettings.ColorCorrectionMenu.HDR_InLevelControled = false;
             DBBSettings.ColorCorrectionMenu.Tint_Saturation_InLevelControled = false;
         }
+
         /// <summary>
-        /// 当开始关卡时调整HDPostProcessing_Switch全局配置的值，并根据此进行后处理特效的加载
+        /// 用于Adjust_EffectSettings_WhenBegin收集一些设置的启用和禁用的信息，改变一些实体的钩子读取状态
+        /// </summary>
+        private static void Collect_OnOff_Information(bool attr_switch, bool last_attr_switch, int entity_index, string tag, string str_when_on, string str_when_off)
+        {
+            if (last_attr_switch == false && attr_switch == true)
+            {
+                Need_To_Adjust = true;
+                Ignore.Remove(entity_index);
+                Logger.Log(LogLevel.Warn, tag, str_when_on);
+            }
+            else if (last_attr_switch == true && attr_switch == false)
+            {
+                Need_To_Adjust = true;
+                Ignore.Add(entity_index);
+                Logger.Log(LogLevel.Warn, tag, str_when_off);
+            }
+        }
+        /// <summary>
+        /// 当开始关卡时调整一些全局配置的值，并根据此进行特效和光效的加载，该函数仅用于只能在山体界面设置的选项
         /// </summary>
         private static void Adjust_EffectSettings_WhenBegin(On.Celeste.Level.orig_LoadLevel orig, Level self, Player.IntroTypes playerIntro, bool isFromLoader)
         {
@@ -59,57 +81,19 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             {
                 Need_To_Adjust = false;
                 //以下为汇集一些设置的启用和禁用的信息
-
                 //关于特殊光效
-                if (Last_SpecialLightSwitch == false && SpecialLightSwitch == true)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Remove(0);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "SpecialLight has been Enabled.");
-                }
-                else if (Last_SpecialLightSwitch == true && SpecialLightSwitch == false)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Add(0);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "SpecialLight has been Disabled.");
-                }
-
+                Collect_OnOff_Information(SpecialLightSwitch, Last_SpecialLightSwitch, DBBCustomEntityIndexTable.SpecialLight, "DBBHelper/DBBGlobalSettingManager", "SpecialLight has been Enabled.", "SpecialLight has been Disabled.");
                 //关于后处理特效
-                if (Last_HDPostProcessingSwitch == false && HDPostProcessingSwitch == true)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Remove(3);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "HDPostProcessing has been Enabled.");
-                }
-                else if (Last_HDPostProcessingSwitch == true && HDPostProcessingSwitch == false)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Add(3);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "HDPostProcessing has been Disabled.");
-                }
-
+                Collect_OnOff_Information(HDPostProcessingSwitch, Last_HDPostProcessingSwitch, DBBCustomEntityIndexTable.HDPostProcessing, "DBBHelper/DBBGlobalSettingManager", "HDPostProcessing has been Enabled.", "HDPostProcessing has been Disabled.");
                 //关于雾效
-                if (Last_FogEffectSwitch == false && FogEffectSwitch == true)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Remove(4);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "FogEffect has been Enabled.");
-                }
-                else if (Last_FogEffectSwitch == true && FogEffectSwitch == false)
-                {
-                    Need_To_Adjust = true;
-                    Ignore.Add(4);
-                    Logger.Log(LogLevel.Warn, "DBBHelper/DBBGlobalSettingManager", "FogEffect has been Disabled.");
-                }
-
-
+                Collect_OnOff_Information(FogEffectSwitch, Last_FogEffectSwitch, DBBCustomEntityIndexTable.FogEffect, "DBBHelper/DBBGlobalSettingManager", "FogEffect has been Enabled.", "FogEffect has been Disabled.");
+                
                 //按需重新加载所有特效实体的钩子
                 if (Need_To_Adjust == true)
                 {
                     DBBCustomEntityManager.UnLoadInLevel();
                     DBBCustomEntityManager.LoadInLevel(Ignore);
                 }
-
                 //更新状态值
                 Last_SpecialLightSwitch = SpecialLightSwitch;
                 Last_HDPostProcessingSwitch = HDPostProcessingSwitch;

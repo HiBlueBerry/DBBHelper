@@ -4,6 +4,7 @@ using Monocle;
 using Celeste.Mod.Backdrops;
 using System;
 using Celeste.Mod.DBBHelper.Mechanism;
+
 namespace Celeste.Mod.DBBHelper.BackDrops
 {
     [CustomBackdrop("DBBHelper/ProgramSky")]
@@ -37,32 +38,27 @@ namespace Celeste.Mod.DBBHelper.BackDrops
         Vector4[] color2=[Vector4.One,Vector4.One,Vector4.One];//用于送入shader
         public ProgramSky(BinaryPacker.Element data)
         {
-            stage=0;
-            velocity=data.AttrFloat("Velocity");
-            stage1=data.AttrFloat("NightLastTime");
-            stage2=stage1+data.AttrFloat("DawnLastTime");
-            stage3=stage2+data.AttrFloat("MorningLastTime");
-            stage4=stage3+data.AttrFloat("DayLastTime");
-            stage5=stage4+data.AttrFloat("DuskLastTime");
+            stage = 0;
+            velocity = data.AttrFloat("Velocity");
+            stage1 = data.AttrFloat("NightLastTime");
+            stage2 = stage1 + data.AttrFloat("DawnLastTime");
+            stage3 = stage2 + data.AttrFloat("MorningLastTime");
+            stage4 = stage3 + data.AttrFloat("DayLastTime");
+            stage5 = stage4 + data.AttrFloat("DuskLastTime");
 
-            string[] all_night_color=data.Attr("NightColor").Split([',']);
-            string[] all_dawn_color=data.Attr("DawnColor").Split([',']);
-            string[] all_morning_color=data.Attr("MorningColor").Split([',']);
-            string[] all_day_color=data.Attr("DayColor").Split([',']);
-            string[] all_dusk_color=data.Attr("DuskColor").Split([',']);
-            for(int i=0;i<3;i++)
+            string[] all_night_color = data.Attr("NightColor").Split([',']);
+            string[] all_dawn_color = data.Attr("DawnColor").Split([',']);
+            string[] all_morning_color = data.Attr("MorningColor").Split([',']);
+            string[] all_day_color = data.Attr("DayColor").Split([',']);
+            string[] all_dusk_color = data.Attr("DuskColor").Split([',']);
+            for (int i = 0; i < 3; i++)
             {
-                night_color[i]=DBBMath.ConvertColor(all_night_color[i]);
-                dawn_color[i]=DBBMath.ConvertColor(all_dawn_color[i]);
-                morning_color[i]=DBBMath.ConvertColor(all_morning_color[i]);
-                day_color[i]=DBBMath.ConvertColor(all_day_color[i]);
-                dusk_color[i]=DBBMath.ConvertColor(all_dusk_color[i]);
+                night_color[i] = DBBMath.ConvertColor(all_night_color[i]);
+                dawn_color[i] = DBBMath.ConvertColor(all_dawn_color[i]);
+                morning_color[i] = DBBMath.ConvertColor(all_morning_color[i]);
+                day_color[i] = DBBMath.ConvertColor(all_day_color[i]);
+                dusk_color[i] = DBBMath.ConvertColor(all_dusk_color[i]);
             }
-        }
-        private float SmoothStep(float start,float end, float time)
-        {
-            float x=Math.Clamp((time - start)/(end - start),0.0f, 1.0f); 
-            return x*x*(3.0f-2.0f*x);
         }
         private void UpdateParameter()
         {
@@ -76,7 +72,7 @@ namespace Celeste.Mod.DBBHelper.BackDrops
                 }
                 if(real_time<=stage1)
                 {
-                    time=SmoothStep(0,stage1,real_time);
+                    time=DBBMath.SmoothStep(0,stage1,real_time);
                 }
                 else
                 {
@@ -92,7 +88,7 @@ namespace Celeste.Mod.DBBHelper.BackDrops
                 }
                 if(real_time<=stage2)
                 {
-                    time=SmoothStep(stage1,stage2,real_time);
+                    time=DBBMath.SmoothStep(stage1,stage2,real_time);
                 }
                 else
                 {
@@ -108,7 +104,7 @@ namespace Celeste.Mod.DBBHelper.BackDrops
                 }
                 if(real_time<=stage3)
                 {
-                    time=SmoothStep(stage2,stage3,real_time);
+                    time=DBBMath.SmoothStep(stage2,stage3,real_time);
                 }
                 else
                 {
@@ -124,7 +120,7 @@ namespace Celeste.Mod.DBBHelper.BackDrops
                 }
                 if(real_time<=stage4)
                 {
-                    time=SmoothStep(stage3,stage4,real_time);
+                    time=DBBMath.SmoothStep(stage3,stage4,real_time);
                 }
                 else
                 {
@@ -140,7 +136,7 @@ namespace Celeste.Mod.DBBHelper.BackDrops
                 }
                 if(real_time<=stage5)
                 {
-                    time=SmoothStep(stage4,stage5,real_time);
+                    time=DBBMath.SmoothStep(stage4,stage5,real_time);
                 }
                 else
                 {

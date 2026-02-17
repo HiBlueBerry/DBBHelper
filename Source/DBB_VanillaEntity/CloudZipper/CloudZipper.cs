@@ -21,7 +21,6 @@ namespace Celeste.Mod.DBBHelper.Entities
         private bool b_up=false;//云弹跳上升状态
         private bool b_back=false;//云弹跳返回状态
         //----------------------------------------------------
-        private float m_speed;//云的速度，在此不会用到，但是保留
         private float m_startY;//云的基准点，在此不会用到，但是保留
         private float m_respawnTimer;//云的重生计时器
         private bool b_fragile;//指定云是否为碎片云

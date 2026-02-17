@@ -7,7 +7,6 @@ namespace Celeste.Mod.DBBHelper.Entities
 {
 
     [CustomEntity("DBBHelper/TiltShiftBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //移轴模糊
     public class TiltShiftBlurEffect : DBBGeneralBlur
     {

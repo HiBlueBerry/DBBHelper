@@ -36,7 +36,8 @@ PointLight.fieldInformation={
     },
     AspectRatioProportion={
         minimumValue=0.01
-    }
+    },
+    
 }
 
 PointLight.depth=-9000
@@ -46,6 +47,7 @@ PointLight.fieldOrder={
     "EdgeWidth","FresnelCoefficient",
     "Color","Alpha",
     "BrightnessAmplify","AspectRatioProportion",
+    "CameraZ","Label",
     "OnlyEnableOriginalLight",
 }
 PointLight.placements={
@@ -62,6 +64,8 @@ PointLight.placements={
         --光对原版光照的亮度增幅
         BrightnessAmplify=1.0,
         AspectRatioProportion=1.0,
+        CameraZ=0.5,
+        Label="Default",
         OnlyEnableOriginalLight=false,
     },
 }

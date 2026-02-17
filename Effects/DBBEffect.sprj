@@ -32,7 +32,7 @@
 		</pass>
 	</pipeline>
 	<objects>
-		<object type="texture" path="C:/Users/Administrator/Pictures/Zaaru/wait.jpg" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
+		<object type="texture" path="C:/Users/Administrator/Pictures/Zaaru/xl (19).jpg" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">
 			<bind slot="0" name="Test" />
 		</object>
 		<object type="texture" path="C:/Users/Administrator/Pictures/Zaaru/rectangle_gradient.png" vflip="false" min_filter="Linear" mag_filter="Nearest" wrap_s="Repeat" wrap_t="Repeat">

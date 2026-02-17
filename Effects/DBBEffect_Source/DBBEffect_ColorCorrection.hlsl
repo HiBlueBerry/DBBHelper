@@ -37,10 +37,10 @@ float3 ApplyHDR(float3 hdrColor, float exposure, float gamma)
     return mapped;
 }
 //应用对比度
-float3 ApplyContrast(float3 color,float contrast)
+float3 ApplyContrast(float3 color,float contrast,float alpha)
 {
-    float3 avgColor=float3(0.5,0.5,0.5);
-    return avgColor*(1.0-contrast)+color*contrast;
+    float effectiveContrast = lerp(1.0, contrast, alpha);
+    return lerp(float3(0.5,0.5,0.5),color,effectiveContrast);
 }
 
 float3 tint_color=float3(1.0,1.0,1.0);//色调颜色，白色为正常图像
@@ -57,7 +57,7 @@ float4 main(pInput pin):SV_TARGET
     //按照色调、饱和度、HDR的顺序进行调节
     float3 result=ApplyTintColor(origin.rgb,tint_color,tint_strength);
     result=ApplySaturation(result,saturation);
-    result=ApplyContrast(ApplyHDR(result,exposure,gamma),contrast);
+    result=ApplyContrast(ApplyHDR(result,exposure,gamma),contrast,origin.a);
     return float4(result,origin.a);
 }
 technique ColorCorrection{

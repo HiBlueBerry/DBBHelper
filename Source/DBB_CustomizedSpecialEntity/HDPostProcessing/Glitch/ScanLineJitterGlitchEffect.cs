@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/ScanLineJitterGlitchEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //扫描线抖动故障
     public class ScanLineJitterGlitchEffect : DBBGeneralGlitch
     {

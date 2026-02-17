@@ -92,7 +92,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             DBBGamePlayBuffers.Create("GameplayTempA", (int)GameplayTempA_WH.X, (int)GameplayTempA_WH.Y);//作为Gameplay的副本
             DBBGamePlayBuffers.Create("TmpGameContent", 1922, 1082);//作为游戏画面的副本
             DBBGamePlayBuffers.Create("DefaultTexture", 1922, 1082);//创建一张1922*1082的透明贴图用于绘制
-            DBBGamePlayBuffers.Create("DefaultTexture320x180",320,180);//床技安一张320*180的透明贴图用于绘制
+            DBBGamePlayBuffers.Create("DefaultTexture320x180",320,180);//创建一张320*180的透明贴图用于绘制
         }
         //加载所有特效
         private static void DBBLoadAllEffect()
@@ -235,10 +235,12 @@ namespace Celeste.Mod.DBBHelper.Mechanism
                 cursor.EmitDelegate<Action>(Store_Light_In_HDLight);
                 cursor.EmitDelegate<Action>(Store_GameplayContent_In_GameplayTempA);
                 //此时设置的当前缓冲区为GameplayTempA
-                cursor.EmitDelegate<Action>(Draw_Something_On_GameplayTempA);//可自定义写入GameplayTempA
+                //注意这里一定不要直接注入Draw_Something_On_GameplayTempA事件，这样子会固化代码，后续即使改动了Draw_Something_On_GameplayTempA_Wrapper
+                //实际的代码也不会被修改
+                cursor.EmitDelegate<Action>(Draw_Something_On_GameplayTempA_Wrapper);//可自定义写入GameplayTempA
                 cursor.EmitDelegate<Action>(Cover_GameplayContent_With_GameplayTempA);
                 //此时设置的当前缓冲区为Gameplay
-                cursor.EmitDelegate<Action>(Redraw_Something_On_Gameplay);//可自定义写入Gameplay
+                cursor.EmitDelegate<Action>(Redraw_Something_On_Gameplay_Wrapper);//可自定义写入Gameplay
             }
             else
             {
@@ -279,10 +281,10 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             {
                 cursor.EmitDelegate<Action>(End_Store_LevelContent_In_TmpGameContent);
                 //此时设置的当前缓冲区为TmpGameContent
-                cursor.EmitDelegate<Action>(Draw_Something_On_TmpGameContent);
+                cursor.EmitDelegate<Action>(Draw_Something_On_TmpGameContent_Wrapper);
                 cursor.EmitDelegate<Action>(Draw_TmpGameContent_On_DefaultBuffer);
                 //此时设置的当前缓冲区为默认缓冲
-                cursor.EmitDelegate<Action>(Redraw_Something_On_DefaultBuffer);
+                cursor.EmitDelegate<Action>(Redraw_Something_On_DefaultBuffer_Wrapper);
             }
             else
             {
@@ -328,6 +330,12 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             Draw.SpriteBatch.Draw(GameplayBuffers.Gameplay, Vector2.Zero, Color.White);
             Draw.SpriteBatch.End();
         }
+
+        //在GameplayTempA上自定义绘制一些东西，这里使用一个函数去包裹住Draw_Something_On_GameplayTempA事件，以支持动态的函数插入修改
+        private static void Draw_Something_On_GameplayTempA_Wrapper()
+        {
+            Draw_Something_On_GameplayTempA();
+        }
         //切换回Gameplay缓冲，并用GameplayTempA上的内容覆盖Gameplay
         private static void Cover_GameplayContent_With_GameplayTempA()
         {
@@ -338,6 +346,13 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             Draw.SpriteBatch.Draw(DBBGamePlayBuffers.DBBRenderTargets["GameplayTempA"], Vector2.Zero, Color.White);
             Draw.SpriteBatch.End();
         }
+
+        //重新在Gameplay上自定义绘制一些东西
+        private static void Redraw_Something_On_Gameplay_Wrapper()
+        {
+            Redraw_Something_On_Gameplay();
+        }
+
         //开始将Level上的东西画到TmpGameContent上
         private static void Start_Store_LevelContent_In_TmpGameContent()
         {
@@ -382,6 +397,11 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             }
 
         }
+        //在TmpGameContent上自定义绘制一些内容
+        private static void Draw_Something_On_TmpGameContent_Wrapper()
+        {
+            Draw_Something_On_TmpGameContent();
+        }
         //将TmpGameContent的内容绘制到默认屏幕上
         private static void Draw_TmpGameContent_On_DefaultBuffer()
         {
@@ -397,6 +417,12 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             Draw.SpriteBatch.Draw(DBBGamePlayBuffers.DBBRenderTargets["TmpGameContent"], Vector2.Zero, Color.White);
             Draw.SpriteBatch.End();
         }
+        //在默认屏幕上自定义绘制一些东西
+        private static void Redraw_Something_On_DefaultBuffer_Wrapper()
+        {
+            Redraw_Something_On_DefaultBuffer();
+        }
+
         /*
         //将Level上的东西画到TmpGameContent上
         private static void Store_LevelContent_In_TmpGameContent()

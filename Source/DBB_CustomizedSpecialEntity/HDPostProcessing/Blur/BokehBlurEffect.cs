@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/BokehBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //散景模糊
     public class BokehBlurEffect : DBBGeneralBlur
     {

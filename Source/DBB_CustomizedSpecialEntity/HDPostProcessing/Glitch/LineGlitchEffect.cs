@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/LineGlitchEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //错位线故障
     public class LineGlitchEffect : DBBGeneralGlitch
     {

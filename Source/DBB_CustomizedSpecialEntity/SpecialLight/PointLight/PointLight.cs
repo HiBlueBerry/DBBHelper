@@ -7,20 +7,19 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/PointLight")]
-    [TrackedAs(typeof(DBBGeneralLight))]
     public class PointLight : DBBGeneralLight
     {
         //以下为参数项
-        private Vector2 light_center = Vector2.Zero;//光源位置，应为归一化的数值
-        private Vector4 color = new Vector4(0.2f, 0.8f, 1.0f, 1.0f);//颜色
-        private float extinction = 10.0f;//衰减速度
-        private float sphere_radius = 0.1f;//点光源半径，范围为0.0到0.5
-        private float edge_width = 5.0f;//菲涅尔项的边缘厚度
-        private float F0 = 1.0f;//菲涅尔基础反照率，如果不需要菲涅尔效果就将其置为1.0，范围应为0.0到1.0
-        private float brightness_amplify = 1.0f;//原版亮度增幅，用于增强或者削弱原版光照
+        public Vector2 light_center = Vector2.Zero;//光源位置，应为归一化的数值
+        public Vector4 color = new Vector4(0.2f, 0.8f, 1.0f, 1.0f);//颜色
+        public float extinction = 10.0f;//衰减速度
+        public float sphere_radius = 0.1f;//点光源半径，范围为0.0到0.5
+        public float edge_width = 5.0f;//菲涅尔项的边缘厚度
+        public float F0 = 1.0f;//菲涅尔基础反照率，如果不需要菲涅尔效果就将其置为1.0，范围应为0.0到1.0
+        public float brightness_amplify = 1.0f;//原版亮度增幅，用于增强或者削弱原版光照
         private float aspect_ratio = 1.78f;//屏幕宽高比
-        private float aspect_ratio_proportion = 1.0f;//屏幕宽高比的调节比例，此处用于用户自定义调节
-        public bool DisableGodLight = false;//是否禁止绘制实体光
+        public float aspect_ratio_proportion = 1.0f;//屏幕宽高比的调节比例，此处用于用户自定义调节
+        public float camera_z = 0.5f;//虚拟摄像机的Z轴位置
 
         //以下为一些临时记录内容
         private Vector4 ref_color;
@@ -32,13 +31,15 @@ namespace Celeste.Mod.DBBHelper.Entities
             color = DBBMath.ConvertColor(data.Attr("Color"));
             color.W = data.Float("Alpha");
             ref_color = color;
-            brightness_amplify = data.Float("BrightnessAmplify");
-            DisableGodLight = data.Bool("OnlyEnableOriginalLight");//仅启用原版光照
-            extinction = data.Float("Extinction");
-            sphere_radius = data.Float("SphereRadius");
-            edge_width = data.Float("EdgeWidth");
-            F0 = data.Float("FresnelCoefficient");//菲涅尔系数
-            aspect_ratio_proportion = data.Float("AspectRatioProportion");
+            brightness_amplify = data.Float("BrightnessAmplify", 1.0f);
+            DisableEntityLight = data.Bool("OnlyEnableOriginalLight", false);//仅启用原版光照
+            extinction = data.Float("Extinction", 10.0f);
+            sphere_radius = data.Float("SphereRadius", 0.1f);
+            edge_width = data.Float("EdgeWidth", 5.0f);
+            F0 = data.Float("FresnelCoefficient", 1.0f);//菲涅尔系数
+            aspect_ratio_proportion = data.Float("AspectRatioProportion", 1.0f);
+            camera_z = data.Float("CameraZ", 0.5f);
+            label = data.Attr("Label", "Default");//该实体的标签
         }
         public override void Added(Scene scene)
         {
@@ -90,6 +91,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["edge_width"].SetValue(edge_width);
             DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["F0"].SetValue(F0);
             DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["aspect_ratio"].SetValue(aspect_ratio * aspect_ratio_proportion);
+            DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["camera_z"].SetValue(camera_z);
             DBBEffectSourceManager.DBBEffect["PointLight"].Parameters["color"].SetValue(color);
         }
         private void UpdateLightCenter()
@@ -128,7 +130,7 @@ namespace Celeste.Mod.DBBHelper.Entities
                 return;
             }
             //如果只在原光照贴图上绘制，则不渲染
-            if (DisableGodLight == true)
+            if (DisableEntityLight == true)
             {
                 return;
             }

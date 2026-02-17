@@ -48,10 +48,16 @@ DBBHelper_AlignedText_Default=Hello, this is DBBHelper.
 
 ModOptions_DBBHelper_General_EventHandleLabel=EventHandleLabel
 
+
 ModOptions_DBBHelper_ColorCorrection=Color Correction Global Settings
+ModOptions_DBBHelper_ColorCorrection_Switch=Color Correction Switch
+ModOptions_DBBHelper_ColorCorrection_Switch_Tip=Controls whether color correction should be enabled.{n}If disabled, all related effects in the level will be invisible.{n}Recommended to disable it only when encountering{n}ColorCorrection-related bugs or effenciency issues.
+
 ModOptions_DBBHelper_ColorCorrection_TintColor=ColorCorrection: TintColor
 ModOptions_DBBHelper_ColorCorrection_TintStrength=ColorCorrection: TintStrength
 ModOptions_DBBHelper_ColorCorrection_Saturation=ColorCorrection: Saturation
+
+
 ModOptions_DBBHelper_ColorCorrection_Exposure=ColorCorrection: Exposure
 ModOptions_DBBHelper_ColorCorrection_Gamma=ColorCorrection: Gamma
 ModOptions_DBBHelper_ColorCorrection_Contrast=ColorCorrection: Contrast
@@ -91,7 +97,5 @@ ModOptions_DBBHelper_FogEffect_Tip=Controls whether FogEffect should be enabled.
 
 
 #MODSETTINGS_DBBHELPER_SUBHEADER=this is subheader
-
-
 
 

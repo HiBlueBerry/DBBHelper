@@ -38,9 +38,9 @@ float sdSphere(float2 uv,float2 center,float extinction,float aspect_ratio)
 //center球体中心
 //sphere_radius为球体半径
 //edgeWidth为边缘厚度
-//F0为基础反射，如果不需要菲涅尔反射，则需要把这个值设为F0
+//F0为基础反射，如果不需要菲涅尔反射，则需要把这个值设为1.0
 //aspect_ratio用于根据屏幕宽高比例进行UV的调整
-float FakeFresnel2D(float2 uv,float2 center,float sphere_radius,float edgeWidth, float F0,float aspect_ratio) {
+float FakeFresnel2D(float2 uv,float2 center,float camera_z,float sphere_radius,float edgeWidth, float F0,float aspect_ratio) {
 
     //校正UV坐标以考虑宽高比
     uv.x *= aspect_ratio;
@@ -54,7 +54,7 @@ float FakeFresnel2D(float2 uv,float2 center,float sphere_radius,float edgeWidth,
     //计算击中点的法向量
     float3 hit_normal=normalize(float3(dir,z));
     //计算视线方向
-    float3 view_ray=normalize(float3(0.5*aspect_ratio,0.5,0.5)-float3(uv,z));
+    float3 view_ray=normalize(float3(0.5*aspect_ratio,0.5,camera_z)-float3(uv,z));
     //计算角度和菲涅尔项
     float cosTheta = abs(dot(view_ray, hit_normal));
     return (1.0-F0)*pow(1.0-cosTheta,edgeWidth);
@@ -68,13 +68,13 @@ float F0=1.0;//菲涅尔基础反照率，如果不需要菲涅尔效果就将�
 float brightness_amplify=1.0;//亮度增幅，用于增强或者削弱原版光照
 float4 color=float4(0.2,0.8,1.0,1.0);//颜色
 float aspect_ratio=1.78;//屏幕宽高比
-
+float camera_z=0.5f;//虚拟摄像机的Z轴位置
 float4 main(pInput pin):SV_TARGET
 {
     float4 image=tex2D(sp,pin.UV);
     float4 tint_color=0;
     float atten=sdSphere(pin.UV,center,extinction,aspect_ratio);
-    float fresnel_value=FakeFresnel2D(pin.UV,center,sphere_radius,edge_width,F0,aspect_ratio);
+    float fresnel_value=FakeFresnel2D(pin.UV, center, camera_z, sphere_radius, edge_width, F0, aspect_ratio);
     tint_color=color.a*(1.0+fresnel_value)*atten*color*brightness_amplify;
     return tint_color;
 }

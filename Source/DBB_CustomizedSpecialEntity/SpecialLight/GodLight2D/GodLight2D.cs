@@ -5,19 +5,17 @@ using Microsoft.Xna.Framework.Graphics;
 using Monocle;
 using Celeste.Mod.Entities;
 using Celeste.Mod.DBBHelper.Mechanism;
-using Microsoft.Xna.Framework.Graphics.PackedVector;
 
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/GodLight2D")]
-    [TrackedAs(typeof(DBBGeneralLight))]
     public class GodLight2D : DBBGeneralLight
     {
         //以下为参数项
         private float velocity = 0.5f;//动态变化的速度
         private float scale = 1.5f;//噪声的缩放等级
 
-        private float base_strength = 0.5f;//光的基础强度，应该为一个大于0的值
+        public float base_strength = 0.5f;//光的基础强度，应该为一个大于0的值
         private float tmp_base_strength = 0.0f;
         private float dynamic_strength = 0.3f;//光的动态强度，光的强度将基于基础强度进行动态浮动
 
@@ -29,13 +27,12 @@ namespace Celeste.Mod.DBBHelper.Entities
         private float light_radius = 0.5f;//光的参考强度半径，距离发射位置超过该半径的位置的光强度为0
         private int iter = 5;//迭代次数，性能损耗项，迭代次数越多，光的散射效果(光的方向在传播过程中逐渐扭曲)和整体亮度将越强，如需要不散射效果，应将此值改为1并配以较大的base_strength，此值应当大于等于1
 
-        private float concentration_factor = 0.9f;//聚光系数，应为0.01到0.99，值越大代表光束越聚集
-        private float extingction_factor = 2.0f;//消减系数，值越大代表光强随距离衰减得越快
+        public float concentration_factor = 0.9f;//聚光系数，应为0.01到0.99，值越大代表光束越聚集
+        public float extingction_factor = 2.0f;//消减系数，值越大代表光强随距离衰减得越快
         private float brightness_amplify = 1.0f;//Alpha通道增强
 
         private Vector4 color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照颜色
         private Vector4 ref_color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照颜色
-        public bool DisableGodLight = false;//是否禁止绘制实体光
         private bool bad_light = false;//是否是坏光
         private float time = 0.0f;//计时器，应当不断变化以产生动态光
 
@@ -64,7 +61,8 @@ namespace Celeste.Mod.DBBHelper.Entities
             color.W = data.Float("Alpha");
             ref_color = color;
             brightness_amplify = data.Float("BrightnessAmplify");
-            DisableGodLight = data.Bool("OnlyEnableOriginalLight");//仅启用原版光照
+            label = data.Attr("Label","Default");
+            DisableEntityLight = data.Bool("OnlyEnableOriginalLight");//仅启用原版光照
             //设置光源发射位置，这里是游戏内的位置进行归一化
             Vector2 temp = data.Position + offset;
             emit_pos = new Vector2(temp.X / 320.0F, temp.Y / 180.0f);
@@ -92,6 +90,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             Vector2 emit_position = Position - (Scene as Level).Camera.Position;
             //归一化
             emit_position = new Vector2(emit_position.X / 320.0f, emit_position.Y / 180.0f);
+            
             //这里用的是1920*1080的纹理绘制到320*160的缓冲上，因此需要再次缩放
             tmp_emit_pos = emit_position / 6.0f;
             tmp_probe_pos = (emit_position + probe_pos - emit_pos) / 6.0f;
@@ -134,7 +133,6 @@ namespace Celeste.Mod.DBBHelper.Entities
             handle_attribute.OnOut = delegate (float f)
             {
                 //扩展镜头：你没对我说谢谢，所以我不能让你的效果正确
-
                 float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, "easeInOutSin"), 1.0f, 0.0f);
                 tmp_emit_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Emit_ParallaxProportion);
                 tmp_probe_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Probe_ParallaxProportion);
@@ -152,6 +150,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         public override void Update()
         {
             base.Update();
+            tmp_base_strength = base_strength;//这行的目的是为了GodLight2DControl的base_strength参数能影响到GodLight2D
         }
         public override void DebugRender(Camera camera)
         {
@@ -252,7 +251,7 @@ namespace Celeste.Mod.DBBHelper.Entities
                 return;
             }
             //如果只在原光照贴图上绘制，则不渲染
-            if (DisableGodLight == true)
+            if (DisableEntityLight == true)
             {
                 return;
             }

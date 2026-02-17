@@ -10,7 +10,7 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/HDRAndContrast")]
-    [DBBCustomEntity(2,true)]
+    [DBBCustomEntity(DBBCustomEntityIndexTable.HDRAndContrast,true)]
     public class HDRAndContrast : Entity
     {
         //------------------与控制特效相关------------------
@@ -139,10 +139,14 @@ namespace Celeste.Mod.DBBHelper.Entities
         }
         private static void Draw_GamePlayTempA_On_GamePlay()
         {
+            //如果该项功能被禁用了，则停止一切绘制
+            if (DBBGlobalSettingManager.ColorCorrectionSwitch == false)
+            {
+                return;
+            }
             //将GameplayTempA上的东西画到Gameplay上
             Engine.Graphics.GraphicsDevice.SetRenderTarget(GameplayBuffers.Gameplay);
             Engine.Graphics.GraphicsDevice.Clear(Color.Transparent);
-            //将GameplayTempA上的东西画到Gameplay上
             if (DBBSettings.ColorCorrectionMenu.HDR_InLevelControled == false)
             {
                 DBBGlobalSettingManager.Light_Exposure = DBBSettings.ColorCorrectionMenu.ColorCorrection_Exposure;

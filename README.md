@@ -3,15 +3,15 @@
 **Version 1.1.0**
 
 **Update:**
-    Add: Controller for two Blur Effects and seven Glitch Effects.
-    Add: Tint and Saturation.
-    Adjust: HDR, TintColor and Saturation are combined into ColorCorrection.
+    BugFix: Fixed the issue where the level could not be entered after disabling special effects when opening DBBHelper separately.
+    BugFix: Adjusted the contrast algorithm to better handle non-fully opaque rendering.
+    Add: Controller for two GodLight2D and PointLight.
+    Add: (Animated)Texture Light, a new special light effect that allows you to use a texture as light directly. 
+    Add: PhysicalParticle, a styleground that uses simple physics-based particle simulation.
+
 
 ## Warning
-
-Effects may require GPU performance support. If you're experiencing noticeable input lag, one possible solution is to disable vertical sync. Additionally, if you still feel stuttering, you can go to the game settings and disable the display of FogEffect, GodLight2D, and HDPostprocessing to avoid this issue. Of course, this means you might not get the full gaming experience as intended by the map designers.
-
-Bugs can pop up anywhere, so if you encounter any, please let me know. Additionally, currently using sl (save/load) will cause these effect entities to stop working (F8 for instant fog removal, kind of a legit cheat command? haha). I'm currently trying to resolve these issues.
+Bugs about CloudZipper still exist, but I'm working on it. The main purpose of this version is to fix several serious rendering-related bugs...
 
 ## Features
 
@@ -58,7 +58,7 @@ A funny point light with Fresnel effect.
 Convenient tool to adjust tint color, saturation, exposure, gamma and contrast for gameplay render.
 
 ## TODO
-- SL Bug
+- Bug
 
 
 

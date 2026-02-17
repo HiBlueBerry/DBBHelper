@@ -60,7 +60,8 @@ GodLight2D.fieldOrder={
     "Color","Alpha",
     "EmitScrollX","EmitScrollY",
     "ProbeScrollX","ProbeScrollY",
-    "BrightnessAmplify","OnlyEnableOriginalLight"
+    "BrightnessAmplify","Label",
+    "OnlyEnableOriginalLight"
 }
 GodLight2D.placements={
     name="GodLight2D",
@@ -85,6 +86,7 @@ GodLight2D.placements={
         ProbeScrollY=0.0,
         --光对原版光照的亮度增幅
         BrightnessAmplify=1.0,
+        Label="Default",
         OnlyEnableOriginalLight=false,
     },
 }

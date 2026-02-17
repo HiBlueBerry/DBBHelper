@@ -6,7 +6,6 @@ using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.Entities
 {
     [CustomEntity("DBBHelper/RadialBlurEffect")]
-    [TrackedAs(typeof(DBBGeneralHDpostProcessing))]
     //径向模糊
     public class RadialBlurEffect : DBBGeneralBlur
     {

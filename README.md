@@ -3,11 +3,11 @@
 **Version 1.1.0**
 
 **Update:**
-    BugFix: Fixed the issue where the level could not be entered after disabling special effects when opening DBBHelper separately.
-    BugFix: Adjusted the contrast algorithm to better handle non-fully opaque rendering.
-    Add: Controller for two GodLight2D and PointLight.
-    Add: (Animated)Texture Light, a new special light effect that allows you to use a texture as light directly. 
-    Add: PhysicalParticle, a styleground that uses simple physics-based particle simulation.
+### BugFix: Fixed the issue where the level could not be entered after disabling special effects when opening DBBHelper separately.
+### BugFix: Adjusted the contrast algorithm to better handle non-fully opaque rendering.
+### Add: Controller for two GodLight2D and PointLight.
+### Add: (Animated)Texture Light, a new special light effect that allows you to use a texture as light directly. 
+### Add: PhysicalParticle, a styleground that uses simple physics-based particle simulation.
 
 
 ## Warning

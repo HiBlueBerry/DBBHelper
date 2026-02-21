@@ -3,15 +3,19 @@
 **Version 1.1.0**
 
 **Update:**
+Improvement: Add fade in/out control for special light.
+### Adjust: Controller for two GodLight2D and PointLight, add color control.
+### Adjust: Add OnlyEnableOriginalLight(OEOL) option for speical light global settings.
 ### BugFix: Fixed the issue where the level could not be entered after disabling special effects when opening DBBHelper separately.
-### BugFix: Adjusted the contrast algorithm to better handle non-fully opaque rendering.
-### Add: Controller for two GodLight2D and PointLight.
-### Add: (Animated)Texture Light, a new special light effect that allows you to use a texture as light directly. 
-### Add: PhysicalParticle, a styleground that uses simple physics-based particle simulation.
+### BugFix: Alpha issuss from special light.
+### BugFix: Null object reference on CloudZipperPath when using CelesteTAS.
+### Add: Controller for AnimatedTextureLight.
+### Add: InLevel SpecialLight_GLBS_Controller Entity, this controls blend state of special light.
+### Add: SpecialLight_OEOL_Controller Entity, this controls the visibility of the special light.
 
 
 ## Warning
-Bugs about CloudZipper still exist, but I'm working on it. The main purpose of this version is to fix several serious rendering-related bugs…
+Not famaliar with CelesteTas, so there still may be some bugs about CloudZipper.
 
 ## Features
 
@@ -45,23 +49,23 @@ CoreMessage that allows left (or right) aligned text.
 ### 10. FogEffect (and its controller)
 Powerful entity to make and control FBM fog.
 
-### 11. GodLight2D
+### 11. GodLight2D (and its controller)
 Powerful entity to make Tyndall Light Effect.
 
 ### 12. Glitch\Blur Effect (and its controller)
 HD screen post-processing effects. The HD screen post-processing effects are divided into a blur layer and a distortion layer. Effects from entities in different layers will stack with each other. Effects from entities in the same layer will overwrite each other. The processing order is distortion first, then blur.
 
-### 13. Fresnel Point Light 
+### 13. Fresnel Point Light (and its controller)
 A funny point light with Fresnel effect.
 
 ### 14. ColorCorrection
 Convenient tool to adjust tint color, saturation, exposure, gamma and contrast for gameplay render.
 
-### 15. (Animated)Texture Light
-Another special light effect that allows you to use a texture as light directly. 
+### 15. (Animated)TextureLight (and its controller)
+It allows you to add a texture as a light source.
 
-### 16. PhysicalParticle
-A styleground that uses simple physics-based particle simulation.
+### 16. SpecialLight GLBS and OEOL controller
+These allow you to have a deep control over the special light.
 
 ## TODO
 - Bug

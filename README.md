@@ -1,6 +1,6 @@
 # DBBHelper
 
-**Version 1.1.0**
+**Version 1.1.1**
 
 **Update:**
 Improvement: Add fade in/out control for special light.

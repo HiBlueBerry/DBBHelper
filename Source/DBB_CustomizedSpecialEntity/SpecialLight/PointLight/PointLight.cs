@@ -16,16 +16,19 @@ namespace Celeste.Mod.DBBHelper.Entities
         public float sphere_radius = 0.1f;//点光源半径，范围为0.0到0.5
         public float edge_width = 5.0f;//菲涅尔项的边缘厚度
         public float F0 = 1.0f;//菲涅尔基础反照率，如果不需要菲涅尔效果就将其置为1.0，范围应为0.0到1.0
-        public float brightness_amplify = 1.0f;//原版亮度增幅，用于增强或者削弱原版光照
+        private float brightness_amplify = 1.0f;//原版亮度增幅，用于增强或者削弱原版光照
         private float aspect_ratio = 1.78f;//屏幕宽高比
         public float aspect_ratio_proportion = 1.0f;//屏幕宽高比的调节比例，此处用于用户自定义调节
         public float camera_z = 0.5f;//虚拟摄像机的Z轴位置
 
         //以下为一些临时记录内容
-        private Vector4 ref_color;
+        public Vector4 ref_color;
 
         public PointLight(EntityData data, Vector2 offset)
         {
+            //场景切入或切出时的光颜色变化方式
+            LevelIn_Style = data.Attr("LevelInStyle", "easeInOutSin");
+            LevelOut_Style = data.Attr("LevelOutStyle", "easeInOutSin");
             Position = data.Position + offset;
             //参数项的赋值
             color = DBBMath.ConvertColor(data.Attr("Color"));
@@ -53,17 +56,42 @@ namespace Celeste.Mod.DBBHelper.Entities
             //在场景过渡进入时，将一些值进行渐进处理
             handle_attribute.OnIn = delegate (float f)
             {
-                float time = (float)DBBMath.MotionMapping(f, "easeInOutSin");
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelIn_Style == "Instant")
+                {
+                    return;
+                }
+                float time = (float)DBBMath.MotionMapping(f, LevelIn_Style);
                 color.W = time * ref_color.W;
             };
             handle_attribute.OnInBegin = delegate ()
             {
-                color.W = 0.0f;
+                if (LevelIn_Style == "Instant")
+                {
+                    color.W = ref_color.W;
+                }
+                else
+                {
+                    color.W = 0.0f;
+                }
+                
+            };
+            handle_attribute.OnOutBegin = delegate ()
+            {
+                if (LevelOut_Style == "Instant")
+                {
+                    color.W = 0.0f;
+                }
             };
             //在过渡出场景时，将一些值进行渐退处理
             handle_attribute.OnOut = delegate (float f)
             {
-                float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, "easeInOutSin"), 1.0f, 0.0f);
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelOut_Style == "Instant")
+                {
+                    return;
+                }
+                float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, LevelOut_Style), 1.0f, 0.0f);
                 color.W = time * ref_color.W;
             };
             Add(handle_attribute);

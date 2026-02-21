@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using System.Text.RegularExpressions;
 using Celeste.Mod.DBBHelper.Mechanism;
 using Celeste.Mod.DBBHelper.UI.UIComponent;
+using System;
 
 namespace Celeste.Mod.DBBHelper {
     [SettingName("DBBHelper_Settings")]
@@ -21,6 +22,17 @@ namespace Celeste.Mod.DBBHelper {
             key_item => key_item,
             key_item => (-3.5f + key_item * 0.1f).ToString("0.0")
         );//取值范围表，范围为-3.5到3.5，每次步进0.1
+        public static Dictionary<int,string> SpecialLight_GeneralLightBlendState_Table=new Dictionary<int,string>()
+        {
+            {0,"AlphaKeep"},
+            {1,"AlphaWeakened"}
+        };//特殊光照层与gp层的颜色混合方式表
+        public static Dictionary<int,string> SpecialLight_OnlyEnableOriginalLight_Table=new Dictionary<int,string>()
+        {
+            {0,"Special and original light render"},
+            {1,"Using only original light render"}
+        };//特殊光照层与gp层的颜色混合方式表
+
         public static List<string> HexTable = new List<string> { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" };//十六进制对应表
         //以下为涉及一系列自定义的函数和类
         [SettingSubMenu]
@@ -202,7 +214,110 @@ namespace Celeste.Mod.DBBHelper {
                     }
                 );
                 submenu.Add(tmp);
+                //补一个空白占位行
+                var blank_item = new DBBCustomUIComponent.PlaceholderItem(1, 0.3f);
+                submenu.Add(blank_item);
             }
+
+        }
+
+        [SettingSubMenu]
+        public class SpeicalLight
+        {
+            //特殊光效开关，这里使用可以保存的设置，即重开游戏将读取上一次关游戏时的配置
+            [SettingName("ModOptions_DBBHelper_SpecialLight_Switch")]
+            [SettingSubText("ModOptions_DBBHelper_SpecialLight_Switch_Tip")]
+            [SettingInGame(false)]
+            public bool SpecialLightSwitch
+            {
+                get { return DBBGlobalSettingManager.SpecialLightSwitch; }
+                set { DBBGlobalSettingManager.Last_SpecialLightSwitch = DBBGlobalSettingManager.SpecialLightSwitch; DBBGlobalSettingManager.SpecialLightSwitch = value; }
+            }
+
+            //[SettingSubText("ModOptions_DBBHelper_SpecialLight_GeneralLightBlendState_Tip")]
+            public int SpecialLight_GeneralLightBlendState { get; set; } = 0;
+
+            //[SettingSubText("ModOptions_DBBHelper_SpecialLight_OnlyEnableOriginalLight_Tip")]
+            public int SpecialLight_OnlyEnableOriginalLight { get; set; } = 0;
+
+            public bool GeneralLightBlendState_InLevelControled = false;//这个参数将传给ExtendedSlider
+            public bool OnlyEnableOriginalLight_InLevelControled = false;//这个参数将传给ExtendedSlider
+
+            //每次重新打开全局设置时都会重新构建一遍组件，为此需要记录上一次选择的索引
+            private int previous_blendstate_index = 0;
+            private int previous_only_enable_original_light_index = 0;
+
+            public void CreateSpecialLight_GeneralLightBlendStateEntry(TextMenuExt.SubMenu submenu, bool inGame)
+            {
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_SpecialLight_GeneralLightBlendState"),
+                    index => SpecialLight_GeneralLightBlendState_Table[index],
+                    0,
+                    1,
+                    Color.DeepSkyBlue,
+                    Color.OrangeRed,
+                    0,
+                    previous_blendstate_index,
+                    () => GeneralLightBlendState_InLevelControled,
+                    "ModOptions_DBBHelper_SpecialLight_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.SpecialLightSwitch
+                );
+                tmp.Change
+                (
+                    delegate (int index)
+                    {
+                        SpecialLight_GeneralLightBlendState = index;
+                        previous_blendstate_index = index;
+                    }
+                );
+                //为滑块组件添加注释
+                var description_item = new DBBCustomUIComponent.ExtendedDescription(tmp, "ModOptions_DBBHelper_SpecialLight_GeneralLightBlendState_Tip", false)
+                {
+                    TextColor = new Color(0.416f, 0.545f, 0.686f),
+                    //这个是开头空出来的高度，空出来的高度用来放图片，0.0是没有空出来的情况
+                    HeightExtra = 24.0f
+                };
+                submenu.Add(tmp);
+                submenu.Add(description_item);
+                
+            }
+            public void CreateSpecialLight_OnlyEnableOriginalLightEntry(TextMenuExt.SubMenu submenu, bool inGame)
+            {
+                var tmp = new DBBCustomUIComponent.ExtendedSlider(
+                    Dialog.Clean("ModOptions_DBBHelper_SpecialLight_OnlyEnableOriginalLight"),
+                    index => SpecialLight_OnlyEnableOriginalLight_Table[index],
+                    0,
+                    1,
+                    Color.DeepSkyBlue,
+                    Color.OrangeRed,
+                    0,
+                    previous_only_enable_original_light_index,
+                    () => OnlyEnableOriginalLight_InLevelControled,
+                    "ModOptions_DBBHelper_SpecialLight_Controlled_Tip",
+                    () => !DBBGlobalSettingManager.SpecialLightSwitch
+                );
+                tmp.Change
+                (
+                    delegate (int index)
+                    {
+                        SpecialLight_OnlyEnableOriginalLight = index;
+                        previous_only_enable_original_light_index = index;
+                    }
+                );
+                //为滑块组件添加注释
+                var description_item = new DBBCustomUIComponent.ExtendedDescription(tmp, "ModOptions_DBBHelper_SpecialLight_OnlyEnableOriginalLight_Tip", false)
+                {
+                    TextColor = new Color(0.416f, 0.545f, 0.686f),
+                    //这个是开头空出来的高度，空出来的高度用来放图片，0.0是没有空出来的情况
+                    HeightExtra = 24.0f
+                };
+                //补一个空白占位行
+                var blank_item = new DBBCustomUIComponent.PlaceholderItem(1, 0.3f);
+                submenu.Add(tmp);
+                submenu.Add(description_item);
+                submenu.Add(blank_item);
+            }
+
 
         }
 
@@ -213,12 +328,9 @@ namespace Celeste.Mod.DBBHelper {
         [SettingSubText("ModOptions_DBBHelper_ColorCorrection_Tip")]
         public static ColorCorrection ColorCorrectionMenu { get; set; } = new ColorCorrection();
 
-        //特殊光效开关，这里使用可以保存的设置，即重开游戏将读取上一次关游戏时的配置
         [SettingName("ModOptions_DBBHelper_SpecialLight")]
         [SettingSubText("ModOptions_DBBHelper_SpecialLight_Tip")]
-        [SettingInGame(false)]
-        public bool SpecialLightSwitch { get { return DBBGlobalSettingManager.SpecialLightSwitch; } set { DBBGlobalSettingManager.Last_SpecialLightSwitch = DBBGlobalSettingManager.SpecialLightSwitch; DBBGlobalSettingManager.SpecialLightSwitch = value; } }
-
+        public static SpeicalLight SpecialLightMenu { get; set; } = new SpeicalLight();
         //后处理特效开关，这里使用可以保存的设置，即重开游戏将读取上一次关游戏时的配置
         [SettingName("ModOptions_DBBHelper_HDPostProcessing")]
         [SettingSubText("ModOptions_DBBHelper_HDPostProcessing_Tip")]

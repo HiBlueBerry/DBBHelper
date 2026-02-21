@@ -50,6 +50,7 @@ ModOptions_DBBHelper_General_EventHandleLabel=EventHandleLabel
 
 
 ModOptions_DBBHelper_ColorCorrection=Color Correction Global Settings
+ModOptions_DBBHelper_ColorCorrection_Tip=Controls Color Correction settings of the in-game screen.{n}These properties may be overridden by level controllers.
 ModOptions_DBBHelper_ColorCorrection_Switch=Color Correction Switch
 ModOptions_DBBHelper_ColorCorrection_Switch_Tip=Controls whether color correction should be enabled.{n}If disabled, all related effects in the level will be invisible.{n}Recommended to disable it only when encountering{n}ColorCorrection-related bugs or effenciency issues.
 
@@ -61,7 +62,7 @@ ModOptions_DBBHelper_ColorCorrection_Saturation=ColorCorrection: Saturation
 ModOptions_DBBHelper_ColorCorrection_Exposure=ColorCorrection: Exposure
 ModOptions_DBBHelper_ColorCorrection_Gamma=ColorCorrection: Gamma
 ModOptions_DBBHelper_ColorCorrection_Contrast=ColorCorrection: Contrast
-ModOptions_DBBHelper_ColorCorrection_Tip=Controls Color Correction settings of the in-game screen.{n}These properties may be overridden by level controllers.
+
 ModOptions_DBBHelper_ColorCorrection_Controlled_Tip=It has been controlled by InLevel Controller!
 
 
@@ -82,15 +83,20 @@ ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InputTip_EditMode_L
 ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InvalidInputTip_RGB_Label=Invalid value: RGB value must be no less than 0 and no more than 255.
 ModOptions_DBBHelper_ColorCorrection_ColorPicker_RGB_and_HSV_InvalidInputTip_HSV_Label=Invalid value: HSV value must be no less than 0 and no more than 100.
 
+ModOptions_DBBHelper_SpecialLight=SpecialLight Global Settings
+ModOptions_DBBHelper_SpecialLight_Tip=Controls SpecialLight settings of the in-game screen.{n}These properties may be overridden by level controllers.
+ModOptions_DBBHelper_SpecialLight_Switch=SpecialLight Switch
+ModOptions_DBBHelper_SpecialLight_Switch_Tip=Controls whether special light should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related lights in the level will be invisible.{n}Recommended to disable it only when encountering{n}SpecialLight-related bugs or effenciency issues.
+ModOptions_DBBHelper_SpecialLight_OnlyEnableOriginalLight=OnlyEnableOriginalLight
+ModOptions_DBBHelper_SpecialLight_OnlyEnableOriginalLight_Tip=This option controls whether to enable only the original light rendering layers.{n}------Mechanism------{n}In fact, DBBHelper processes light effects through two layers: one generates effects based on the original{n}game's light rendering layer, and the other is a special light effect layer designed by DBBHelper itself.{n}The special light rendering layer redraws light effects as textures onto the gameplay content layer, enabling{n}light effects that are difficult to achieve with the original light layer.{n}------Tips------{n}Enabling only the original light layer can improve game performance, but it may significantly affect the light{n}effects in maps that use DBBHelper's special light entities (GodLight2D, PointLight and TextureLight).{n}Therefore, it is recommended to try this option only when encountering performance issues.
 
+ModOptions_DBBHelper_SpecialLight_GeneralLightBlendState=GeneralLightBlendState
+ModOptions_DBBHelper_SpecialLight_GeneralLightBlendState_Tip=This option controls how DBBHelper's special light layer blends colors with the original gameplay content layer.{n}------AlphaKeep------{n}When set to AlphaKeep, it prioritizes ensuring the color accuracy of textures in the original gameplay content layer.{n}However, this affects the special light layer's effect on (semi-)transparent textures, making them appear brighter{n}under the influence of special light.{n}------AlphaWeakened------{n}When set to AlphaWeakened, it prioritizes the light colors. This allows special light to stand out more on{n}(semi-)transparent textures while weakening the texture's own colors to enhance the visual effect of the light.{n}This mode affects the brightness of (semi-)transparent textures under normal circumstances, making texture{n}colors darker. Notably, the lower the alpha of the texture, the more pronounced this effect becomes.{n}Tips: Therefore, when not using any special light entities, it's recommended to switch the mode to AlphaKeep {n}to avoid rendering issues with (semi-)transparent textures.
+ModOptions_DBBHelper_SpecialLight_Controlled_Tip=It has been controlled by InLevel Controller!
 
 
 ModOptions_DBBHelper_HDPostProcessing=HDPostProcessing Switch
 ModOptions_DBBHelper_HDPostProcessing_Tip=Controls whether post-processing effects should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related effects in the level will be invisible.{n}Recommended to disable it only when encountering{n}HDPostProcessing-related bugs or effenciency issues.
-
-ModOptions_DBBHelper_SpecialLight=SpecialLight Switch
-ModOptions_DBBHelper_SpecialLight_Tip=Controls whether special light should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related lights in the level will be invisible.{n}Recommended to disable it only when encountering{n}SpecialLight-related bugs or effenciency issues.
-
 
 ModOptions_DBBHelper_FogEffect=FogEffect Switch
 ModOptions_DBBHelper_FogEffect_Tip=Controls whether FogEffect should be enabled.{n}After setting it here, it will take effect upon re-entering the level.{n}If disabled, all related effect in the level will be invisible.{n}Recommended to disable it only when encountering{n}FogEffect-related bugs or effenciency issues.

@@ -4,19 +4,21 @@ local xnaColors = require("consts.xna_colors")
 local PointLightControl={}
 PointLightControl.name="DBBHelper/PointLightControl"
 
+PointLightControl.depth=-9000
 PointLightControl.fieldOrder={
     "x","y",
     "width","height",
 
     "AreaControlMode","Label",
-
+    "ColorStart","AlphaStart",
+    "ColorEnd","AlphaEnd",
     "ExtinctionStart","ExtinctionEnd",
     "SphereRadiusStart","SphereRadiusEnd",
     "EdgeWidthStart","EdgeWidthEnd",
     "FresnelCoefficientStart","FresnelCoefficientEnd",
     "CameraZStart","CameraZEnd",
     "AspectRatioProportionStart","AspectRatioProportionEnd",
-
+    "ColorControlMode",
     "ExtinctionControlMode","SphereRadiusControlMode",
     "EdgeWidthControlMode","FresnelCoefficientControlMode",
     "CameraZControlMode","AspectRatioProportionControlMode",
@@ -35,6 +37,22 @@ PointLightControl.fieldInformation={
     AreaControlMode={
         options=Area_Mode,
         editable=false
+    },
+    ColorStart={
+        fieldType="color",
+    },
+    ColorEnd={
+        fieldType="color",
+    },
+    AlphaStart={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    AlphaEnd={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
     },
     ExtinctionStart={
         fieldType="number",
@@ -80,6 +98,10 @@ PointLightControl.fieldInformation={
         fieldType="number",
         minimumValue=0.01,
     },
+    ColorControlMode={
+        options=Parameter_Mode,
+        editable=false
+    },
     ExtinctionControlMode={
         options=Parameter_Mode,
         editable=false
@@ -114,6 +136,8 @@ PointLightControl.placements={
         AreaControlMode="Left_to_Right",
         Label="Default",
 
+        ColorStart="FFFFFF",ColorEnd="FFFFFF",AlphaStart=1.0,AlphaEnd=1.0,ColorControlMode="Linear",
+    
         ExtinctionStart=10.0,ExtinctionEnd=10.0,ExtinctionControlMode="Linear",
         
         SphereRadiusStart=0.1,SphereRadiusEnd=0.1,SphereRadiusControlMode="Linear",

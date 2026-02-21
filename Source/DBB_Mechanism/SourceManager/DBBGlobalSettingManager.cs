@@ -9,7 +9,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
     public class DBBGlobalSettingManager
     {
         //调整特效相关
-        private static bool Need_To_Adjust = false;//指示是否需要调整特效的开关
+        private static bool Need_To_Adjust = false;//指示是否需要调整特效的开关，这个是针对非游戏内可设置的开关选项用的
         private static List<int> Ignore = new List<int>();//指示加载特效实体的钩子时需要忽略哪些特效实体
 
         //用于控制颜色矫正的开关
@@ -34,6 +34,8 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         //用于控制特殊光效的开关
         public static bool SpecialLightSwitch { get; set; } = true;
         public static bool Last_SpecialLightSwitch { get; set; } = true;
+        public static int SpecialLight_GeneralLightBlendState { get; set; } = 0;//特殊光照层与gp层的颜色混合方式
+        public static int SpecialLight_OnlyEnableOriginalLight { get; set; } = 0;//是否仅启用原版光照
 
         /// <summary>
         /// 当结束关卡时调整一些全局配置的值
@@ -52,6 +54,20 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             //告知菜单这些设置不再受关卡内参数控制
             DBBSettings.ColorCorrectionMenu.HDR_InLevelControled = false;
             DBBSettings.ColorCorrectionMenu.Tint_Saturation_InLevelControled = false;
+        }
+
+        /// <summary>
+        /// 当结束关卡时调整一些特殊光效的允许在局内进行配置的值
+        /// </summary>
+        private static void Adjust_SpecialLight_InGameGlobalSettings_WhenEnd(On.Celeste.Level.orig_End orig, Level self)
+        {
+            orig(self);
+            //调整特殊光照层的混合模式与仅启用原版光照设置
+            SpecialLight_GeneralLightBlendState = DBBSettings.SpecialLightMenu.SpecialLight_GeneralLightBlendState;
+            SpecialLight_OnlyEnableOriginalLight = DBBSettings.SpecialLightMenu.SpecialLight_OnlyEnableOriginalLight;
+            //告知菜单这些设置不再受关卡内参数控制
+            DBBSettings.SpecialLightMenu.GeneralLightBlendState_InLevelControled = false;
+            DBBSettings.SpecialLightMenu.OnlyEnableOriginalLight_InLevelControled = false;
         }
 
         /// <summary>
@@ -107,13 +123,16 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         public static void Load()
         {
             On.Celeste.Level.LoadLevel += new On.Celeste.Level.hook_LoadLevel(Adjust_EffectSettings_WhenBegin);
+
             On.Celeste.Level.End += new On.Celeste.Level.hook_End(Adjust_ColorCorrection_GlobalSettings_WhenEnd);
+            On.Celeste.Level.End += new On.Celeste.Level.hook_End(Adjust_SpecialLight_InGameGlobalSettings_WhenEnd);
         }
         /// <summary>
         /// 卸载钩子
         /// </summary> 
         public static void UnLoad()
         {
+            On.Celeste.Level.End -= new On.Celeste.Level.hook_End(Adjust_SpecialLight_InGameGlobalSettings_WhenEnd);
             On.Celeste.Level.End -= new On.Celeste.Level.hook_End(Adjust_ColorCorrection_GlobalSettings_WhenEnd);
             On.Celeste.Level.LoadLevel -= new On.Celeste.Level.hook_LoadLevel(Adjust_EffectSettings_WhenBegin);
         }

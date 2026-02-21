@@ -5,6 +5,12 @@ local drawLine = require("structs.drawable_line")
 local GodLight2D={}
 GodLight2D.name="DBBHelper/GodLight2D"
 
+Allstyle=
+{       "Instant","Linear",
+        "easeInSin","easeOutSin","easeInOutSin",
+        "easeInCubic","easeOutCubic","easeInOutCubic",
+        "easeInQuard","easeOutQuard","easeInOutQuard",
+}
 GodLight2D.fieldInformation={
     Velocity={
         fieldType="number",
@@ -48,6 +54,14 @@ GodLight2D.fieldInformation={
     BrightnessAmplify={
         minimumValue=0.0
     },
+    LevelInStyle={
+        options=Allstyle,
+        editable=false
+    },
+    LevelOutStyle={
+        options=Allstyle,
+        editable=false
+    }
 }
 
 GodLight2D.depth=-9000
@@ -61,6 +75,7 @@ GodLight2D.fieldOrder={
     "EmitScrollX","EmitScrollY",
     "ProbeScrollX","ProbeScrollY",
     "BrightnessAmplify","Label",
+    "LevelInStyle","LevelOutStyle",
     "OnlyEnableOriginalLight"
 }
 GodLight2D.placements={
@@ -87,6 +102,8 @@ GodLight2D.placements={
         --光对原版光照的亮度增幅
         BrightnessAmplify=1.0,
         Label="Default",
+        LevelInStyle="easeInOutSin",
+        LevelOutStyle="easeInOutSin",
         OnlyEnableOriginalLight=false,
     },
 }

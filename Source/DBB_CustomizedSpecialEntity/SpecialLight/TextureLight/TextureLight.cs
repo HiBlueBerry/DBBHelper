@@ -11,21 +11,26 @@ namespace Celeste.Mod.DBBHelper.Entities
     public class TextureLight : DBBGeneralLight
     {
         private MTexture light_texture;
-        private Color tint_color = Color.White;//光照的整体染色
-        private float scaleX = 1.0f;
-        private float scaleY = 1.0f;
-        private float rotation = 0.0f;
+        public Color tint_color = Color.White;//光照的整体染色
+        public Color ref_tint_color = Color.White;
+        public float scaleX = 1.0f;
+        public float scaleY = 1.0f;
+        public float rotation = 0.0f;
         private float light_amplify = 1.0f;//通道增强
         private Vector2 light_center = Vector2.Zero;
         private bool need_debug_mask = false;
         public TextureLight(EntityData data, Vector2 offset)
         {
+            //场景切入或切出时的光颜色变化方式
+            LevelIn_Style = data.Attr("LevelInStyle", "easeInOutSin");
+            LevelOut_Style = data.Attr("LevelOutStyle", "easeInOutSin");
             //通用设置
             Position = data.Position + offset;
             scaleX = data.Float("ScaleX");
             scaleY = data.Float("ScaleY");
             rotation = -data.Float("Rotation") / 180.0f * (float)Math.PI;
             tint_color = Calc.HexToColor(data.Attr("TintColor"));
+            ref_tint_color = tint_color;
             light_amplify = data.Float("LightAmplify", 1.0f);
             //是否仅启用原版光照
             DisableEntityLight = data.Bool("OnlyEnableOriginalLight");
@@ -49,6 +54,50 @@ namespace Celeste.Mod.DBBHelper.Entities
             //调用base.Added(scene)来将该实体分别添加到原版和自定义实体管理器中
             base.Added(scene);
             light_center = Position - (Scene as Level).Camera.Position;
+
+            TransitionListener handle_attribute = new TransitionListener();
+            //在场景过渡进入时，将一些值进行渐进处理
+            handle_attribute.OnIn = delegate (float f)
+            {
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelIn_Style == "Instant")
+                {
+                    return;
+                }
+                float time = (float)DBBMath.MotionMapping(f, LevelIn_Style);
+                tint_color.R = (byte)(time * ref_tint_color.R);
+                tint_color.G = (byte)(time * ref_tint_color.G);
+                tint_color.B = (byte)(time * ref_tint_color.B);
+                tint_color.A = (byte)(time * ref_tint_color.A);
+            };
+            handle_attribute.OnInBegin = delegate ()
+            {
+                if (LevelIn_Style != "Instant")
+                {
+                    tint_color = Color.Transparent;
+                }
+            };
+            handle_attribute.OnOutBegin = delegate ()
+            {
+                if (LevelOut_Style == "Instant")
+                {
+                    tint_color = Color.Transparent;
+                }
+            };
+            handle_attribute.OnOut = delegate (float f)
+            {
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelOut_Style == "Instant")
+                {
+                    return;
+                }
+                float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, LevelOut_Style), 1.0f, 0.0f);
+                tint_color.R = (byte)(time * ref_tint_color.R);
+                tint_color.G = (byte)(time * ref_tint_color.G);
+                tint_color.B = (byte)(time * ref_tint_color.B);
+                tint_color.A = (byte)(time * ref_tint_color.A);
+            };
+            Add(handle_attribute);
         }
         public override void Removed(Scene scene)
         {

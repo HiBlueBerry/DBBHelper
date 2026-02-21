@@ -4,16 +4,18 @@ local xnaColors = require("consts.xna_colors")
 local GodLight2DControl={}
 GodLight2DControl.name="DBBHelper/GodLight2DControl"
 
+GodLight2DControl.depth=-9000
 GodLight2DControl.fieldOrder={
     "x","y",
     "width","height",
 
     "AreaControlMode","Label",
-
+    "ColorStart","AlphaStart",
+    "ColorEnd","AlphaEnd",
     "BaseStrengthStart","BaseStrengthEnd",
     "ConcentrationFactorStart","ConcentrationFactorEnd",
     "ExtingctionFactorStart","ExtingctionFactorEnd",
-
+    "ColorControlMode",
     "BaseStrengthControlMode",
     "ConcentrationFactorControlMode",
     "ExtingctionFactorControlMode",
@@ -32,6 +34,22 @@ GodLight2DControl.fieldInformation={
     AreaControlMode={
         options=Area_Mode,
         editable=false
+    },
+    ColorStart={
+        fieldType="color",
+    },
+    ColorEnd={
+        fieldType="color",
+    },
+    AlphaStart={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    AlphaEnd={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
     },
     BaseStrengthStart={
         fieldType="number",
@@ -59,6 +77,10 @@ GodLight2DControl.fieldInformation={
         fieldType="number",
         minimumValue=0.01,
     },
+    ColorControlMode={
+        options=Parameter_Mode,
+        editable=false
+    },
     BaseStrengthControlMode={
         options=Parameter_Mode,
         editable=false
@@ -80,9 +102,13 @@ GodLight2DControl.placements={
         height=8,
         AreaControlMode="Left_to_Right",
         Label="Default",
-
+        
+        ColorStart="FFFFFF",ColorEnd="FFFFFF",AlphaStart=1.0,AlphaEnd=1.0,ColorControlMode="Linear",
+        
         BaseStrengthStart=0.5,BaseStrengthEnd=0.5,BaseStrengthControlMode="Linear",
+        
         ConcentrationFactorStart=0.6,ConcentrationFactorEnd=0.6,ConcentrationFactorControlMode="Linear",
+        
         ExtingctionFactorStart=2.0,ExtingctionFactorEnd=2.0,ExtingctionFactorControlMode="Linear",
         
     }

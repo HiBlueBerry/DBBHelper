@@ -475,21 +475,6 @@ namespace Celeste.Mod.DBBHelper.Entities
         //Ⅳ.场景Tracker知道自己有哪些组件了
         //Test:运行以下注释代码，你将会在控制台看到Celeste.Level的输出，但是如果你把这些代码放到Added里面去执行，将不会得到任何输出
         //验证目的：验证Add将实体添加进入了toadd列表而非直接添加到Scene.Entities中，同时验证了Update之前会进行BeforeUpdate，将toadd列表的内容送往Scene.Entities
-        //Tip:在Update中运行大量的控制台输出往往是性能炸弹，你可以先在游戏场景中按下ESC进行暂停（此时不会更新Update），然后取消暂停，观察控制台输出的结果，同时观察这种行为会对性能造成多大的影响
-            /*
-             foreach(var e in Scene.Entities.FindAll<CloudZipperPath>())
-            {
-               
-                if(e.Scene==null)
-                {
-                     Logger.Log(LogLevel.Warn,"Cloud test","NULL!!!");
-                }
-                else
-                {
-                    Logger.Log(LogLevel.Warn,"Cloud test",e.Scene.ToString());
-                }
-            }
-            */
             base.Update();
             CloudIdle();
             CloudStart();
@@ -502,7 +487,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             {
                 temp_path_index--;
             }
-            m_cloudpath.Update(m_refPosPoint,temp_path_index,b_pathback,m_respawnTimer,b_fragile_pathinit);
+            m_cloudpath.UpdateParameter(m_refPosPoint,temp_path_index,b_pathback,m_respawnTimer,b_fragile_pathinit);
         }  
         public override void Render()
         {   

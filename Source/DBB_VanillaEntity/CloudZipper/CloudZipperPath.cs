@@ -27,9 +27,9 @@ namespace Celeste.Mod.DBBHelper.Entities
         private int m_trail_point_LightEndFade=16;//轨迹点点光源衰弱结束半径
         private List<Vector2[]> m_points=new List<Vector2[]>();//轨迹线绘制点
         private List<float[]> m_lastper=new List<float[]>();//记录轨迹绘制点的上一次percent值，这用于碎片云的轨迹绘制
-        private List<float[]> m_lastper_for_fragile;
+        private List<float[]> m_lastper_for_fragile = new List<float[]>();
         private List<float> m_lastper_outline=new List<float>();//记录轮廓上一次percent值，这用于碎片云的轮廓绘制
-        private List<float> m_lastper_outline_for_fragile;//
+        private List<float> m_lastper_outline_for_fragile = new List<float>();//
         //以下为轨迹小矩形的参数
         private List<InvisibleLight[]> m_pointLight=new List<InvisibleLight[]>();//小矩形的光照
         private MTexture m_pointTexture;//小矩形纹理
@@ -100,13 +100,12 @@ namespace Celeste.Mod.DBBHelper.Entities
                 }
             }
             //轮廓纹理
-            m_cloudOutline=b_fragile?GFX.Game["objects/DBB_Items/CloudZipper/cloud_outline_p"]:GFX.Game["objects/DBB_Items/CloudZipper/cloud_outline_b"];
+            m_cloudOutline = b_fragile ? GFX.Game["objects/DBB_Items/CloudZipper/cloud_outline_p"] : GFX.Game["objects/DBB_Items/CloudZipper/cloud_outline_b"];
         }
         public override void Added(Scene scene)
         {
             //Active=false时实体的Update不会被执行，Invisible=false时实体的Render不会被执行
             //不希望CloudPath自己的Update自动被调用,而是把CloudPath的控制权完全交给CloudZipper
-            Active=false;
             base.Added(scene);
             
             for(int i=0;i<m_trail_point_num.Count;i++)
@@ -124,40 +123,46 @@ namespace Celeste.Mod.DBBHelper.Entities
         //画轨迹线
         private void DrawTrail()
         {
-            float length=(m_percent-m_node_pos[m_path_index]).Length();
+            float length = (m_percent - m_node_pos[m_path_index]).Length();
             float per;
             //对于碎片云已经碎掉的情况，使用lastper记录值来确定最终的颜色值
-            if(m_respawnTimer>0.0f||b_fragile_pathinit==true)
+            if (m_respawnTimer > 0.0f || b_fragile_pathinit == true)
             {
-                    per=Math.Clamp(m_respawnTimer/m_respawnTime,0.0f,m_respawnTime);
-                    //对于碎片云已经碎掉的情况，使用m_lastper_for_fragile记录值来确定最终的颜色值，并更新
-                    float temp;
-                    for(int i=0;i<m_points.Count;i++)
+                per = Math.Clamp(m_respawnTimer / m_respawnTime, 0.0f, m_respawnTime);
+                //对于碎片云已经碎掉的情况，使用m_lastper_for_fragile记录值来确定最终的颜色值，并更新
+                float temp;
+                //这种情况可能会出现，此时代表没有可以绘制的轨迹线
+                if (m_lastper_for_fragile == null || m_lastper_for_fragile.Count == 0)
+                {
+                    return;
+                }
+                for (int i = 0; i < m_points.Count; i++)
                     {
-                        for(int j=0;j<m_points[i].Length;j++)
-                        {   
-                            temp=m_lastper_for_fragile[i][j];
-                            m_pointTexture.DrawCentered(m_points[i][j],m_ropeColor*(float)DBBMath.Linear_Lerp(m_lastper[i][j],0.5,0.5+temp),0.02f,m_direction[i].Angle());
-                            m_lastper[i][j]=(float)DBBMath.Linear_Lerp(per,0.0,temp);
+                        for (int j = 0; j < m_points[i].Length; j++)
+                        {
+                            temp = m_lastper_for_fragile[i][j];
+                            m_pointTexture.DrawCentered(m_points[i][j], m_ropeColor * (float)DBBMath.Linear_Lerp(m_lastper[i][j], 0.5, 0.5 + temp), 0.02f, m_direction[i].Angle());
+                            m_lastper[i][j] = (float)DBBMath.Linear_Lerp(per, 0.0, temp);
                         }
                     } 
             }
             //对于云未碎掉的情况，基于距离直接计算最终的颜色值(并保存颜色进度值)
             else
             {
-                for(int i=0;i<m_trail_point_num[m_path_index];i++)
+                for (int i = 0; i < m_trail_point_num[m_path_index]; i++)
                 {
-                    float point_distance=(m_points[m_path_index][i]-m_node_pos[m_path_index]).Length();
-                    per=Math.Clamp((length-point_distance)/(m_pointTexture.Width*0.02f),0.0f,1.0f);
-                    m_lastper[m_path_index][i]=per;
+                    float point_distance = (m_points[m_path_index][i] - m_node_pos[m_path_index]).Length();
+                    per = Math.Clamp((length - point_distance) / (m_pointTexture.Width * 0.02f), 0.0f, 1.0f);
+                    m_lastper[m_path_index][i] = per;
                 }
                 //记录每一次的m_lastper_for_fragile值以便在碎片云碎掉时可以获取临界状态
-                m_lastper_for_fragile=m_lastper;
-                for(int i=0;i<m_points.Count;i++)
+                //bug:这个赋值可能会失败，由SL引起，这里的逻辑需要重写
+                m_lastper_for_fragile = m_lastper;
+                for (int i = 0; i < m_points.Count; i++)
                 {
-                    for(int j=0;j<m_points[i].Length;j++)
+                    for (int j = 0; j < m_points[i].Length; j++)
                     {
-                        m_pointTexture.DrawCentered(m_points[i][j],m_ropeColor*(float)DBBMath.Linear_Lerp(m_lastper[i][j],0.5,1.0),0.02f,m_direction[i].Angle());
+                        m_pointTexture.DrawCentered(m_points[i][j], m_ropeColor * (float)DBBMath.Linear_Lerp(m_lastper[i][j], 0.5, 1.0), 0.02f, m_direction[i].Angle());
                     }
                 }
             }
@@ -168,49 +173,56 @@ namespace Celeste.Mod.DBBHelper.Entities
         private void DrawOutline()
         {
             //绘制云的轮廓
-            float tmp_scale=b_small ? 25.0f/35.0f*1.0f : 1.0f;
-            float per=0.0f;
-            Color tmp_color=Color.White;
+            float tmp_scale = b_small ? 25.0f / 35.0f * 1.0f : 1.0f;
+            float per = 0.0f;
+            Color tmp_color = Color.White;
             //记录每一次的m_lastper_outline值以便在碎片云碎掉时可以获取临界状态
-            if(m_respawnTimer==0.0f)
+            if (m_respawnTimer == 0.0f)
             {
-                m_lastper_outline_for_fragile=m_lastper_outline;
+                //bug:这个赋值可能会失败，由SL引起，这里的逻辑需要重写
+                m_lastper_outline_for_fragile = m_lastper_outline;
+            }
+            //这种情况可能会出现，此时代表没有可以绘制的轮廓
+            if (m_lastper_outline_for_fragile == null || m_lastper_outline_for_fragile.Count == 0)
+            {
+                return;
             }
             //对于碎片云已经碎掉的情况，使用m_lastper_outline_for_fragile记录值来确定最终的颜色值，并更新
-            if(m_respawnTimer>0.0f||b_fragile_pathinit==true)
+            if (m_respawnTimer > 0.0f || b_fragile_pathinit == true)
             {
-                per=Math.Clamp(m_respawnTimer/m_respawnTime,0.0f,m_respawnTime);
+                per = Math.Clamp(m_respawnTimer / m_respawnTime, 0.0f, m_respawnTime);
 
-                for(int i=0;i<m_node_pos.Count;i++)
-                {   
-                    m_cloudOutline.DrawCentered(m_node_pos[i],Color.White*m_lastper_outline[i],new Vector2(tmp_scale,1.0f),0.0f);
-                    m_lastper_outline[i]=(float)DBBMath.Linear_Lerp(per,1.0f,m_lastper_outline_for_fragile[i]);
+                for (int i = 0; i < m_node_pos.Count; i++)
+                {
+                    m_cloudOutline.DrawCentered(m_node_pos[i], Color.White * m_lastper_outline[i], new Vector2(tmp_scale, 1.0f), 0.0f);
+                    m_lastper_outline[i] = (float)DBBMath.Linear_Lerp(per, 1.0f, m_lastper_outline_for_fragile[i]);
                 }
             }
             //对于云未碎掉的情况，基于距离直接计算最终的颜色值(并保存颜色进度值)
-            else{
-                    per=(m_percent-m_node_pos[m_path_index+1]).Length()/m_distance[m_path_index];
-                    m_lastper_outline[m_path_index+1]=per;
-                    m_lastper_outline[m_path_index]=1-per;
-                    for(int i=0;i<m_node_pos.Count;i++)
-                    {
-                        m_cloudOutline.DrawCentered(m_node_pos[i],Color.White*m_lastper_outline[i],new Vector2(tmp_scale,1.0f),0.0f);
-                    }
+            else
+            {
+                per = (m_percent - m_node_pos[m_path_index + 1]).Length() / m_distance[m_path_index];
+                m_lastper_outline[m_path_index + 1] = per;
+                m_lastper_outline[m_path_index] = 1 - per;
+                for (int i = 0; i < m_node_pos.Count; i++)
+                {
+                    m_cloudOutline.DrawCentered(m_node_pos[i], Color.White * m_lastper_outline[i], new Vector2(tmp_scale, 1.0f), 0.0f);
+                }
             }
            
             
         }
-        public void Update(Vector2 per,int path_index,bool is_back,float respawnTimer,bool fragile_pathinit)
+        public void UpdateParameter(Vector2 per,int path_index,bool is_back,float respawnTimer,bool fragile_pathinit)
         {
             base.Update();
-            m_percent=per;
-            m_path_index=path_index;
-            b_is_back=is_back;
-            m_respawnTimer=respawnTimer;
-            b_fragile_pathinit=fragile_pathinit;
+            m_percent = per;
+            m_path_index = path_index;
+            b_is_back = is_back;
+            m_respawnTimer = respawnTimer;
+            b_fragile_pathinit = fragile_pathinit;
         }
         public override void Render()
-        {   
+        {
             //绘制Zipper的轮廓、轨迹线
             DrawOutline();
             DrawTrail();

@@ -18,6 +18,13 @@ namespace Celeste.Mod.DBBHelper.Entities
         private string label = "Default";//区域所控制的特效是哪一个
 
         //------------------可以更改的特效性质------------------
+
+        private Vector4 color_start=Vector4.One;
+        private Vector4 color_end=Vector4.One;
+        private string color_control_mode = "Linear";
+        private Vector4 color_tmp=Vector4.One;
+        private bool has_color = true;
+
         private float extinction_start = 10.0f;
         private float extinction_end = 10.0f;
         private string extinction_control_mode = "Linear";
@@ -55,7 +62,19 @@ namespace Celeste.Mod.DBBHelper.Entities
 
             area_control_mode = data.Attr("AreaControlMode");
             label = data.Attr("Label");
-
+            //为了兼容旧版本，这里需要判断是否有颜色参数
+            if (!data.Has("ColorStart"))
+            {
+                has_color = false;
+            }
+            else
+            {
+                color_start = DBBMath.ConvertColor(data.Attr("ColorStart"));
+                color_end = DBBMath.ConvertColor(data.Attr("ColorEnd"));
+                color_control_mode = data.Attr("ColorControlMode");
+                color_start.W = data.Float("AlphaStart",1.0f);
+                color_end.W = data.Float("AlphaEnd",1.0f);
+            }
             extinction_start = data.Float("ExtinctionStart");
             extinction_end = data.Float("ExtinctionEnd");
             extinction_control_mode = data.Attr("ExtinctionControlMode");
@@ -96,6 +115,11 @@ namespace Celeste.Mod.DBBHelper.Entities
             float time = DBBMath.MotionMapping(t, mode);
             return (float)DBBMath.Linear_Lerp(time, start, end);
         }
+        private Vector4 Calc_tmpValue(float t, string mode, Vector4 start, Vector4 end)
+        {
+            float time = DBBMath.MotionMapping(t, mode);
+            return DBBMath.Linear_Lerp(time, start, end);
+        }
         //尝试更新参数
         private void UpdateParameter()
         {
@@ -117,6 +141,10 @@ namespace Celeste.Mod.DBBHelper.Entities
                 //从左到右模式
                 if (area_control_mode == "Left_to_Right")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = Calc_tmpValue(x_proportion, color_control_mode, color_start, color_end);
+                    }
                     extinction_tmp = Calc_tmpValue(x_proportion, extinction_control_mode, extinction_start, extinction_end);
                     sphere_radius_tmp = Calc_tmpValue(x_proportion, sphere_radius_control_mode, sphere_radius_start, sphere_radius_end);
                     edge_width_tmp = Calc_tmpValue(x_proportion, edge_width_control_mode, edge_width_start, edge_width_end);
@@ -127,6 +155,10 @@ namespace Celeste.Mod.DBBHelper.Entities
                 //从下到上模式
                 else if (area_control_mode == "Bottom_to_Top")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = Calc_tmpValue(y_proportion, color_control_mode, color_start, color_end);
+                    }
                     extinction_tmp = Calc_tmpValue(y_proportion, extinction_control_mode, extinction_start, extinction_end);
                     sphere_radius_tmp = Calc_tmpValue(y_proportion, sphere_radius_control_mode, sphere_radius_start, sphere_radius_end);
                     edge_width_tmp = Calc_tmpValue(y_proportion, edge_width_control_mode, edge_width_start, edge_width_end);
@@ -137,6 +169,10 @@ namespace Celeste.Mod.DBBHelper.Entities
                 //立即数模式
                 else if (area_control_mode == "Instant")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = color_end;
+                    } 
                     extinction_tmp = extinction_end;
                     sphere_radius_tmp = sphere_radius_end;
                     edge_width_tmp = edge_width_end;
@@ -155,6 +191,12 @@ namespace Celeste.Mod.DBBHelper.Entities
                     //控制器控制和它的标签相同且已经被激活的雾效，而且它们应该在同一个房间里
                     if (item.label == label && item.Active == true)
                     {
+                        //这里兼容之前的版本
+                        if (has_color)
+                        {
+                            item.color = color_tmp;
+                            item.ref_color = color_tmp;
+                        }
                         item.extinction = extinction_tmp;
                         item.sphere_radius = sphere_radius_tmp;
                         item.edge_width = edge_width_tmp;

@@ -5,7 +5,12 @@ local drawLine = require("structs.drawable_line")
 local AnimatedTextureLight={}
 AnimatedTextureLight.name="DBBHelper/AnimatedTextureLight"
 
-
+Allstyle=
+{       "Instant","Linear",
+        "easeInSin","easeOutSin","easeInOutSin",
+        "easeInCubic","easeOutCubic","easeInOutCubic",
+        "easeInQuard","easeOutQuard","easeInOutQuard",
+}
 RefPath=
 {
     "objects/DBB_Items/DBBLightTexture/AnimatedDefaultSprite/default_sprite",
@@ -35,6 +40,14 @@ AnimatedTextureLight.fieldInformation={
     LightAmplify={
         fieldType="number",
         minimumValue=0.0,
+    },
+    LevelInStyle={
+        options=Allstyle,
+        editable=false
+    },
+    LevelOutStyle={
+        options=Allstyle,
+        editable=false
     }
 }
 
@@ -44,7 +57,9 @@ AnimatedTextureLight.fieldOrder={
     "SpritePath","TintColor",
     "ScaleX","ScaleY",
     "Rotation","DelayTime",
-    "LightAmplify","OnlyEnableOriginalLight",
+    "LightAmplify",
+    "LevelInStyle","LevelOutStyle",
+    "OnlyEnableOriginalLight",
     "DebugMask","ShowInLoenn"
 }
 AnimatedTextureLight.placements={
@@ -59,6 +74,8 @@ AnimatedTextureLight.placements={
         --贴图颜色相关
         TintColor="FFFFFF",
         LightAmplify=1.0,
+        LevelInStyle="easeInOutSin",
+        LevelOutStyle="easeInOutSin",
         OnlyEnableOriginalLight=false,
         DebugMask=false,
         ShowInLoenn=true,

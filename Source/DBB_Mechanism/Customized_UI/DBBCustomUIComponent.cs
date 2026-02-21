@@ -1,11 +1,9 @@
 using System;
-using System.ComponentModel;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Monocle;
 using Celeste.Mod.DBBHelper.UI.OUI;
 using Celeste.Mod.UI;
-using System.Linq;
-using Celeste.Mod.DBBHelper.Mechanism;
 namespace Celeste.Mod.DBBHelper.UI.UIComponent
 {
     public class DBBCustomUIComponent
@@ -47,9 +45,10 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 int previous_value = -1,
                 Func<bool> event_handle = null,
                 string event_handle_label = "ModOptions_DBBHelper_General_EventHandleLabel",
-                Func<bool> disable_handle=null
+                Func<bool> disable_handle = null
             ) : base(label, values, min, max, previous_value)
             {
+
                 this.UnselectedHightlightColor = UnselectedHightlightColor;
                 this.EventHightlightedColor = EventHightlightedColor;
                 this.event_handle_label = event_handle_label;
@@ -62,6 +61,11 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 }
                 this.default_value = default_value < 0 ? 0 : default_value - min;
                 isDefault = true;
+            }
+            public override float Height()
+            {
+                float extend_height = event_handle_message ? warn_label.Height : 0.0f;
+                return ActiveFont.LineHeight + extend_height;
             }
             public override void Update()
             {
@@ -82,14 +86,19 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 float alpha = Container.Alpha;
                 Color strokeColor = Color.Black * (alpha * alpha * alpha);
                 isDefault = (Index == default_value) ? true : false;
-
+                //justify为(0,0)时为左上角锚点，为(0,0.5)时为左侧中点为锚点，为(0.5,0.5)时为中间锚点，为(1,0.5)时为右侧中点为锚点
                 Color color = Disabled ? Color.DarkSlateGray : ((highlighted ? Container.HighlightColor : (isDefault ? UnselectedColor : UnselectedHightlightColor)) * alpha);
+                //居中绘制标签字体
                 ActiveFont.DrawOutline(Label, position, new Vector2(0f, 0.5f), Vector2.One, color, 2f, strokeColor);
+                //Draw.Rect(position, 16.0f, 16.0f, Color.Red);//这个是这个item真正的左上角锚点
+                //Draw.Rect(position + new Vector2(0.0f, ActiveFont.LineHeight), 16.0f, 16.0f, Color.DeepSkyBlue);//这个用来确定字体高度
+                //如果关卡内控制器接管参数，则显示警告
                 if (event_handle_message == true)
                 {
-                    warn_label.DrawCentered(position + new Vector2(LeftWidth(), 4.0f));
-                    ActiveFont.DrawOutline(Dialog.Clean(event_handle_label), position + new Vector2(LeftWidth() + 24.0f, 8.0f), new Vector2(0f, 0.5f), new Vector2(0.6f, 0.6f), EventHightlightedColor, 2f, strokeColor);
+                    warn_label.Draw(position + new Vector2(0, 0.5f * ActiveFont.LineHeight));
+                    ActiveFont.DrawOutline(Dialog.Clean(event_handle_label), position + new Vector2(warn_label.Width * 1.1f, 0.5f * ActiveFont.LineHeight), new Vector2(0f, 0.1f), new Vector2(0.6f, 0.6f), EventHightlightedColor, 2f, strokeColor);
                 }
+                //这个是右侧的选项
                 if (Values.Count > 0)
                 {
                     float num = RightWidth();
@@ -107,6 +116,104 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             }
         }
 
+        //我认为这是一个非常愚蠢的事情
+        public class ExtendedDescription : TextMenuExt.SubHeaderExt
+        {
+            private float current_alpha;
+            public bool FadeVisible { get; set; } = true;
+            public float offset = 0.0f;
+            public TextMenu.Item item;
+            /// <summary>
+            /// 扩展的描述组件
+            /// <para name="item">item：将该描述组件绑定到对应的组件item上</para>
+            /// <para name="description_label">description_label：Dialog中的标签，指定描述的显示名称</para>
+            /// <para name="initial_visible">initial_visible：指定初始化时是否可见</para>
+            /// <para name="icon">icon：Dialog中的标签，指定图标的路径</para>
+            /// <para name="offset">offset:在打开描述时文字形成位置的偏移量，0.0时为对应item的左上角锚点的Y位置</para>
+            /// </summary>
+            public ExtendedDescription(TextMenu.Item item, string description_label, bool initial_visible, string icon = null, float offset = 0.0f) : base(description_label, icon)
+            {
+                string description = description_label.DialogCleanOrNull() ?? description_label;
+                //这里重新改一下title的内容
+                base.Title = description;
+                //如果初始化时可见，则alpha直接设置为1，视觉效果上是突然显示，否则则alpha设置为0，视觉效果上是缓慢出现
+                FadeVisible = initial_visible;
+                Alpha = FadeVisible ? 1 : 0;
+                current_alpha = Alpha;
+                this.offset = offset;
+                //绑定对应的item
+                this.item = item;
+                if (this.item != null)
+                {
+                    this.item.OnEnter += () => { this.FadeVisible = true; };
+                    this.item.OnLeave += () => { this.FadeVisible = false; };
+                }
+
+            }
+            public override float Height()
+            {
+                //offset是在打开注释时文字形成位置的偏移量，打开注释时文字是从item.position+Vector2(0,offset)处形成，然后再移动到item.position+Vector2(0,base.Height)
+                return MathHelper.Lerp(offset, base.Height(), Alpha);
+            }
+
+            public override void Update()
+            {
+                base.Update();
+                //确认最终的目标alpha是多少
+                float target_alpha = FadeVisible ? 1 : 0;
+                //根据目标alpha，让当前的alpha去逼近它
+                if (current_alpha != target_alpha)
+                {
+                    //以这个速度去逼近
+                    current_alpha = Calc.Approach(current_alpha, target_alpha, Engine.RawDeltaTime * 3f);
+                    //根据是否可见来确定是渐入过程还是渐出过程
+                    if (FadeVisible)
+                    {
+                        Alpha = Ease.SineOut(current_alpha);
+                    }
+                    else
+                    {
+                        Alpha = Ease.SineIn(current_alpha);
+                    }
+                }
+                //当Alpha为0时设置为不可见
+                Visible = Alpha != 0f;
+            }
+        }
+        //占位用的组件，只用于显示空白行
+        public class PlaceholderItem : TextMenu.Item
+        {
+            public int blank_num = 1;//占位行数
+            public Vector2 scale = new Vector2(1.0f, 0.5f);
+            public PlaceholderItem(int blank_num = 1, float scale = 0.5f)
+            {
+                this.blank_num = blank_num;
+                Selectable = false;
+                this.scale = new Vector2(1.0f, scale);
+            }
+            
+            public override float LeftWidth()
+            {
+                return 32.0f;
+            }
+            //返回该项右侧内容的宽度
+            public override float RightWidth()
+            {
+                return 120f;
+            }
+            //返回该项所占据的高度
+            public override float Height()
+            {
+                return ActiveFont.LineHeight * scale.Y * blank_num;
+            }
+            //渲染
+            public override void Render(Vector2 position, bool highlighted)
+            {
+                //绘制空白行
+                string blank = string.Concat(Enumerable.Repeat("\n", blank_num));
+                ActiveFont.DrawOutline(blank, position, new Vector2(0.0f, 0.5f), scale, Color.White, 2f, Color.Black);
+            }
+        }
         public class ColorPicker : TextMenu.Item
         {
             private MTexture warn_label = GFX.Game["objects/DBB_Items/UI/warn"];
@@ -243,7 +350,8 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
             //返回该项所占据的高度
             public override float Height()
             {
-                return ActiveFont.LineHeight;
+                float extend_height = event_handle_message ? warn_label.Height : 0.0f;
+                return ActiveFont.LineHeight + extend_height;
             }
             //渲染一些东西
             public override void Render(Vector2 position, bool highlighted)
@@ -253,7 +361,7 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 Color strokeColor = Color.Black * (alpha * alpha * alpha);
                 Color color = Disabled ? Color.DarkSlateGray : ((highlighted ? Container.HighlightColor : (CurrentValue == Vector4.One) ? UnselectedColor : UnselectedHightlightColor) * alpha);
                 ActiveFont.DrawOutline(Label, position, new Vector2(0f, 0.5f), Vector2.One, color, 2f, strokeColor);
-                
+
                 //一个小的颜色展示区域，叠加两层，底层大一些，顶层小一些用于构成边框的效果
                 Color current_color = new Color(CurrentValue);
                 Vector2 color_pos = position + new Vector2(Container.Width - 40.0f - colorRender_offset.X * 0.5f, -colorRender_offset.Y * 0.2f);
@@ -266,8 +374,8 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 ActiveFont.DrawOutline(current_colorString, string_pos, new Vector2(1.0f, 0.5f), Vector2.One * 0.8f, color, 2f, strokeColor);
                 if (event_handle_message == true)
                 {
-                    warn_label.DrawCentered(position + new Vector2(LeftWidth(), 4.0f));
-                    ActiveFont.DrawOutline(Dialog.Clean(event_handle_label), position + new Vector2(LeftWidth() + 24.0f, 8.0f), new Vector2(0f, 0.5f), new Vector2(0.6f, 0.6f), EventHightlightedColor, 2f, strokeColor);
+                    warn_label.Draw(position + new Vector2(0, 0.5f * ActiveFont.LineHeight));
+                    ActiveFont.DrawOutline(Dialog.Clean(event_handle_label), position + new Vector2(warn_label.Width * 1.1f, 0.5f * ActiveFont.LineHeight), new Vector2(0f, 0.1f), new Vector2(0.6f, 0.6f), EventHightlightedColor, 2f, strokeColor);
                 }
             }
             //感觉是无用小函数
@@ -283,7 +391,7 @@ namespace Celeste.Mod.DBBHelper.UI.UIComponent
                 OnValueChange = do_something_on_value_change;
                 return this;
             }
-            
+
         }
     }
 }

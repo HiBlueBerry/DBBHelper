@@ -4,7 +4,12 @@ local draw=require("utils.drawing")
 local drawLine = require("structs.drawable_line")
 local PointLight={}
 PointLight.name="DBBHelper/PointLight"
-
+Allstyle=
+{       "Instant","Linear",
+        "easeInSin","easeOutSin","easeInOutSin",
+        "easeInCubic","easeOutCubic","easeInOutCubic",
+        "easeInQuard","easeOutQuard","easeInOutQuard",
+}
 PointLight.fieldInformation={
     Extinction={
         fieldType="number",
@@ -37,6 +42,14 @@ PointLight.fieldInformation={
     AspectRatioProportion={
         minimumValue=0.01
     },
+    LevelInStyle={
+        options=Allstyle,
+        editable=false
+    },
+    LevelOutStyle={
+        options=Allstyle,
+        editable=false
+    }
     
 }
 
@@ -48,6 +61,7 @@ PointLight.fieldOrder={
     "Color","Alpha",
     "BrightnessAmplify","AspectRatioProportion",
     "CameraZ","Label",
+    "LevelInStyle","LevelOutStyle",
     "OnlyEnableOriginalLight",
 }
 PointLight.placements={
@@ -66,6 +80,8 @@ PointLight.placements={
         AspectRatioProportion=1.0,
         CameraZ=0.5,
         Label="Default",
+        LevelInStyle="easeInOutSin",
+        LevelOutStyle="easeInOutSin",
         OnlyEnableOriginalLight=false,
     },
 }

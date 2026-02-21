@@ -62,7 +62,7 @@ namespace Celeste.Mod.DBBHelper.Entities
         //尝试更新参数
         private void UpdateParameter()
         {
-            if (Scene == null)
+            if (Active == false||Scene == null)
             {
                 return;
             }

@@ -33,7 +33,13 @@ namespace Celeste.Mod.DBBHelper.Entities
         private string extingction_factor_control_mode = "Linear";
         private float extingction_factor_tmp = 1.0f;
 
-       
+        private Vector4 color_start=Vector4.One;
+        private Vector4 color_end=Vector4.One;
+        private string color_control_mode = "Linear";
+        private Vector4 color_tmp=Vector4.One;
+        private bool has_color = true;
+
+
 
         public GodLight2DControl(EntityData data, Vector2 offset)
         {
@@ -54,6 +60,19 @@ namespace Celeste.Mod.DBBHelper.Entities
             extingction_factor_start = data.Float("ExtingctionFactorStart");
             extingction_factor_end = data.Float("ExtingctionFactorEnd");
             extingction_factor_control_mode = data.Attr("ExtingctionFactorControlMode");
+            //为了兼容旧版本，这里需要判断是否有颜色参数
+            if (!data.Has("ColorStart"))
+            {
+                has_color = false;
+            }
+            else
+            {
+                color_start = DBBMath.ConvertColor(data.Attr("ColorStart"));
+                color_end = DBBMath.ConvertColor(data.Attr("ColorEnd"));
+                color_control_mode = data.Attr("ColorControlMode");
+                color_start.W = data.Float("AlphaStart",1.0f);
+                color_end.W = data.Float("AlphaEnd",1.0f);
+            }
         }
         public override void Added(Scene scene)
         {
@@ -69,6 +88,11 @@ namespace Celeste.Mod.DBBHelper.Entities
         {
             float time = DBBMath.MotionMapping(t, mode);
             return (float)DBBMath.Linear_Lerp(time, start, end);
+        }
+        private Vector4 Calc_tmpValue(float t, string mode, Vector4 start, Vector4 end)
+        {
+            float time = DBBMath.MotionMapping(t, mode);
+            return DBBMath.Linear_Lerp(time, start, end);
         }
         //尝试更新参数
         private void UpdateParameter()
@@ -91,20 +115,32 @@ namespace Celeste.Mod.DBBHelper.Entities
                 //从左到右模式
                 if (area_control_mode == "Left_to_Right")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = Calc_tmpValue(x_proportion, color_control_mode, color_start, color_end);
+                    }
                     base_strength_tmp = Calc_tmpValue(x_proportion, base_strength_control_mode, base_strength_start, base_strength_end);
                     concentration_factor_tmp = Calc_tmpValue(x_proportion, concentration_factor_control_mode, concentration_factor_start, concentration_factor_end);
-                    extingction_factor_tmp = Calc_tmpValue(x_proportion, extingction_factor_control_mode, extingction_factor_start, extingction_factor_end);      
+                    extingction_factor_tmp = Calc_tmpValue(x_proportion, extingction_factor_control_mode, extingction_factor_start, extingction_factor_end);
                 }
                 //从下到上模式
                 else if (area_control_mode == "Bottom_to_Top")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = Calc_tmpValue(y_proportion, color_control_mode, color_start, color_end);
+                    }
                     base_strength_tmp = Calc_tmpValue(y_proportion, base_strength_control_mode, base_strength_start, base_strength_end);
                     concentration_factor_tmp = Calc_tmpValue(y_proportion, concentration_factor_control_mode, concentration_factor_start, concentration_factor_end);
-                    extingction_factor_tmp = Calc_tmpValue(y_proportion, extingction_factor_control_mode, extingction_factor_start, extingction_factor_end);                   
+                    extingction_factor_tmp = Calc_tmpValue(y_proportion, extingction_factor_control_mode, extingction_factor_start, extingction_factor_end);
                 }
                 //立即数模式
                 else if (area_control_mode == "Instant")
                 {
+                    if (has_color)
+                    {
+                        color_tmp = color_end;
+                    } 
                     base_strength_tmp = base_strength_end;
                     concentration_factor_tmp = concentration_factor_end;
                     extingction_factor_tmp = extingction_factor_end;
@@ -120,6 +156,12 @@ namespace Celeste.Mod.DBBHelper.Entities
                     //控制器控制和它的标签相同且已经被激活的雾效，而且它们应该在同一个房间里
                     if (item.label == label && item.Active == true)
                     {
+                        //这里兼容之前的版本
+                        if (has_color)
+                        {
+                            item.color = color_tmp;
+                            item.ref_color = color_tmp;
+                        }
                         item.base_strength = base_strength_tmp;
                         item.concentration_factor = concentration_factor_tmp;
                         item.extingction_factor = extingction_factor_tmp;

@@ -212,12 +212,20 @@ entities.DBBHelper/GodLight2D.attributes.description.OnlyEnableOriginalLight=Whe
 entities.DBBHelper/GodLight2DControl.placements.name.GodLight2DControl=GodLight2D Control
 entities.DBBHelper/GodLight2DControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
 entities.DBBHelper/GodLight2DControl.attributes.description.Label=Used to link this entity to a GodLight2D entity.\nThis entity will control some parameters of the corresponding GodLight2D when tags match.
+
+entities.DBBHelper/GodLight2DControl.attributes.description.ColorStart=Start value of color.
+entities.DBBHelper/GodLight2DControl.attributes.description.AlphaStart=Start value of alpha of color.
+entities.DBBHelper/GodLight2DControl.attributes.description.ColorEnd=End value of color.
+entities.DBBHelper/GodLight2DControl.attributes.description.AlphaEnd=End value of alpha of color.
 entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthStart=Start value of base strength.
 entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthEnd=End value of base strength.
+entities.DBBHelper/GodLight2DControl.attributes.description.ColorControlMode=Transition style of Color.
 entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorStart=End value of concentration factor.
 entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorEnd=End value of concentration factor.
 entities.DBBHelper/GodLight2DControl.attributes.description.ExtingctionFactorStart=End value of extingction factor.
 entities.DBBHelper/GodLight2DControl.attributes.description.ExtingctionFactorEnd=End value of extingction factor.
+
+
 
 entities.DBBHelper/GodLight2DControl.attributes.description.BaseStrengthControlMode=Transition style of BaseStrength.
 entities.DBBHelper/GodLight2DControl.attributes.description.ConcentrationFactorControlMode=Transition style of ConcentrationFactor.
@@ -441,6 +449,11 @@ entities.DBBHelper/PointLight.attributes.description.OnlyEnableOriginalLight=Whe
 
 entities.DBBHelper/PointLightControl.placements.name.PointLightControl=Fresnel Point Light Control
 entities.DBBHelper/PointLightControl.attributes.description.Label=Used to link this entity to a PointLight entity.\nThis entity will control some parameters of the corresponding PointLight when tags match.
+
+entities.DBBHelper/PointLightControl.attributes.description.ColorStart=Start value of color.
+entities.DBBHelper/PointLightControl.attributes.description.AlphaStart=Start value of alpha of color.
+entities.DBBHelper/PointLightControl.attributes.description.ColorEnd=End value of color.
+entities.DBBHelper/PointLightControl.attributes.description.AlphaEnd=End value of alpha of color.
 entities.DBBHelper/PointLightControl.attributes.description.ExtinctionStart=Start value of extinction.
 entities.DBBHelper/PointLightControl.attributes.description.ExtinctionEnd=End value of extinction.
 entities.DBBHelper/PointLightControl.attributes.description.SphereRadiusStart=Start value of sphere radius.
@@ -453,6 +466,7 @@ entities.DBBHelper/PointLightControl.attributes.description.CameraZStart=Start v
 entities.DBBHelper/PointLightControl.attributes.description.CameraZEnd=End value of camera z-position.
 entities.DBBHelper/PointLightControl.attributes.description.AspectRatioProportionStart=Start value of aspect ratio proportion.
 entities.DBBHelper/PointLightControl.attributes.description.AspectRatioProportionEnd=End value of aspect ratio proportion.
+entities.DBBHelper/PointLightControl.attributes.description.ColorControlMode=Transition style of Color.
 entities.DBBHelper/PointLightControl.attributes.description.ExtinctionControlMode=Transition style of Extinction.
 entities.DBBHelper/PointLightControl.attributes.description.SphereRadiusControlMode=Transition style of SphereRadius.
 entities.DBBHelper/PointLightControl.attributes.description.EdgeWidthControlMode=Transition style of EdgeWidth.
@@ -475,6 +489,22 @@ entities.DBBHelper/TextureLight.attributes.description.OnlyEnableOriginalLight=W
 entities.DBBHelper/TextureLight.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
 entities.DBBHelper/TextureLight.attributes.description.ShowInLoenn=Whether to show texture in loenn, this only influences loenn.\nThis option is only used to avoid potential image occlusion issues when editing maps.\nWhen you disable it, only the default images will be displayed in Loenn.
 
+entities.DBBHelper/TextureLightControl.placements.name.TextureLightControl=Texture Light Control
+entities.DBBHelper/TextureLightControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/TextureLightControl.attributes.description.Label=Used to link this entity to a TextureLight entity.\nThis entity will control some parameters of the corresponding TextureLight when tags match.
+entities.DBBHelper/TextureLightControl.attributes.description.TintColorStart=Start value of tint color.
+entities.DBBHelper/TextureLightControl.attributes.description.TintColorEnd=End value of tint color.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleXStart=Start value of scaleX.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleXEnd=End value of scaleX.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleYStart=Start value of scaleY.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleYEnd=End value of scaleY.
+entities.DBBHelper/TextureLightControl.attributes.description.RotationStart=Start value of rotation.
+entities.DBBHelper/TextureLightControl.attributes.description.RotationEnd=End value of rotation.
+entities.DBBHelper/TextureLightControl.attributes.description.TintColorControlMode=Transition style of tint color.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleXControlMode=Transition style of scaleX.
+entities.DBBHelper/TextureLightControl.attributes.description.ScaleYControlMode=Transition style of scaleY.
+entities.DBBHelper/TextureLightControl.attributes.description.RotationControlMode=Transition style of rotation.
+
 entities.DBBHelper/AnimatedTextureLight.placements.name.AnimatedTextureLight=Animated Texture Light
 entities.DBBHelper/AnimatedTextureLight.attributes.description.SpritePath=Path of animated light texture.\nIt is advisable for pixels with low brightness to be accompanied by low alpha values.
 entities.DBBHelper/AnimatedTextureLight.attributes.description.TintColor=Apply overall tint color to the texture.
@@ -486,6 +516,37 @@ entities.DBBHelper/AnimatedTextureLight.attributes.description.LightAmplify=Ampl
 entities.DBBHelper/AnimatedTextureLight.attributes.description.OnlyEnableOriginalLight=Whether this entity should only influence the vanilla lighting render. 
 entities.DBBHelper/AnimatedTextureLight.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
 entities.DBBHelper/AnimatedTextureLight.attributes.description.ShowInLoenn=Whether to show sprite texture in loenn, this only influences loenn.\nThis option is only used to avoid potential image occlusion issues when editing maps.\nWhen you disable it, only the default images will be displayed in Loenn.
+
+entities.DBBHelper/AnimatedTextureLightControl.placements.name.AnimatedTextureLightControl=Animated Texture Light Control
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.AreaControlMode=Controls how to enter the region so that parameters transition gradually from the start value to the end value.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.Label=Used to link this entity to a AnimatedTextureLight entity.\nThis entity will control some parameters of the corresponding AnimatedTextureLight when tags match.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.TintColorStart=Start value of tint color.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.TintColorEnd=End value of tint color.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleXStart=Start value of scaleX.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleXEnd=End value of scaleX.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleYStart=Start value of scaleY.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleYEnd=End value of scaleY.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.RotationStart=Start value of rotation.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.RotationEnd=End value of rotation.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.DelayTimeStart=Start value of delay time.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.DelayTimeEnd=End value of delay time.
+
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.TintColorControlMode=Transition style of tint color.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleXControlMode=Transition style of scaleX.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.ScaleYControlMode=Transition style of scaleY.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.RotationControlMode=Transition style of rotation.
+entities.DBBHelper/AnimatedTextureLightControl.attributes.description.DelayTimeControlMode=Transition style of delay time.
+
+
+
+
+
+
+entities.DBBHelper/SpecialLight_GLBS_Controller.placements.name.SpecialLight_GLBS_Controller=SpecialLight GLBS Controller
+entities.DBBHelper/SpecialLight_GLBS_Controller.attributes.description.GeneralLightBlendState=This option controls how DBBHelper's special light layer (the layer name is GeneralLight) blends colors with the original gameplay content layer.\nWhen set to AlphaKeep, it prioritizes ensuring the color accuracy of textures in the original gameplay content layer.\nHowever, this affects the special light layer's effect on (semi-)transparent textures, making them appear brighter under the influence of special light.\nWhen set to AlphaWeakened, it prioritizes the light colors.\nThis allows special light to stand out more on (semi-)transparent textures while weakening the texture's own colors to enhance the visual effect of the light.\nThis mode affects the brightness of (semi-)transparent textures under normal circumstances, making texture colors darker.\nNotably, the lower the alpha of the texture, the more pronounced this effect becomes.\nTherefore, when not using any special light effect entities at all, it is recommended to switch the mode to AlphaKeep to avoid rendering issues with (semi-)transparent textures.
+
+entities.DBBHelper/SpecialLight_OEOL_Controller.placements.name.SpecialLight_OEOL_Controller=SpecialLight OEOL Controller
+entities.DBBHelper/SpecialLight_OEOL_Controller.attributes.description.OnlyEnableOriginalLight=This option controls whether to enable only the original light rendering layers.\nIn fact, DBBHelper processes light effects through two layers: one generates effects based on the original game's light rendering layer, and the other is a special light effect layer designed by DBBHelper itself (the layer name is GeneralLight).\nThe special light rendering layer redraws light effects as textures onto the gameplay content layer, enabling light effects that are difficult to achieve with the original light layer.\nEnabling only the original light layer can improve game performance, but it may significantly affect the light effects in maps that use DBBHelper's special light entities (GodLight2D, PointLight and TextureLight).\nTherefore, it is recommended to try this option only when encountering performance issues.
 
 
 style.effects.DBBHelper/ProgramSky.name=Program Sky

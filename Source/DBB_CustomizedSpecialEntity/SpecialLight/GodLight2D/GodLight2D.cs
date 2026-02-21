@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Monocle;
 using Celeste.Mod.Entities;
 using Celeste.Mod.DBBHelper.Mechanism;
+using System.Net.NetworkInformation;
 
 namespace Celeste.Mod.DBBHelper.Entities
 {
@@ -31,8 +32,8 @@ namespace Celeste.Mod.DBBHelper.Entities
         public float extingction_factor = 2.0f;//消减系数，值越大代表光强随距离衰减得越快
         private float brightness_amplify = 1.0f;//Alpha通道增强
 
-        private Vector4 color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照颜色
-        private Vector4 ref_color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照颜色
+        public Vector4 color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照颜色
+        public Vector4 ref_color = new Vector4(0.5f, 0.6f, 0.4f, 1.0f);//光照参考颜色
         private bool bad_light = false;//是否是坏光
         private float time = 0.0f;//计时器，应当不断变化以产生动态光
 
@@ -47,6 +48,9 @@ namespace Celeste.Mod.DBBHelper.Entities
 
         public GodLight2D(EntityData data, Vector2 offset)
         {
+            //场景切入或切出时的光颜色变化方式
+            LevelIn_Style = data.Attr("LevelInStyle", "easeInOutSin");
+            LevelOut_Style = data.Attr("LevelOutStyle", "easeInOutSin");
             //通用设置
             Position = data.Position + offset;
             velocity = data.Float("Velocity");
@@ -107,19 +111,40 @@ namespace Celeste.Mod.DBBHelper.Entities
             //在场景过渡进入时，将一些值进行渐进处理
             handle_attribute.OnIn = delegate (float f)
             {
-                float time = (float)DBBMath.MotionMapping(f, "easeInOutSin");
-                tmp_emit_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Emit_ParallaxProportion);
-                tmp_probe_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Probe_ParallaxProportion);
-                tmp_base_strength = (float)DBBMath.Linear_Lerp(time, 0.0f, base_strength);
-                color.W = time * ref_color.W;
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelIn_Style == "Instant")
+                {
+                    return;
+                }
+                else
+                {
+                    float time = (float)DBBMath.MotionMapping(f, LevelIn_Style);
+                    tmp_emit_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Emit_ParallaxProportion);
+                    tmp_probe_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Probe_ParallaxProportion);
+                    tmp_base_strength = (float)DBBMath.Linear_Lerp(time, 0.0f, base_strength);
+                    color.W = time * ref_color.W;
+                }
+                
             };
             //在开始过渡进入时修正tmp_emit_parallaxProportion和tmp_probe_parallaxProportion和tmp_base_strength
             handle_attribute.OnInBegin = delegate ()
             {
-                tmp_emit_parallaxProportion = Vector2.Zero;
-                tmp_probe_parallaxProportion = Vector2.Zero;
-                tmp_base_strength = 0.0f;
-                color.W = 0.0f;
+                //只有在非Instant模式下才进行渐变效果
+                if (LevelIn_Style == "Instant")
+                {
+                    tmp_emit_parallaxProportion = Emit_ParallaxProportion;
+                    tmp_probe_parallaxProportion = Probe_ParallaxProportion;
+                    tmp_base_strength = base_strength;
+                    color.W = ref_color.W;
+                }
+                else
+                {
+                    tmp_emit_parallaxProportion = Vector2.Zero;
+                    tmp_probe_parallaxProportion = Vector2.Zero;
+                    tmp_base_strength = 0.0f;
+                    color.W = 0.0f;
+                }
+                
             };
             //在过渡出场景时，离开场景的实体的参考相机位置应当不再更新，同时需要标记为is_out表示正在过渡出场景
             //感谢扩展镜头大爹给我这两行代码干没用了
@@ -128,12 +153,21 @@ namespace Celeste.Mod.DBBHelper.Entities
             {
                 is_out = true;
                 ref_cameraPos_when_out = (Scene as Level).Camera.Position;
+                if (LevelOut_Style == "Instant")
+                {
+                    tmp_base_strength = 0.0f;
+                    color.W = 0.0f;
+                }
             };
             //在过渡出场景时，将一些值进行渐退处理
             handle_attribute.OnOut = delegate (float f)
             {
+                if (LevelOut_Style == "Instant")
+                {
+                    return;
+                }
                 //扩展镜头：你没对我说谢谢，所以我不能让你的效果正确
-                float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, "easeInOutSin"), 1.0f, 0.0f);
+                float time = (float)DBBMath.Linear_Lerp(DBBMath.MotionMapping(f, LevelOut_Style), 1.0f, 0.0f);
                 tmp_emit_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Emit_ParallaxProportion);
                 tmp_probe_parallaxProportion = DBBMath.Linear_Lerp(time, Vector2.Zero, Probe_ParallaxProportion);
                 tmp_base_strength = (float)DBBMath.Linear_Lerp(time, 0.0f, base_strength);

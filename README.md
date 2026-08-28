@@ -1,21 +1,11 @@
 # DBBHelper
 
-**Version 1.1.1**
+**Version 1.1.3**
 
 **Update:**
-Improvement: Add fade in/out control for special light.
-### Adjust: Controller for two GodLight2D and PointLight, add color control.
-### Adjust: Add OnlyEnableOriginalLight(OEOL) option for speical light global settings.
-### BugFix: Fixed the issue where the level could not be entered after disabling special effects when opening DBBHelper separately.
-### BugFix: Alpha issuss from special light.
-### BugFix: Null object reference on CloudZipperPath when using CelesteTAS.
-### Add: Controller for AnimatedTextureLight.
-### Add: InLevel SpecialLight_GLBS_Controller Entity, this controls blend state of special light.
-### Add: SpecialLight_OEOL_Controller Entity, this controls the visibility of the special light.
-
-
-## Warning
-Not famaliar with CelesteTas, so there still may be some bugs about CloudZipper.
+### Improvement: Add label for TextureLight and AnimatedTextureLight.
+### Add: Styleground CartonCloud.
+### Add: TileGridAlphaDrivenDecal.
 
 ## Features
 
@@ -62,10 +52,26 @@ A funny point light with Fresnel effect.
 Convenient tool to adjust tint color, saturation, exposure, gamma and contrast for gameplay render.
 
 ### 15. (Animated)TextureLight (and its controller)
-It allows you to add a texture as a light source.
+Another special light effect that allows you to use a texture as light directly.
 
 ### 16. SpecialLight GLBS and OEOL controller
 These allow you to have a deep control over the special light.
 
+### 17. PhysicalParticle
+A styleground that uses simple physics-based particle simulation.
+
+### 18. CartonCloud
+A styleground that simulates a carton cloud.
+### 19. TileGridAlphaDrivenDecal
+Decals whose alpha is driven by a tile grid.
+
 ## TODO
-- Bug
+- Director system.
+- Open some render api. 
+
+
+
+
+
+
+

@@ -1,0 +1,153 @@
+local CartonCloud={}
+CartonCloud.name="DBBHelper/CartonCloud"
+CartonCloud.canBackground=true
+CartonCloud.canForeground=true
+
+Preset={
+    "objects/DBB_Items/DBBGeneralEffectTexture/PerlinNoise",
+    "objects/DBB_Items/DBBGeneralEffectTexture/WhiteNoise",
+    "objects/DBB_Items/DBBGeneralEffectTexture/WorleyNoise",
+}
+CartonCloud.fieldInformation={
+    VelocityX={
+        fieldType="number",
+    },
+    VelocityY={
+        fieldType="number",
+    },
+    ScrollX={
+        fieldType="number",
+    },
+    ScrollY={
+        fieldType="number",
+    },
+    SampleDetailX={
+        fieldType="number",
+        minimumValue=1.0
+    },
+    SampleDetailY={
+        fieldType="number",
+        minimumValue=1.0
+    },
+    Fre={
+        fieldType="number",
+        minimumValue=0.0,
+    },
+    Strength={
+        fieldType="number",
+        minimumValue=0.0,
+    },
+    IterNum={
+        fieldType="integer",
+        minimumValue=1,
+    },
+    BaselineHeight={
+        fieldType="number",
+    },
+    HeightScale={
+        fieldType="number",
+    },
+    BloomContrast={
+        fieldType="number",
+    },
+    BloomStrength={
+        fieldType="number",
+    },
+    LightInfluenceCoefficient={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerColor1={
+        fieldType="color"
+    },
+    LayerColor2={
+        fieldType="color"
+    },
+    LayerColor3={
+        fieldType="color"
+    },
+    LayerColor4={
+        fieldType="color"
+    },
+    LayerColor5={
+        fieldType="color"
+    },
+    LayerAlpha1={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerAlpha2={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerAlpha3={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerAlpha4={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerAlpha5={
+        fieldType="number",
+        minimumValue=0.0,
+        maximumValue=1.0
+    },
+    LayerH1={
+        fieldType="number",
+    },
+    LayerH2={
+        fieldType="number",
+    },
+    LayerH3={
+        fieldType="number",
+    },
+    LayerH4={
+        fieldType="number",
+    },
+    Texture={
+        options=Preset,
+        editable=true
+    },
+}
+CartonCloud.fieldOrder={
+    "only","exclude",
+    "tag",
+    "flag","notflag","Texture",
+
+    "VelocityX","VelocityY",
+    "ScrollX","ScrollY",
+    "SampleDetailX","SampleDetailY",
+    "Fre","Strength","IterNum",
+
+    "LightInfluenceCoefficient",
+    "BloomContrast","BloomStrength",
+    "BaselineHeight","HeightScale",
+
+    "LayerColor1","LayerAlpha1","LayerH1",
+    "LayerColor2","LayerAlpha2","LayerH2",
+    "LayerColor3","LayerAlpha3","LayerH3",
+    "LayerColor4","LayerAlpha4","LayerH4",
+    "LayerColor5","LayerAlpha5"
+}
+CartonCloud.defaultData={
+    Texture="objects/DBB_Items/DBBGeneralEffectTexture/WhiteNoise",
+    VelocityX=0.5,VelocityY=0.03,
+    ScrollX=0.0,ScrollY=0.0,
+    SampleDetailX=512.0,SampleDetailY=512.0,
+    Fre=4.0,Strength=0.8,
+    IterNum=4,LightInfluenceCoefficient=1.0,
+    BloomContrast=4.0,BloomStrength=1.5,
+    BaselineHeight=0.0,HeightScale=0.4,
+    LayerColor1="331426",LayerAlpha1=1.0,LayerH1=0.01,
+    LayerColor2="CC334D",LayerAlpha2=1.0,LayerH2=0.23,
+    LayerColor3="F28066",LayerAlpha3=1.0,LayerH3=0.35,
+    LayerColor4="B380CC",LayerAlpha4=1.0,LayerH4=0.39,
+    LayerColor5="0D0526",LayerAlpha5=1.0
+}
+return CartonCloud

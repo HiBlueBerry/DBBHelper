@@ -57,7 +57,7 @@ AnimatedTextureLight.fieldOrder={
     "SpritePath","TintColor",
     "ScaleX","ScaleY",
     "Rotation","DelayTime",
-    "LightAmplify",
+    "LightAmplify","Label",
     "LevelInStyle","LevelOutStyle",
     "OnlyEnableOriginalLight",
     "DebugMask","ShowInLoenn"
@@ -67,6 +67,7 @@ AnimatedTextureLight.placements={
     data={
         --贴图属性相关
         SpritePath="objects/DBB_Items/DBBLightTexture/AnimatedDefaultSprite/default_sprite",
+        Label="Default",
         ScaleX=1.0,
         ScaleY=1.0,
         Rotation=0.0,

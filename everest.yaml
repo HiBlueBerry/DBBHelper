@@ -1,5 +1,5 @@
 - Name: DBBHelper
-  Version: 1.1.1
+  Version: 1.1.3
   DLL: bin/DBBHelper.dll
   Dependencies:
     - Name: Everest

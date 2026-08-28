@@ -37,7 +37,6 @@ namespace Celeste.Mod.DBBHelper.Mechanism
         //-------------------默认提供的IL钩子事件-------------------
         public static Action Init_SomeBuffers_When_Level_Create = () => { };//在关卡创建时创建一些缓冲
         
-        
         public static Action Adjust_SomeBuffers_Before_Render = () => { };//在正式渲染之前调整一些缓冲的大小
         public static Action Draw_Something_On_Light = () => { };//在Light上绘制一些东西
 
@@ -59,7 +58,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             //如果特效已经存在
             if (string.IsNullOrEmpty(path))
             {
-                Logger.Log(LogLevel.Warn, "DBBHelper", "Failed to load DBBeffect,because path in null.");
+                Logger.Log(LogLevel.Warn, "DBBHelper", "Failed to load DBBEffect,because path in null.");
                 return;
             }
             if (DBBEffect.ContainsKey(path))
@@ -78,7 +77,7 @@ namespace Celeste.Mod.DBBHelper.Mechanism
                 }
                 else
                 {
-                    Logger.Log(LogLevel.Warn, "DBBHelper", "Failed to load DBBeffect " + path);
+                    Logger.Log(LogLevel.Warn, "DBBHelper", "Failed to load DBBEffect " + path);
                 }
             }
 
@@ -121,6 +120,9 @@ namespace Celeste.Mod.DBBHelper.Mechanism
             //程序天空
             DBBEffectLoad("DBBProgramSky_BaseColor");
             DBBEffect["DBBProgramSky_BaseColor"].CurrentTechnique.Passes[0].Apply();
+            //卡通云
+            DBBEffectLoad("CartonCloud");
+            DBBEffect["CartonCloud"].CurrentTechnique.Passes[0].Apply();
             //色调、饱和度、对比度和伽马矫正
             DBBEffectLoad("DBBEffect_ColorCorrection");
             DBBEffect["DBBEffect_ColorCorrection"].CurrentTechnique.Passes[0].Apply();

@@ -359,6 +359,9 @@ MigrationBackup/
 Graphics/
 Maps/
 Effects/shaders
+Effects/DBBEffect.sprj
+Tools/
+
 
 #忽略一些有的没的
 .everestignore

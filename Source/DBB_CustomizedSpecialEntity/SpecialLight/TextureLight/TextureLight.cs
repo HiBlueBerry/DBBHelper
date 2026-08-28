@@ -25,6 +25,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             LevelIn_Style = data.Attr("LevelInStyle", "easeInOutSin");
             LevelOut_Style = data.Attr("LevelOutStyle", "easeInOutSin");
             //通用设置
+            label = data.Attr("Label", "Default");
             Position = data.Position + offset;
             scaleX = data.Float("ScaleX");
             scaleY = data.Float("ScaleY");

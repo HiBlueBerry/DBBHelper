@@ -129,6 +129,17 @@ entities.DBBHelper/Distort.attributes.description.waveStrength=Control the degre
 entities.DBBHelper/Distort.attributes.description.DrawMask=Whether to draw mask texture.
 entities.DBBHelper/Distort.attributes.description.DebugMask=Whether to draw mask texture when you open debug mode.
 
+entities.DBBHelper/TileGridAlphaDrivenDecal.placements.name.TileGridAlphaDrivenDecal=TileGrid Alpha Driven Decal
+entities.DBBHelper/TileGridAlphaDrivenDecal.placements.description.TileGridAlphaDrivenDecal=A decal that varies with the alpha change of tilegrid.
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.Decal=Decal path, the decal should be in "Gameplay" folder.\neg. The value "decals/my_decal" means "Gameplay/decals/my_decal.png".
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.Alpha=Initial alpha of the decal.
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.ScaleX=X scale of the decal.
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.ScaleY=Y scale of the decal.
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.Rotation=Rotation of the decal (radians).
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.Color=Color of the decal.
+entities.DBBHelper/TileGridAlphaDrivenDecal.attributes.description.Depth=Depth of the decal.
+
+
 
 entities.DBBHelper/FogEffect.placements.name.FogEffect=Fog Effect
 entities.DBBHelper/FogEffect.attributes.description.VelocityX=Fluid velocityX - Higher value makes the effect change faster.
@@ -579,3 +590,34 @@ style.effects.DBBHelper/PhysicalParticle.description.WindAmplifyCoeficientX=Ampl
 style.effects.DBBHelper/PhysicalParticle.description.WindAmplifyCoeficientY=Amplification coefficient of Y wind acceleration, it will only influence visual effects of particles and does not have an impact on the actual wind speed.
 style.effects.DBBHelper/PhysicalParticle.description.MaxVelocity=Maximum velocity of particles, it is used to limit final velocity of particles to avoid abnormal values.
 style.effects.DBBHelper/PhysicalParticle.description.Damping=Damping coefficient of particles, the movement of the particle is affected by the resistance. The higher the value, the faster the moving particles will reach the equilibrium state.
+
+style.effects.DBBHelper/CartonCloud.name=Carton Cloud
+style.effects.DBBHelper/CartonCloud.description.Texture=Path of noise texture (should be in Gameplay folder).
+style.effects.DBBHelper/CartonCloud.description.VelocityX=X move velocity of effect.
+style.effects.DBBHelper/CartonCloud.description.VelocityY=Y change velocity of effect.
+style.effects.DBBHelper/CartonCloud.description.ScrollX=Y scroll of effect.
+style.effects.DBBHelper/CartonCloud.description.ScrollY=Y scroll of effect.
+style.effects.DBBHelper/CartonCloud.description.SampleDetailX=X sample detail of effect.\nSample detail controls the size of the texture sampling grid.
+style.effects.DBBHelper/CartonCloud.description.SampleDetailY=Y sample detail of effect.\nSample detail controls the size of the texture sampling grid.
+style.effects.DBBHelper/CartonCloud.description.Fre=Control the fractal details of cloud layers.
+style.effects.DBBHelper/CartonCloud.description.Strength=Control the noise amplify of cloud layers.
+style.effects.DBBHelper/CartonCloud.description.IterNum=Control the number of fractal iterations.
+style.effects.DBBHelper/CartonCloud.description.BloomContrast=Control the contrast of glow.
+style.effects.DBBHelper/CartonCloud.description.BloomStrength=Control the strength of glow.
+style.effects.DBBHelper/CartonCloud.description.LightInfluenceCoefficient=LIC (Light Influence Coefficient) – Adjusts how strongly light interacts with the effect.
+style.effects.DBBHelper/CartonCloud.description.BaselineHeight=Control the basic height of cloud layers.
+style.effects.DBBHelper/CartonCloud.description.HeightScale=Control the height scaling of cloud layers.
+style.effects.DBBHelper/CartonCloud.description.LayerColor1=Color of Cloud Layer 1.
+style.effects.DBBHelper/CartonCloud.description.LayerAlpha1=Alpha of Cloud Layer 1.
+style.effects.DBBHelper/CartonCloud.description.LayerH1=Boundary threshold of cloud layer 1.
+style.effects.DBBHelper/CartonCloud.description.LayerColor2=Color of Cloud Layer 2.
+style.effects.DBBHelper/CartonCloud.description.LayerAlpha2=Alpha of Cloud Layer 2.
+style.effects.DBBHelper/CartonCloud.description.LayerH2=Boundary threshold of cloud layer 2.
+style.effects.DBBHelper/CartonCloud.description.LayerColor3=Color of Cloud Layer 3.
+style.effects.DBBHelper/CartonCloud.description.LayerAlpha3=Alpha of Cloud Layer 3.
+style.effects.DBBHelper/CartonCloud.description.LayerH3=Boundary threshold of cloud layer 3.
+style.effects.DBBHelper/CartonCloud.description.LayerColor4=Color of Cloud Layer 4.
+style.effects.DBBHelper/CartonCloud.description.LayerAlpha4=Alpha of Cloud Layer 4.
+style.effects.DBBHelper/CartonCloud.description.LayerH4=Boundary threshold of cloud layer 4.
+style.effects.DBBHelper/CartonCloud.description.LayerColor5=Color of Cloud Layer 5.
+style.effects.DBBHelper/CartonCloud.description.LayerAlpha5=Alpha of Cloud Layer 5.

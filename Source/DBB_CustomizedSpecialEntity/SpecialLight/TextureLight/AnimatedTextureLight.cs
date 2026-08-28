@@ -29,6 +29,7 @@ namespace Celeste.Mod.DBBHelper.Entities
             LevelOut_Style = data.Attr("LevelOutStyle", "easeInOutSin");
             //通用设置
             Position = data.Position + offset;
+            label = data.Attr("Label", "Default");
             scaleX = data.Float("ScaleX", 1.0f);
             scaleY = data.Float("ScaleY", 1.0f);
             rotation = -data.Float("Rotation", 0.0f) / 180.0f * (float)Math.PI;

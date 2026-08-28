@@ -57,6 +57,7 @@ TextureLight.fieldOrder={
     "TexturePath","TintColor",
     "ScaleX","ScaleY",
     "Rotation","LightAmplify",
+    "Label",
     "LevelInStyle","LevelOutStyle",
     "OnlyEnableOriginalLight","DebugMask","ShowInLoenn"
 }
@@ -65,6 +66,7 @@ TextureLight.placements={
     data={
         --贴图属性相关
         TexturePath="objects/DBB_Items/DBBLightTexture/default_texture",
+        Label="Default",
         ScaleX=1.0,
         ScaleY=1.0,
         Rotation=0.0,
